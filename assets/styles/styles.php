@@ -12,6 +12,10 @@
     }
 
 
+    /* Overriding Bootstrap */
+    nav a:hover{
+        color: black;
+    }
     nav{
         text-align: center;
         padding: 1.5rem 0;
