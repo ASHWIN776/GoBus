@@ -22,32 +22,32 @@
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./booking.html">
+                    <a href="./booking.php">
                         Bookings
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./bus.html">
+                    <a href="./bus.php">
                         Buses
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./route.html">
+                    <a href="./route.php">
                         Routes    
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./seat.html">
+                    <a href="./seat.php">
                         Seats
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./customer.html">
+                    <a href="./customer.php">
                         Customers
                     </a>
                 </li>
                 <li class="option">
-                    <a href="./signup.html">
+                    <a href="./signup.php">
                         Add New Admin        
                     </a>
                 </li>

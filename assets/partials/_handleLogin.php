@@ -7,7 +7,6 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"]))
     {
-        echo "All correct";
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -16,7 +15,6 @@
 
         if($row = mysqli_fetch_assoc($result)){
             $hash = $row['user_password'];
-            echo "Got the hash";
             if(password_verify($password, $hash))
             {
                 // Login Sucessfull
