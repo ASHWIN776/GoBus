@@ -36,7 +36,10 @@
             </div>
         </nav>
     </header>
+    <!-- Login Modal -->
     <?php require 'assets/partials/_loginModal.php'?>
+
+
     <section id="home">
         <div id="route-search-form">
             <h1>Find Routes</h1>
