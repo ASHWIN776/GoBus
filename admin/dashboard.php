@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/d8cfbe84b9.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- CSS -->
     <?php
         require '../assets/styles/admin.php';
@@ -80,7 +78,7 @@
                     <li class="welcome-item">Welcome Admin</li>
                     <li class="welcome-item">
                         <button id="logout">
-                            LOGOUT
+                            <a href="../assets/partials/_logout.php">LOGOUT</a>
                         </button>
                     </li>
                 </ul>
