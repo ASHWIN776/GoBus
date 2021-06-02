@@ -72,6 +72,11 @@
         border-radius: 4px;
     }
 
+    #logout a{
+        color: black;
+        text-decoration: none;
+    }
+
 
     @media only screen and (min-width:1000px){
         #sidebar{
