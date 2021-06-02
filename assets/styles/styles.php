@@ -11,7 +11,6 @@
         box-sizing: inherit;
     }
 
-
     /* Overriding Bootstrap */
     nav a:hover{
         color: black;
