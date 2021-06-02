@@ -2,7 +2,7 @@
     *{
     font-family: Montserrat;
     }
-
+    
     #signupForm{
         width: 60%;
         margin: 0 auto;
