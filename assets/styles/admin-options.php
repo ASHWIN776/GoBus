@@ -11,7 +11,7 @@
     {
         display: flex;
         justify-content: space-between;
-        padding: 0 1rem;
+        padding-top: 1rem;
     }
 
     #head #search{
@@ -67,7 +67,8 @@
         border-radius: 5px;
     }
 
-    .btn{
+    .button{
+        border: none;
         font-weight: bold;
         text-transform: uppercase;
     }

@@ -39,7 +39,7 @@
             </div>
             <ul id="options">
                 <li class="option">
-                    <a href="#">
+                    <a href="./dashboard.php">
                         Dashboard
                     </a>
                 </li>
