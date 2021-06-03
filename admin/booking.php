@@ -36,8 +36,8 @@
                 </div>
                 <div id="booking-results">
                     <div>
-                        <button id="add-button" class="btn">ADD <i class="fas fa-plus"></i></button>
-                    <button id="filter-button" class="btn">FILTER <i class="fas fa-filter"></i></button>
+                        <button id="add-button" class="button">ADD <i class="fas fa-plus"></i></button>
+                    <button id="filter-button" class="button">FILTER <i class="fas fa-filter"></i></button>
                     </div>
                     <table>
                         <tr>
@@ -63,8 +63,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -78,8 +78,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -93,8 +93,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -108,8 +108,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -123,8 +123,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -138,8 +138,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -153,8 +153,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -168,8 +168,8 @@
                             <td>08:00</td>
                             <td>10/8/21</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                     </table>
