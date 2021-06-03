@@ -38,22 +38,42 @@
                 </div>
                 <div id="route-results">
                     <div>
-                        <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#exampleModal">ADD <i class="fas fa-plus"></i></button>
+                        <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>
                         
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <!-- Add Route Modal -->
+                        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Add A Route</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                ...
+                                <form action="../assets/partials/_handleRoutes.php" method="POST">
+                                    <div class="mb-3">
+                                        <label for="viaCities" class="form-label">Via Cities</label>
+                                        <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="stepCost" class="form-label">Step Cost</label>
+                                        <input type="text" class="form-control" id="stepCost" name="stepCost">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="time" class="form-label">Timing</label>
+                                        <select name="time" id="time">
+                                            <option value="day">
+                                                Day
+                                            </option>
+                                            <option value="night">
+                                                Night    
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-success" name="submit">Submit</button>
+                                </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <!-- Add Anything -->
                             </div>
                             </div>
                         </div>
@@ -74,8 +94,8 @@
                             <td>Day</td>
                             <td>200/-</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -84,8 +104,8 @@
                             <td>Day</td>
                             <td>200/-</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -94,18 +114,8 @@
                             <td>Day</td>
                             <td>200/-</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Night</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -114,18 +124,8 @@
                             <td>Day</td>
                             <td>200/-</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Night</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -134,8 +134,8 @@
                             <td>Day</td>
                             <td>200/-</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                         <tr>
@@ -144,8 +144,8 @@
                             <td>Day</td>
                             <td>200/-</td>
                             <td>
-                                <button class="btn edit-button">Edit</button>
-                                <button class="btn delete-button">Delete</button>
+                                <button class="button edit-button">Edit</button>
+                                <button class="button delete-button">Delete</button>
                             </td>
                         </tr>
                     </table>
