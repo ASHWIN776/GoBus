@@ -60,10 +60,10 @@
                                 <input type="text" name="username" placeholder="Username*">
                             </div>
                             <div>
-                                <input type="text" name="password" placeholder="Password*">
+                                <input type="password" name="password" placeholder="Password*">
                             </div>
                             <div>
-                                <input type="text" name="confPassword" placeholder="Confirm Password*">
+                                <input type="password" name="confPassword" placeholder="Confirm Password*">
                                 <span>Password should be more than 8 characters</span>
                             </div>
                             <button id="signup-btn" type="submit" name="signup">SIGNUP</button>
