@@ -38,7 +38,7 @@
                 </div>
                 <div id="route-results">
                     <div>
-                        <button id="add-button" class="button btn btn-sm btn-primary"type="button"data-bs-toggle="modal" data-bs-target="#exampleModal">ADD <i class="fas fa-plus"></i></button>
+                        <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#exampleModal">ADD <i class="fas fa-plus"></i></button>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
