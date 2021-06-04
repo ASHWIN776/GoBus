@@ -93,9 +93,9 @@
         border: 1px solid;
     }
 
-    table tr:nth-of-type(2n){
+    /* table tr:nth-of-type(2n){
         background-color: white;
-    }
+    } */
 
     table button{
         color: white;
@@ -107,6 +107,10 @@
 
     .delete-button{
         background-color: #EF0000;
+    }
+
+    .disabled{
+        opacity: 0.5;
     }
 
     /* For seat.html */
