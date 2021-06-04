@@ -109,66 +109,47 @@
                             <th>Step Cost</th>
                             <th>Actions</th>
                         </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Day</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Day</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Day</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Day</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Day</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1729</td>
-                            <td>Tirur, Thrissur, Aluva, Ernakulam</td>
-                            <td>Day</td>
-                            <td>200/-</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
+                        <?php
+                            $resultSql = "SELECT * FROM `routes` ORDER BY route_created DESC";
+                            
+                            $resultSqlResult = mysqli_query($conn, $resultSql);
+
+                            while($row = mysqli_fetch_assoc($resultSqlResult))
+                            {
+                                // echo "<pre>";
+                                // var_export($row);
+                                // echo "</pre>";
+                                $route_id = $row["route_id"];
+                                $route_cities = $row["route_cities"];
+                                $route_time = $row["route_timing"];
+                                $route_step_cost = $row["route_step_cost"];
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php 
+                                        echo $route_id;?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                        echo $route_cities;?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                        echo $route_time;?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                        echo $route_step_cost;?>/-
+                                    </td>
+                                    <td>
+                                        <button class="button edit-button">Edit</button>
+                                        <button class="button delete-button">Delete</button>
+                                    </td>
+                                </tr>
+                            <?php 
+                            }
+                        
+                        ?>
                     </table>
                 </div>
             </section>
