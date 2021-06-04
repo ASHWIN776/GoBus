@@ -5,9 +5,6 @@
 
     if(!$conn)
         die("Oh Shoot!! Connection Failed");
-    
-    $user_exists = false;
-    $signup_sucess = true;
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["signup"]))
     {
@@ -17,6 +14,7 @@
 
         // Check if the username already exists
         $user_exists = exist_user($conn, $username);
+        $signup_sucess = false;
 
         if(!$user_exists)
         {
@@ -25,12 +23,12 @@
 
             $result = mysqli_query($conn, $sql);
             
-            if(!$result)
-                $signup_sucess = false;
+            if($result)
+                $signup_sucess = true;
         }
 
         // Redirect Page
-        header("location: /admin/signup.php?signup=$signup_sucess");
+        header("location: /admin/signup.php?signup=$signup_sucess&user_exists=$user_exists");
     }
 
 ?>
