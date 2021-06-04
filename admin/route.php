@@ -28,8 +28,12 @@
 
     <!-- Add Routes -->
     <?php
-        
-        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"]))
+        /*
+            1. Check if an admin is logged in
+            2. Check if the request method is POST
+            3. Check if the $_POST key 'submit' exists
+        */
+        if($loggedIn && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"]))
         {
             // Should be validated client-side
             $viaCities = strtoupper($_POST["viaCities"]);
