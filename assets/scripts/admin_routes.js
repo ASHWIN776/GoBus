@@ -35,9 +35,8 @@ function showEditForm(evt){
         const editRow = document.createElement("tr");
         editRow.innerHTML = `
         <td colspan="5">
-            <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}">
-                <input type="text" class="form-control" name="viaCities">
-            
+            <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}?id=${evt.target.dataset.id}" method="POST">
+                <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
 
                 <select name="time">
                     <option value="day">
@@ -48,7 +47,7 @@ function showEditForm(evt){
                     </option>
                 </select> 
             
-                <input type="text" class="form-control cost" name="stepCost">        
+                <input type="text" class="form-control cost" name="stepCost" value="${evt.target.dataset.cost}">        
            
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-success btn-sm" name="edit">SUBMIT</button>
