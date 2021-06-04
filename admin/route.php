@@ -27,25 +27,49 @@
     <?php require '../assets/partials/_admin-header.php';?>
     <!-- Add Routes Status -->
     <?php
-                if(isset($_GET['routes_added']))
-                {
-                    if($_GET['routes_added'])
-                    {
-                        // Show success alert
-                        echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Successful!</strong> Route Added
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                    }
+        
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"]))
+        {
+            // Should be validated client-side
+            $viaCities = strtoupper($_POST["viaCities"]);
+            $cost = $_POST["stepCost"];
+            $time = $_POST["time"];
+    
+            // echo "<pre>";
+            // var_export($_POST);
+            // echo "</pre>";
+    
+            $route_exists = exist_routes($conn,$viaCities,$time);
+            $route_added = false;
+    
+            if(!$route_exists)
+            {
+                // Route is unique, proceed
+                $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
+                $result = mysqli_query($conn, $sql);
+    
+                if($result)
+                    $route_added = true;
+            }
 
-                    elseif($_GET['route_exists'])
-                        // Show error alert
-                        echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Error!</strong> Route already exists
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                }
-            ?>
+            if($route_added)
+            {
+                // Show success alert
+                echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Successful!</strong> Route Added
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
+            else{
+                // Show error alert
+                echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> Route already exists
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
+        }
+    
+        ?>
 
             <section id="route">
                 <div id="head">
@@ -70,7 +94,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="addRouteForm" action="../assets/partials/_handleRoutes.php" method="POST">
+                                <form id="addRouteForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
                                     <div class="mb-3">
                                         <label for="viaCities" class="form-label">Via Cities</label>
                                         <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">

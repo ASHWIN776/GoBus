@@ -32,6 +32,4 @@
         // Redirect to the routes page
         header("location: /admin/route.php?routes_added=$route_added&route_exists=$route_exists");
     }
-
-
 ?>
