@@ -25,7 +25,8 @@
 <body>
     <!-- Requiring the admin header files -->
     <?php require '../assets/partials/_admin-header.php';?>
-    <!-- Add Routes Status -->
+
+    <!-- Add Routes -->
     <?php
         
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"]))
