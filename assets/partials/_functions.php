@@ -19,4 +19,14 @@
             return true;
         return false;
     }
+
+    function exist_routes($conn, $viaCities, $time)
+    {
+        $sql = "SELECT * FROM `routes` WHERE route_cities='$viaCities' AND route_timing='$time'";
+        $result = mysqli_query($conn, $sql);
+        $num = mysqli_num_rows($result);
+        if($num)
+            return true;
+        return false;
+    }
 ?>
