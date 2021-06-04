@@ -26,51 +26,58 @@
     <!-- Requiring the admin header files -->
     <?php require '../assets/partials/_admin-header.php';?>
 
-    <!-- Add Routes -->
+    <!-- Add and Edit Routes -->
     <?php
         /*
             1. Check if an admin is logged in
             2. Check if the request method is POST
-            3. Check if the $_POST key 'submit' exists
         */
-        if($loggedIn && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"]))
+        if($loggedIn && $_SERVER["REQUEST_METHOD"] == "POST")
         {
-            // Should be validated client-side
-            $viaCities = strtoupper($_POST["viaCities"]);
-            $cost = $_POST["stepCost"];
-            $time = $_POST["time"];
-    
-            // echo "<pre>";
-            // var_export($_POST);
-            // echo "</pre>";
-    
-            $route_exists = exist_routes($conn,$viaCities,$time);
-            $route_added = false;
-    
-            if(!$route_exists)
+            if(isset($_POST["submit"]))
             {
-                // Route is unique, proceed
-                $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
-                $result = mysqli_query($conn, $sql);
+                /*
+                    ADDING ROUTES
+                 Check if the $_POST key 'submit' exists
+                */
+                // Should be validated client-side
+                $viaCities = strtoupper($_POST["viaCities"]);
+                $cost = $_POST["stepCost"];
+                $time = $_POST["time"];
+        
+                $route_exists = exist_routes($conn,$viaCities,$time);
+                $route_added = false;
+        
+                if(!$route_exists)
+                {
+                    // Route is unique, proceed
+                    $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
+                    $result = mysqli_query($conn, $sql);
+        
+                    if($result)
+                        $route_added = true;
+                }
     
-                if($result)
-                    $route_added = true;
+                if($route_added)
+                {
+                    // Show success alert
+                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Successful!</strong> Route Added
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else{
+                    // Show error alert
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Route already exists
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
             }
+            if(isset($_POST["edit"]))
+            {
+                // EDIT ROUTES
 
-            if($route_added)
-            {
-                // Show success alert
-                echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Successful!</strong> Route Added
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';
-            }
-            else{
-                // Show error alert
-                echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong> Route already exists
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';
             }
         }
     
@@ -171,14 +178,9 @@
                                         echo $route_step_cost;?>/-
                                     </td>
                                     <td>
-                                        <button class="button edit-button ">Edit</button>
+                                        <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>">Edit</button>
                                         <button class="button delete-button">Delete</button>
                                     </td>
-                                </tr>
-                                <tr>
-                                <form class="editRouteForm" action="">
-                                
-                                </form>
                                 </tr>
                             <?php 
                             }

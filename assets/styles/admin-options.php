@@ -113,6 +113,14 @@
         opacity: 0.5;
     }
 
+    .editRouteForm input{
+        margin: 0 1rem; 
+    }
+
+    .editRouteForm input.cost{
+        flex-basis: 15%;
+    }
+
     /* For seat.html */
     #main form{
         display: flex;
