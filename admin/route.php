@@ -103,10 +103,33 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>';
                 }
-
+            }
+            if(isset($_POST["delete"]))
+            {
+                // DELETE ROUTES
+                $id = $_POST["id"];
+                // Delete the route with id => id
+                $deleteSql = "DELETE FROM `routes` WHERE `routes`.`route_id` = $id";
+                $deleteResult = mysqli_query($conn, $deleteSql);
+                
+                if($deleteResult)
+                {   
+                    // echo $num;
+                    // Show success alert
+                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Successful!</strong> Route details Deleted
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else{
+                    // Show error alert
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Route details could not be deleted
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
             }
         }
-    
         ?>
 
             <section id="route">
@@ -209,16 +232,45 @@
                                         echo $route_cities;?>" data-cost="<?php 
                                         echo $route_step_cost;?>"
                                         >Edit</button>
-                                        <button class="button delete-button">Delete</button>
+                                        <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
+                                        echo $route_id;?>">Delete</button>
                                     </td>
                                 </tr>
                             <?php 
                             }
-                        
+                            
                         ?>
                     </table>
                 </div>
             </section>
+        </div>
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-circle"></i></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center pb-4">
+                    Are you sure?
+                </h2>
+                <p>
+                    Do you really want to delete this route id? <strong>This process cannot be undone.</strong>
+                </p>
+                <!-- Needed to pass id -->
+                <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" id="delete-form"  method="POST">
+                    <input id="delete-id" type="hidden" name="id">
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="delete-form" name="delete" class="btn btn-danger">Delete</button>
+            </div>
+            </div>
+        </div>
         </div>
     </main>
     <!-- External JS -->

@@ -5,7 +5,7 @@ const deleteBtns = document.querySelectorAll(".delete-button");
 const table = document.querySelector("table");
 
 resultRows.forEach(row => 
-    row.addEventListener("click", showEditForm)  
+    row.addEventListener("click", editOrDelete)  
 );
 
 table.addEventListener("click", collapseForm);
@@ -24,7 +24,7 @@ function collapseForm(evt){
     }
 }
 
-function showEditForm(evt){
+function editOrDelete(evt){
     
     if(evt.target.className.includes("edit-button"))
     {
@@ -58,6 +58,12 @@ function showEditForm(evt){
     `;
     
     this.after(editRow);
+    }
+
+    else if(evt.target.className.includes("delete-button"))
+    {
+        const deleteInput = document.querySelector("#delete-id");
+        deleteInput.value = evt.target.dataset.id;
     }
 }
 
