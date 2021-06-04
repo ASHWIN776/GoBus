@@ -77,6 +77,32 @@
             if(isset($_POST["edit"]))
             {
                 // EDIT ROUTES
+                $viaCities = strtoupper($_POST["viaCities"]);
+                $cost = $_POST["stepCost"];
+                $time = $_POST["time"];
+                $id = $_GET["id"];
+
+                $updateSql = "UPDATE `routes` SET
+                `route_cities` = '$viaCities',
+                `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`route_id` = '$id';";
+        
+                $updateResult = mysqli_query($conn, $updateSql);
+                
+                if($updateResult)
+                {
+                    // Show success alert
+                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Successful!</strong> Route details Edited
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else{
+                    // Show error alert
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Route details could not be edited
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
 
             }
         }
@@ -178,7 +204,11 @@
                                         echo $route_step_cost;?>/-
                                     </td>
                                     <td>
-                                        <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>">Edit</button>
+                                        <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
+                                        echo $route_id;?>" data-cities="<?php 
+                                        echo $route_cities;?>" data-cost="<?php 
+                                        echo $route_step_cost;?>"
+                                        >Edit</button>
                                         <button class="button delete-button">Delete</button>
                                     </td>
                                 </tr>
