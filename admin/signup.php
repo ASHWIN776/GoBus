@@ -38,13 +38,12 @@
                         </div>';
                     }
 
-                    else
+                    elseif($_GET['user_exists'])
                         // Show error alert
                         echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Error!</strong> Username already exists
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>';
-
                 }
             ?>
             <section id="add-admin">
