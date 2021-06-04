@@ -5,4 +5,6 @@
     {
         header("location: /index.php");
     }
+
+    $loggedIn = true;
 ?>
