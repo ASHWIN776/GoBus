@@ -121,7 +121,8 @@
         flex-basis: 15%;
     }
 
-    #noRoutes{
+    #noRoutes,
+    #noCustomers{
         background-color: black;
         color: white;
     }
