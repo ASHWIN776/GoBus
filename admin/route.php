@@ -242,6 +242,7 @@
                 <?php  }
             ?>
             </div>
+    </main>
             <!-- Add Route Modal -->
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -307,7 +308,6 @@
             </div>
         </div>
         </div>
-    </main>
     <!-- External JS -->
     <script src="../assets/scripts/admin_routes.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
