@@ -8,7 +8,10 @@ resultRows.forEach(row =>
     row.addEventListener("click", editOrDelete)  
 );
 
-table.addEventListener("click", collapseForm);
+if(table)
+{
+    table.addEventListener("click", collapseForm);
+}
 
 function collapseForm(evt){
     if(evt.target.className.includes("btn-close")){
