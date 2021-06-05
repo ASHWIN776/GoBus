@@ -26,6 +26,150 @@
     <!-- Requiring the admin header files -->
     <?php require '../assets/partials/_admin-header.php';?>
 
+    <!-- Add, Edit and Delete Customers -->
+    <?php
+        /*
+            1. Check if an admin is logged in
+            2. Check if the request method is POST
+        */
+        if($loggedIn && $_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            if(isset($_POST["submit"]))
+            {
+                /*
+                    ADDING Customers
+                 Check if the $_POST key 'submit' exists
+                */
+                // Should be validated client-side
+                $cname = $_POST["cfirstname"] . " " . $_POST["clastname"];
+                $cphone = $_POST["cphone"];
+        
+                $customer_exists = exist_customers($conn,$cname,$cphone);
+                $customer_added = false;
+        
+                if(!$customer_exists)
+                {
+                    // Route is unique, proceed
+                    $sql = "INSERT INTO `customers` (`customer_name`, `customer_phone`, `customer_created`) VALUES ('$cname', '$cphone', current_timestamp());";
+                    $result = mysqli_query($conn, $sql);
+                    
+                    if($result)
+                        $customer_added = true;
+                }
+    
+                if($customer_added)
+                {
+                    // Show success alert
+                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Successful!</strong> Customer Added
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else{
+                    // Show error alert
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Customer already exists
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+            }
+            if(isset($_POST["edit"]))
+            {
+                // EDIT ROUTES
+                $viaCities = strtoupper($_POST["viaCities"]);
+                $cost = $_POST["stepCost"];
+                $time = $_POST["time"];
+                $id = $_GET["id"];
+
+                $updateSql = "UPDATE `routes` SET
+                `route_cities` = '$viaCities',
+                `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`route_id` = '$id';";
+        
+                $updateResult = mysqli_query($conn, $updateSql);
+                $rowsAffected = mysqli_affected_rows($conn);
+
+                if(!$rowsAffected)
+                {
+                     // Show notEDited alert
+                    echo '<div class="my-0 alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>No Edits Administered!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+
+                elseif($updateResult)
+                {
+                    // Show success alert
+                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Successful!</strong> Route details Edited
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else{
+                    // Show error alert
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Route details could not be edited
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+            }
+            if(isset($_POST["delete"]))
+            {
+                // DELETE ROUTES
+                $id = $_POST["id"];
+                // Delete the route with id => id
+                $deleteSql = "DELETE FROM `routes` WHERE `routes`.`route_id` = $id";
+                $deleteResult = mysqli_query($conn, $deleteSql);
+                $rowsAffected = mysqli_affected_rows($conn);
+                $messageStatus = "danger";
+                $messageInfo = "";
+                $messageHeading = "Error!";
+
+                if(!$rowsAffected)
+                {
+                    $messageInfo = "Record Doesnt Exist";
+                }
+
+                elseif($deleteResult)
+                {   
+                    // echo $num;
+                    // Show success alert
+                    $messageStatus = "success";
+                    $messageInfo = "Route Details deleted";
+                    $messageHeading = "Successfull!";
+                }
+                else{
+                    // Show error alert
+                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
+                }
+
+                // Message
+                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
+        }
+        ?>
+        <?php
+            $resultSql = "SELECT * FROM `customers` ORDER BY customer_created DESC";
+                            
+            $resultSqlResult = mysqli_query($conn, $resultSql);
+
+            if(!mysqli_num_rows($resultSqlResult)){ ?>
+                <!-- Customers are not present -->
+                <div class="container mt-4">
+                    <div id="noCustomers" class="alert alert-dark " role="alert">
+                        <h1 class="alert-heading">No Customers Found!!</h1>
+                        <p class="fw-light">Be the first person to add one!</p>
+                        <hr>
+                        <div id="addCustomerAlert" class="alert alert-success" role="alert">
+                                Click on <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button> to add a customer!
+                        </div>
+                    </div>
+                </div>
+            <?php }
+            else { ?>   
             <section id="customer">
                 <div id="head">
                     <h4>Customer Status</h4>
@@ -49,81 +193,49 @@
                             <th>Phone</th>
                             <th>Actions</th>
                         </tr>
+                        <?php
+                            while($row = mysqli_fetch_assoc($resultSqlResult))
+                            {
+                                    // echo "<pre>";
+                                    // var_export($row);
+                                    // echo "</pre>";
+                                $customer_id = $row["customer_id"];
+                                $customer_name = $row["customer_name"];
+                                $customer_phone = $row["customer_phone"]; 
+                        ?>
                         <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
                             <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
+                                <?php
+                                    echo $customer_id;
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                    echo $customer_name;
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                    echo $customer_phone;
+                                ?>
+                            </td>
+                            <td>
+                            <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
+                                                echo $customer_id;?>" data-name="<?php 
+                                                echo $customer_name;?>" data-phone="<?php 
+                                                echo $customer_phone;?>"
+                                                >Edit</button>
+                                            <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
+                                                echo $route_id;?>">Delete</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
-                            </td>
-                        </tr>
+                    <?php 
+                        }
+                    ?>
                     </table>
                 </div>
             </section>
+            <?php } ?>   
         </div>
     </main>
     <!-- All Modals Here -->
@@ -138,16 +250,16 @@
                     <div class="modal-body">
                         <form id="addCustomerForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
                             <div class="mb-3">
-                                <label for="c-firstname" class="form-label">Customer Firstname</label>
-                                <input type="text" class="form-control" id="c-firstname" name="c-firstname">
+                                <label for="cfirstname" class="form-label">Customer Firstname</label>
+                                <input type="text" class="form-control" id="cfirstname" name="cfirstname">
                             </div>
                             <div class="mb-3">
-                                <label for="c-lastname" class="form-label">Customer Lastname</label>
-                                <input type="text" class="form-control" id="c-lastname" name="c-lastname">
+                                <label for="clastname" class="form-label">Customer Lastname</label>
+                                <input type="text" class="form-control" id="clastname" name="clastname">
                             </div>
                             <div class="mb-3">
-                                <label for="c-phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="c-phone" name="c-phone">
+                                <label for="cphone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="cphone" name="cphone">
                             </div>
                             <button type="submit" class="btn btn-success" name="submit">Submit</button>
                         </form>
@@ -185,6 +297,8 @@
             </div>
         </div>
     </div>
+    <!-- External JS -->
+    <script src="../assets/scripts/admin_customer.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
