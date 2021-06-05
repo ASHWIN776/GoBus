@@ -121,6 +121,11 @@
         flex-basis: 15%;
     }
 
+    #noRoutes{
+        background-color: black;
+        color: white;
+    }
+
     /* For seat.html */
     #main form{
         display: flex;
