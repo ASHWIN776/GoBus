@@ -26,7 +26,7 @@
     <!-- Requiring the admin header files -->
     <?php require '../assets/partials/_admin-header.php';?>
 
-    <!-- Add and Edit Routes -->
+    <!-- Add, Edit and Delete Routes -->
     <?php
         /*
             1. Check if an admin is logged in
