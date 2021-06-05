@@ -1,4 +1,3 @@
-const editForm = document.querySelectorAll(".editRouteForm");
 const resultRows = document.querySelectorAll("tr");
 const editBtns = document.querySelectorAll(".edit-button");
 const deleteBtns = document.querySelectorAll(".delete-button");
