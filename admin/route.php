@@ -53,7 +53,7 @@
                     // Route is unique, proceed
                     $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
-        
+                    
                     if($result)
                         $route_added = true;
                 }
@@ -87,8 +87,18 @@
                 `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`route_id` = '$id';";
         
                 $updateResult = mysqli_query($conn, $updateSql);
-                
-                if($updateResult)
+                $rowsAffected = mysqli_affected_rows($conn);
+
+                if(!$rowsAffected)
+                {
+                     // Show notEDited alert
+                    echo '<div class="my-0 alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>No Edits Administered!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+
+                elseif($updateResult)
                 {
                     // Show success alert
                     echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
@@ -111,140 +121,165 @@
                 // Delete the route with id => id
                 $deleteSql = "DELETE FROM `routes` WHERE `routes`.`route_id` = $id";
                 $deleteResult = mysqli_query($conn, $deleteSql);
-                
-                if($deleteResult)
+                $rowsAffected = mysqli_affected_rows($conn);
+                $messageStatus = "danger";
+                $messageInfo = "";
+                $messageHeading = "Error!";
+
+                if(!$rowsAffected)
+                {
+                    $messageInfo = "Record Doesnt Exist";
+                }
+
+                elseif($deleteResult)
                 {   
                     // echo $num;
                     // Show success alert
-                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Successful!</strong> Route details Deleted
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                    $messageStatus = "success";
+                    $messageInfo = "Route Details deleted";
+                    $messageHeading = "Successfull!";
                 }
                 else{
                     // Show error alert
-                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error!</strong> Route details could not be deleted
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
                 }
+
+                // Message
+                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
             }
         }
-        ?>
-
-            <section id="route">
-                <div id="head">
-                    <h4>Route Status</h4>
-                    <div id="search">
-                        <div id="wrapper">
-                            <input type="text" name="search" placeholder="Search">
-                            <a href="#"><i class="fas fa-search"></i></a>
+        ?>    
+        <?php
+            $resultSql = "SELECT * FROM `routes` ORDER BY route_created DESC";
+                            
+            $resultSqlResult = mysqli_query($conn, $resultSql);
+            if(!mysqli_num_rows($resultSqlResult)){ ?>
+                <!-- Routes are not present -->
+                <div class="container mt-4">
+                    <div id="noRoutes" class="alert alert-dark " role="alert">
+                        <h1 class="alert-heading">No Routes Found!!</h1>
+                        <p class="fw-light">Be the first person to add one!</p>
+                        <hr>
+                        <div id="addRouteAlert" class="alert alert-success" role="alert">
+                                Click on <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button> to add a route!
                         </div>
                     </div>
                 </div>
-                <div id="route-results">
-                    <div>
-                        <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>
-                        
-                        <!-- Add Route Modal -->
-                        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add A Route</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="addRouteForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
-                                    <div class="mb-3">
-                                        <label for="viaCities" class="form-label">Via Cities</label>
-                                        <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="stepCost" class="form-label">Step Cost</label>
-                                        <input type="text" class="form-control" id="stepCost" name="stepCost">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="time" class="form-label">Timing</label>
-                                        <select name="time" id="time">
-                                            <option value="day">
-                                                Day
-                                            </option>
-                                            <option value="night">
-                                                Night    
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-success" name="submit">Submit</button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <!-- Add Anything -->
-                            </div>
+            <?php }
+            else { ?>
+                <section id="route">
+                    <div id="head">
+                        <h4>Route Status</h4>
+                        <div id="search">
+                            <div id="wrapper">
+                                <input type="text" name="search" placeholder="Search">
+                                <a href="#"><i class="fas fa-search"></i></a>
                             </div>
                         </div>
-                        </div>
-                        <button id="filter-button" class="button btn-sm">FILTER <i class="fas fa-filter"></i></button>
                     </div>
-                    <table>
-                        <tr>
-                            <th>ID</th>
-                            <th>Via Cities</th>
-                            <th>Time</th>
-                            <th>Step Cost</th>
-                            <th>Actions</th>
-                        </tr>
-                        <?php
-                            $resultSql = "SELECT * FROM `routes` ORDER BY route_created DESC";
-                            
-                            $resultSqlResult = mysqli_query($conn, $resultSql);
-
-                            while($row = mysqli_fetch_assoc($resultSqlResult))
-                            {
-                                // echo "<pre>";
-                                // var_export($row);
-                                // echo "</pre>";
-                                $route_id = $row["route_id"];
-                                $route_cities = $row["route_cities"];
-                                $route_time = $row["route_timing"];
-                                $route_step_cost = $row["route_step_cost"];
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php 
-                                        echo $route_id;?>
-                                    </td>
-                                    <td>
-                                        <?php 
-                                        echo $route_cities;?>
-                                    </td>
-                                    <td>
-                                        <?php 
-                                        echo $route_time;?>
-                                    </td>
-                                    <td>
-                                        <?php 
-                                        echo $route_step_cost;?>/-
-                                    </td>
-                                    <td>
-                                        <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
-                                        echo $route_id;?>" data-cities="<?php 
-                                        echo $route_cities;?>" data-cost="<?php 
-                                        echo $route_step_cost;?>"
-                                        >Edit</button>
-                                        <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
-                                        echo $route_id;?>">Delete</button>
-                                    </td>
-                                </tr>
-                            <?php 
-                            }
-                            
-                        ?>
-                    </table>
+                <!-- Routes Are present -->
+                    <div id="route-results">
+                        <div>
+                            <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>
+                                
+                            <button id="filter-button" class="button btn-sm">FILTER <i class="fas fa-filter"></i></button>
+                        </div>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Via Cities</th>
+                                <th>Time</th>
+                                <th>Step Cost</th>
+                                <th>Actions</th>
+                            </tr>
+                            <?php
+                                while($row = mysqli_fetch_assoc($resultSqlResult))
+                                {
+                                        // echo "<pre>";
+                                        // var_export($row);
+                                        // echo "</pre>";
+                                    $route_id = $row["route_id"];
+                                    $route_cities = $row["route_cities"];
+                                    $route_time = $row["route_timing"];
+                                    $route_step_cost = $row["route_step_cost"];
+                                        ?>
+                                    <tr>
+                                        <td>
+                                            <?php 
+                                                echo $route_id;?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo $route_cities;?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo $route_time;?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo $route_step_cost;?>/-
+                                        </td>
+                                        <td>
+                                            <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
+                                                echo $route_id;?>" data-cities="<?php 
+                                                echo $route_cities;?>" data-cost="<?php 
+                                                echo $route_step_cost;?>"
+                                                >Edit</button>
+                                            <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
+                                                echo $route_id;?>">Delete</button>
+                                        </td>
+                                    </tr>
+                                <?php 
+                                }
+                            ?>
+                        </table>
+                    </div>
+                    </section>
+                <?php  }
+            ?>
+            </div>
+            <!-- Add Route Modal -->
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add A Route</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addRouteForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                            <div class="mb-3">
+                                    <label for="viaCities" class="form-label">Via Cities</label>
+                                <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">
+                            </div>
+                            <div class="mb-3">
+                                <label for="stepCost" class="form-label">Step Cost</label>
+                                <input type="text" class="form-control" id="stepCost" name="stepCost">
+                            </div>
+                            <div class="mb-3">
+                                <label for="time" class="form-label">Timing</label>
+                                <select name="time" id="time">
+                                    <option value="day">
+                                        Day
+                                    </option>
+                                                    <option value="night">
+                                        Night    
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success" name="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Add Anything -->
+                    </div>
+                    </div>
                 </div>
-            </section>
         </div>
-
         <!-- Delete Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
