@@ -88,31 +88,33 @@
         
                 $updateResult = mysqli_query($conn, $updateSql);
                 $rowsAffected = mysqli_affected_rows($conn);
+                
+                $messageStatus = "danger";
+                $messageInfo = "";
+                $messageHeading = "Error!";
 
                 if(!$rowsAffected)
                 {
-                     // Show notEDited alert
-                    echo '<div class="my-0 alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong>No Edits Administered!</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                    $messageInfo = "No Edits Administered!";
                 }
 
                 elseif($updateResult)
                 {
                     // Show success alert
-                    echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Successful!</strong> Route details Edited
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                    $messageStatus = "success";
+                    $messageHeading = "Successfull!";
+                    $messageInfo = "Route details Edited";
                 }
                 else{
                     // Show error alert
-                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error!</strong> Route details could not be edited
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>';
+                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
                 }
+
+                // MESSAGE
+                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
             }
             if(isset($_POST["delete"]))
             {
