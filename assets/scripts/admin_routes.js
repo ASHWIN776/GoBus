@@ -61,7 +61,7 @@ function editOrDelete(evt){
     
     this.after(editRow);
     }
-
+    // if delete button is clicked
     else if(evt.target.className.includes("delete-button"))
     {
         const deleteInput = document.querySelector("#delete-id");
