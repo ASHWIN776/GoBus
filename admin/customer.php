@@ -119,7 +119,8 @@
                 // DELETE ROUTES
                 $id = $_POST["id"];
                 // Delete the route with id => id
-                $deleteSql = "DELETE FROM `routes` WHERE `routes`.`route_id` = $id";
+                $deleteSql = "DELETE FROM `customers` WHERE `customers`.`customer_id` = $id";
+
                 $deleteResult = mysqli_query($conn, $deleteSql);
                 $rowsAffected = mysqli_affected_rows($conn);
                 $messageStatus = "danger";
@@ -133,14 +134,12 @@
 
                 elseif($deleteResult)
                 {   
-                    // echo $num;
-                    // Show success alert
                     $messageStatus = "success";
-                    $messageInfo = "Route Details deleted";
+                    $messageInfo = "Customer Details deleted";
                     $messageHeading = "Successfull!";
                 }
                 else{
-                    // Show error alert
+
                     $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
                 }
 
@@ -227,7 +226,7 @@
                                                 echo $customer_phone;?>"
                                                 >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
-                                                echo $route_id;?>">Delete</button>
+                                                echo $customer_id;?>">Delete</button>
                             </td>
                         </tr>
                     <?php 
