@@ -14,9 +14,6 @@
         padding-top: 1rem;
     }
 
-    #head{
-        padding: 0 1rem;
-    }
 
     #head #search{
         display: flex;
@@ -46,20 +43,20 @@
 
     }
 
-    #booking-results,
-    #customer-results,
-    #route-results,
-    #bus-results
+    #booking,
+    #customer,
+    #route,
+    #bus
     {
         padding: 0 1rem;
     }
 
     #booking-results > div,
     #customer-results > div,
-    #route > div,
+    #route-results > div,
     #bus-results > div
     {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     #booking-results button,
