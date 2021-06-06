@@ -1,7 +1,6 @@
 <!-- Show these admin pages only when the admin is logged in -->
 <?php  require '../assets/partials/_admin-check.php';   ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +62,7 @@
                         
                         $query = "UPDATE `customers` SET `customer_id` = '$customer_id' WHERE `customers`.`id` = $autoInc_id;";
                         $queryResult = mysqli_query($conn, $query);
+
                         if(!$queryResult)
                             echo "Not Working";
                     }
@@ -92,41 +92,53 @@
                 // EDIT ROUTES
                 $cname = $_POST["cname"];
                 $cphone = $_POST["cphone"];
-                $id = $_GET["id"];
+                $id = $_POST["id"];
+                $customer_exists = exist_customers($conn,$cname,$cphone);
 
-                $updateSql = "UPDATE `customers` SET
-                `customer_name` = '$cname',
-                `customer_phone` = '$cphone' WHERE `customers`.`id` = '$id';";
-        
-                $updateResult = mysqli_query($conn, $updateSql);
-                $rowsAffected = mysqli_affected_rows($conn);
-
-                $messageStatus = "danger";
-                $messageInfo = "";
-                $messageHeading = "Error!";
-
-                if(!$rowsAffected)
+                if(!$customer_exists)
                 {
-                    $messageInfo = "No Edits Administered!";
-                }
+                    $updateSql = "UPDATE `customers` SET
+                    `customer_name` = '$cname',
+                    `customer_phone` = '$cphone' WHERE `customers`.`id` = '$id';";
 
-                elseif($updateResult)
-                {
-                    // Show success alert
-                    $messageStatus = "success";
-                    $messageHeading = "Successfull!";
-                    $messageInfo = "Customer details Edited";
+                    $updateResult = mysqli_query($conn, $updateSql);
+                    $rowsAffected = mysqli_affected_rows($conn);
+    
+                    $messageStatus = "danger";
+                    $messageInfo = "";
+                    $messageHeading = "Error!";
+    
+                    if(!$rowsAffected)
+                    {
+                        $messageInfo = "No Edits Administered!";
+                    }
+    
+                    elseif($updateResult)
+                    {
+                        // Show success alert
+                        $messageStatus = "success";
+                        $messageHeading = "Successfull!";
+                        $messageInfo = "Customer details Edited";
+                    }
+                    else{
+                        // Show error alert
+                        $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
+                    }
+    
+                    // MESSAGE
+                    echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                    <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
                 }
                 else{
-                    // Show error alert
-                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
+                    // If customer details already exists
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Customer already exists
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
                 }
 
-                // MESSAGE
-                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
-                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';
             }
             if(isset($_POST["delete"]))
             {
