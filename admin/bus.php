@@ -77,15 +77,11 @@
             if(isset($_POST["edit"]))
             {
                 // EDIT ROUTES
-                $viaCities = strtoupper($_POST["viaCities"]);
-                $cost = $_POST["stepCost"];
-                $time = $_POST["time"];
-                $id = $_GET["id"];
+                $busno = $_POST["busno"];
+                $id = $_POST["id"];
 
-                $updateSql = "UPDATE `routes` SET
-                `route_cities` = '$viaCities',
-                `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
-        
+                $updateSql = "UPDATE `buses` SET `bus_no` = '$busno' WHERE `buses`.`id` = $id;";
+
                 $updateResult = mysqli_query($conn, $updateSql);
                 $rowsAffected = mysqli_affected_rows($conn);
                 
@@ -103,7 +99,7 @@
                     // Show success alert
                     $messageStatus = "success";
                     $messageHeading = "Successfull!";
-                    $messageInfo = "Route details Edited";
+                    $messageInfo = "Bus details Edited";
                 }
                 else{
                     // Show error alert
@@ -120,8 +116,9 @@
             {
                 // DELETE ROUTES
                 $id = $_POST["id"];
-                // Delete the route with id => id
-                $deleteSql = "DELETE FROM `routes` WHERE `routes`.`id` = $id";
+                // Delete the bus with id => id
+                $deleteSql = "DELETE FROM `buses` WHERE `buses`.`id` = $id";
+
                 $deleteResult = mysqli_query($conn, $deleteSql);
                 $rowsAffected = mysqli_affected_rows($conn);
                 $messageStatus = "danger";
@@ -138,7 +135,7 @@
                     // echo $num;
                     // Show success alert
                     $messageStatus = "success";
-                    $messageInfo = "Route Details deleted";
+                    $messageInfo = "Bus Details deleted";
                     $messageHeading = "Successfull!";
                 }
                 else{
