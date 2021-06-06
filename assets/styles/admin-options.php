@@ -95,10 +95,6 @@
         border: 1px solid;
     }
 
-    /* table tr:nth-of-type(2n){
-        background-color: white;
-    } */
-
     table button{
         color: white;
     }
