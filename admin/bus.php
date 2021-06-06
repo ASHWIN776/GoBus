@@ -153,7 +153,26 @@
             }
         }
         ?>
+        <?php
+            $resultSql = "SELECT * FROM `buses` ORDER BY bus_created DESC";
+                            
+            $resultSqlResult = mysqli_query($conn, $resultSql);
 
+            if(!mysqli_num_rows($resultSqlResult)){ ?>
+                <!-- Buses are not present -->
+                <div class="container mt-4">
+                    <div id="noCustomers" class="alert alert-dark " role="alert">
+                        <h1 class="alert-heading">No Buses Found!!</h1>
+                        <p class="fw-light">Be the first person to add one!</p>
+                        <hr>
+                        <div id="addCustomerAlert" class="alert alert-success" role="alert">
+                                Click on <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button> to add a bus!
+                        </div>
+                    </div>
+                </div>
+            <?php }
+            else { ?>             
+            <!-- If Buses are present -->
             <section id="bus">
                 <div id="head">
                     <h4>Bus Status</h4>
@@ -175,17 +194,43 @@
                             <th>Bus Number</th>
                             <th>Actions</th>
                         </tr>
+                        <?php
+                            while($row = mysqli_fetch_assoc($resultSqlResult))
+                            {
+                                // echo "<pre>";
+                                // var_export($row);
+                                // echo "</pre>";
+
+                                $id = $row["id"];
+                                $busno = $row["bus_no"]; 
+                        ?>
                         <tr>
-                            <td>2002</td>
-                            <td>Pilsburg</td>
                             <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
+                                <?php
+                                    echo $id;
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                    echo $busno;
+                                ?>
+                            </td>
+                            <td>
+                            <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
+                                                echo $id;?>" data-busno="<?php 
+                                                echo $bus_no;?>"
+                                                >Edit</button>
+                                            <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
+                                                echo $id;?>">Delete</button>
                             </td>
                         </tr>
+                        <?php 
+                        }
+                    ?>
                     </table>
                 </div>
             </section>
+            <?php } ?> 
         </div>
     </main>
     <!-- All Modals Here -->
