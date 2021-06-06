@@ -53,7 +53,21 @@
                     // Route is unique, proceed
                     $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
-                    
+                    // Gives back the Auto Increment id
+                    $autoInc_id = mysqli_insert_id($conn);
+                    // If the id exists then, 
+                    if($autoInc_id)
+                    {
+                        $code = rand(1,99999);
+                        // Generates the unique userid
+                        $route_id = "RT-".$code.$autoInc_id;
+                        
+                        $query = "UPDATE `routes` SET `route_id` = '$route_id' WHERE `routes`.`id` = $autoInc_id;";
+                        $queryResult = mysqli_query($conn, $query);
+                        if(!$queryResult)
+                            echo "Not Working";
+                    }
+
                     if($result)
                         $route_added = true;
                 }
@@ -67,6 +81,7 @@
                     </div>';
                 }
                 else{
+                    
                     // Show error alert
                     echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Error!</strong> Route already exists
@@ -84,7 +99,7 @@
 
                 $updateSql = "UPDATE `routes` SET
                 `route_cities` = '$viaCities',
-                `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`route_id` = '$id';";
+                `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
         
                 $updateResult = mysqli_query($conn, $updateSql);
                 $rowsAffected = mysqli_affected_rows($conn);
@@ -109,7 +124,7 @@
                     // Show error alert
                     $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
                 }
-
+                
                 // MESSAGE
                 echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
                 <strong>'.$messageHeading.'</strong> '.$messageInfo.'
@@ -121,7 +136,7 @@
                 // DELETE ROUTES
                 $id = $_POST["id"];
                 // Delete the route with id => id
-                $deleteSql = "DELETE FROM `routes` WHERE `routes`.`route_id` = $id";
+                $deleteSql = "DELETE FROM `routes` WHERE `routes`.`id` = $id";
                 $deleteResult = mysqli_query($conn, $deleteSql);
                 $rowsAffected = mysqli_affected_rows($conn);
                 $messageStatus = "danger";
@@ -145,7 +160,6 @@
                     // Show error alert
                     $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
                 }
-
                 // Message
                 echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
                 <strong>'.$messageHeading.'</strong> '.$messageInfo.'
@@ -203,6 +217,7 @@
                                         // echo "<pre>";
                                         // var_export($row);
                                         // echo "</pre>";
+                                    $id = $row["id"];
                                     $route_id = $row["route_id"];
                                     $route_cities = $row["route_cities"];
                                     $route_time = $row["route_timing"];
@@ -227,12 +242,12 @@
                                         </td>
                                         <td>
                                             <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
-                                                echo $route_id;?>" data-cities="<?php 
+                                                echo $id;?>" data-cities="<?php 
                                                 echo $route_cities;?>" data-cost="<?php 
                                                 echo $route_step_cost;?>"
                                                 >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
-                                                echo $route_id;?>">Delete</button>
+                                                echo $id;?>">Delete</button>
                                         </td>
                                     </tr>
                                 <?php 
