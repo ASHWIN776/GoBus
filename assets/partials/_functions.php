@@ -42,4 +42,15 @@
             return true;
         return false;
     }
+
+    function exist_buses($conn, $busno)
+    {
+        $sql = "SELECT * FROM `buses` WHERE bus_no='$busno'";
+
+        $result = mysqli_query($conn, $sql);
+        $num = mysqli_num_rows($result);
+        if($num)
+            return true;
+        return false;
+    }
 ?>
