@@ -79,38 +79,51 @@
                 // EDIT ROUTES
                 $busno = $_POST["busno"];
                 $id = $_POST["id"];
+                $bus_exists = exist_buses($conn, $busno);
 
-                $updateSql = "UPDATE `buses` SET `bus_no` = '$busno' WHERE `buses`.`id` = $id;";
-
-                $updateResult = mysqli_query($conn, $updateSql);
-                $rowsAffected = mysqli_affected_rows($conn);
-                
-                $messageStatus = "danger";
-                $messageInfo = "";
-                $messageHeading = "Error!";
-
-                if(!$rowsAffected)
+                if(!$bus_exists)
                 {
-                    $messageInfo = "No Edits Administered!";
+                    $updateSql = "UPDATE `buses` SET `bus_no` = '$busno' WHERE `buses`.`id` = $id;";
+    
+                    $updateResult = mysqli_query($conn, $updateSql);
+                    $rowsAffected = mysqli_affected_rows($conn);
+                    
+                    $messageStatus = "danger";
+                    $messageInfo = "";
+                    $messageHeading = "Error!";
+
+                    if(!$rowsAffected)
+                    {
+                        $messageInfo = "No Edits Administered!";
+                    }
+    
+                    elseif($updateResult)
+                    {
+                        // Show success alert
+                        $messageStatus = "success";
+                        $messageHeading = "Successfull!";
+                        $messageInfo = "Bus details Edited";
+                    }
+                    else{
+                        // Show error alert
+                        $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
+                    }
+                    
+                    // MESSAGE
+                    echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                    <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else 
+                {
+                    // If bus details already exists
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Bus details already exists
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
                 }
 
-                elseif($updateResult)
-                {
-                    // Show success alert
-                    $messageStatus = "success";
-                    $messageHeading = "Successfull!";
-                    $messageInfo = "Bus details Edited";
-                }
-                else{
-                    // Show error alert
-                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
-                }
-                
-                // MESSAGE
-                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
-                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';
             }
             if(isset($_POST["delete"]))
             {
