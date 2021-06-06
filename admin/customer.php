@@ -52,7 +52,21 @@
                     // Route is unique, proceed
                     $sql = "INSERT INTO `customers` (`customer_name`, `customer_phone`, `customer_created`) VALUES ('$cname', '$cphone', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
-                    
+                    // Gives back the Auto Increment id
+                    $autoInc_id = mysqli_insert_id($conn);
+                    // If the id exists then, 
+                    if($autoInc_id)
+                    {
+                        $code = rand(1,99999);
+                        // Generates the unique userid
+                        $customer_id = "CUST-".$code.$autoInc_id;
+                        
+                        $query = "UPDATE `customers` SET `customer_id` = '$customer_id' WHERE `customers`.`id` = $autoInc_id;";
+                        $queryResult = mysqli_query($conn, $query);
+                        if(!$queryResult)
+                            echo "Not Working";
+                    }
+
                     if($result)
                         $customer_added = true;
                 }
@@ -82,7 +96,7 @@
 
                 $updateSql = "UPDATE `customers` SET
                 `customer_name` = '$cname',
-                `customer_phone` = '$cphone' WHERE `customers`.`customer_id` = '$id';";
+                `customer_phone` = '$cphone' WHERE `customers`.`id` = '$id';";
         
                 $updateResult = mysqli_query($conn, $updateSql);
                 $rowsAffected = mysqli_affected_rows($conn);
@@ -119,7 +133,7 @@
                 // DELETE ROUTES
                 $id = $_POST["id"];
                 // Delete the route with id => id
-                $deleteSql = "DELETE FROM `customers` WHERE `customers`.`customer_id` = $id";
+                $deleteSql = "DELETE FROM `customers` WHERE `customers`.`id` = $id";
 
                 $deleteResult = mysqli_query($conn, $deleteSql);
                 $rowsAffected = mysqli_affected_rows($conn);
@@ -199,6 +213,7 @@
                                     // echo "<pre>";
                                     // var_export($row);
                                     // echo "</pre>";
+                                $id = $row["id"];
                                 $customer_id = $row["customer_id"];
                                 $customer_name = $row["customer_name"];
                                 $customer_phone = $row["customer_phone"]; 
@@ -221,12 +236,12 @@
                             </td>
                             <td>
                             <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
-                                                echo $customer_id;?>" data-name="<?php 
+                                                echo $id;?>" data-name="<?php 
                                                 echo $customer_name;?>" data-phone="<?php 
                                                 echo $customer_phone;?>"
                                                 >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
-                                                echo $customer_id;?>">Delete</button>
+                                                echo $id;?>">Delete</button>
                             </td>
                         </tr>
                     <?php 
