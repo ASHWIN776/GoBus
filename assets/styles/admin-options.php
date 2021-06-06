@@ -46,7 +46,8 @@
     #booking,
     #customer,
     #route,
-    #bus
+    #bus,
+    #seat
     {
         padding: 0 1rem;
     }
