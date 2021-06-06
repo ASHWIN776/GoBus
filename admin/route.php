@@ -95,41 +95,55 @@
                 $viaCities = strtoupper($_POST["viaCities"]);
                 $cost = $_POST["stepCost"];
                 $time = $_POST["time"];
-                $id = $_GET["id"];
+                $id = $_POST["id"];
 
-                $updateSql = "UPDATE `routes` SET
-                `route_cities` = '$viaCities',
-                `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
-        
-                $updateResult = mysqli_query($conn, $updateSql);
-                $rowsAffected = mysqli_affected_rows($conn);
-                
-                $messageStatus = "danger";
-                $messageInfo = "";
-                $messageHeading = "Error!";
+                $route_exists = exist_routes($conn,$viaCities,$time);
 
-                if(!$rowsAffected)
+                if(!$route_exists)
                 {
-                    $messageInfo = "No Edits Administered!";
+                    $updateSql = "UPDATE `routes` SET
+                    `route_cities` = '$viaCities',
+                    `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
+            
+                    $updateResult = mysqli_query($conn, $updateSql);
+                    $rowsAffected = mysqli_affected_rows($conn);
+                    
+                    $messageStatus = "danger";
+                    $messageInfo = "";
+                    $messageHeading = "Error!";
+    
+                    if(!$rowsAffected)
+                    {
+                        $messageInfo = "No Edits Administered!";
+                    }
+    
+                    elseif($updateResult)
+                    {
+                        // Show success alert
+                        $messageStatus = "success";
+                        $messageHeading = "Successfull!";
+                        $messageInfo = "Route details Edited";
+                    }
+                    else{
+                        // Show error alert
+                        $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
+                    }
+                    
+                    // MESSAGE
+                    echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                    <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
+                }
+                else 
+                {
+                    // If route details already exists
+                    echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> Route details already exists
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>';
                 }
 
-                elseif($updateResult)
-                {
-                    // Show success alert
-                    $messageStatus = "success";
-                    $messageHeading = "Successfull!";
-                    $messageInfo = "Route details Edited";
-                }
-                else{
-                    // Show error alert
-                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
-                }
-                
-                // MESSAGE
-                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
-                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>';
             }
             if(isset($_POST["delete"]))
             {
