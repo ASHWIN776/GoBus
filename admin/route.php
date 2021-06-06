@@ -177,8 +177,8 @@
                         <h4>Route Status</h4>
                         <div id="search">
                             <div id="wrapper">
-                                <input type="text" name="search" placeholder="Search">
                                 <a href="#"><i class="fas fa-search"></i></a>
+                                <input type="text" name="search" placeholder="Search">
                             </div>
                         </div>
                     </div>
