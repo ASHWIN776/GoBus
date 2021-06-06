@@ -196,6 +196,7 @@
                 </div>
             <?php }
             else { ?>   
+            <!-- If Customers are present -->
             <section id="customer">
                 <div id="head">
                     <h4>Customer Status</h4>
@@ -206,7 +207,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- If Customers are present -->
                 <div id="customer-results">
                     <div>
                         <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>

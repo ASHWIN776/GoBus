@@ -200,6 +200,7 @@
                 </div>
             <?php }
             else { ?>
+                <!-- Routes Are present -->
                 <section id="route">
                     <div id="head">
                         <h4>Route Status</h4>
@@ -210,7 +211,6 @@
                             </div>
                         </div>
                     </div>
-                <!-- Routes Are present -->
                     <div id="route-results">
                         <div>
                             <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>
