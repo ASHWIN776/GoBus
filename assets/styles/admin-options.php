@@ -14,6 +14,10 @@
         padding-top: 1rem;
     }
 
+    #head{
+        padding: 0 1rem;
+    }
+
     #head #search{
         display: flex;
         align-items: center;
@@ -44,7 +48,7 @@
 
     #booking-results,
     #customer-results,
-    #route,
+    #route-results,
     #bus-results
     {
         padding: 0 1rem;
