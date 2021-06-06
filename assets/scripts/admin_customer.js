@@ -37,7 +37,9 @@ function editOrDelete(evt){
         const editRow = document.createElement("tr");
         editRow.innerHTML = `
         <td colspan="5">
-            <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}?id=${evt.target.dataset.id}" method="POST">
+            <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
+                <input type="hidden" class="form-control" name="id" value="${evt.target.dataset.id}">
+
                 <input type="text" class="form-control" name="cname" value="${evt.target.dataset.name}">
             
                 <input type="text" class="form-control cphone" name="cphone" value="${evt.target.dataset.phone}">        

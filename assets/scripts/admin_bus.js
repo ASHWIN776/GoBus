@@ -17,7 +17,7 @@ function collapseForm(evt){
         const collapseRow = evt.target.parentElement.parentElement.parentElement.parentElement;
 
         // enable the edit button
-        const editBtn = collapseRow.previousElementSibling.children[4].children[0];
+        const editBtn = collapseRow.previousElementSibling.children[2].children[0];
         editBtn.disabled = false;
         editBtn.classList.remove("disabled");
 
@@ -38,21 +38,9 @@ function editOrDelete(evt){
         editRow.innerHTML = `
         <td colspan="5">
             <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
-
                 <input type="hidden" name="id" value="${evt.target.dataset.id}">
-                <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
+                <input type="text" class="form-control" name="busno" value="${evt.target.dataset.busno}">
 
-                <select name="time">
-                    <option value="day">
-                            Day
-                    </option>
-                    <option value="night">
-                        Night    
-                    </option>
-                </select> 
-            
-                <input type="text" class="form-control cost" name="stepCost" value="${evt.target.dataset.cost}">        
-           
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-success btn-sm" name="edit">SUBMIT</button>
                     <button type="button" class="btn-close align-self-center"></button>
@@ -63,6 +51,7 @@ function editOrDelete(evt){
     
     this.after(editRow);
     }
+
     // if delete button is clicked
     else if(evt.target.className.includes("delete-button"))
     {
