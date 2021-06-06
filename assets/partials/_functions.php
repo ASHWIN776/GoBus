@@ -43,7 +43,10 @@
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if($num)
-            return true;
+        {
+            $row = mysqli_fetch_assoc($result);   
+            return $row["id"];
+        }
         return false;
     }
 
@@ -54,7 +57,10 @@
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);
         if($num)
-            return true;
+        {
+            $row = mysqli_fetch_assoc($result);   
+            return $row["id"];
+        }
         return false;
     }
 ?>

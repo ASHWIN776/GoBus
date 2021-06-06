@@ -93,9 +93,9 @@
                 $cname = $_POST["cname"];
                 $cphone = $_POST["cphone"];
                 $id = $_POST["id"];
-                $customer_exists = exist_customers($conn,$cname,$cphone);
+                $id_if_customer_exists = exist_customers($conn,$cname,$cphone);
 
-                if(!$customer_exists)
+                if(!$id_if_customer_exists || $id == $id_if_customer_exists)
                 {
                     $updateSql = "UPDATE `customers` SET
                     `customer_name` = '$cname',

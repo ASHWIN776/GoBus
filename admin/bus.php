@@ -79,9 +79,9 @@
                 // EDIT ROUTES
                 $busno = $_POST["busno"];
                 $id = $_POST["id"];
-                $bus_exists = exist_buses($conn, $busno);
-
-                if(!$bus_exists)
+                $id_if_bus_exists = exist_buses($conn, $busno);
+                
+                if(!$id_if_bus_exists || $id == $id_if_bus_exists)
                 {
                     $updateSql = "UPDATE `buses` SET `bus_no` = '$busno' WHERE `buses`.`id` = $id;";
     
