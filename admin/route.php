@@ -97,9 +97,9 @@
                 $time = $_POST["time"];
                 $id = $_POST["id"];
 
-                $route_exists = exist_routes($conn,$viaCities,$time);
-
-                if(!$route_exists)
+                $id_if_route_exists = exist_routes($conn,$viaCities,$time);
+           
+                if(!$id_if_route_exists || $id == $id_if_route_exists)
                 {
                     $updateSql = "UPDATE `routes` SET
                     `route_cities` = '$viaCities',
