@@ -200,13 +200,15 @@
                     </div>
                     <table>
                         <tr>
-                            <th>ID</th>
+                            <th>S.No</th>
                             <th>Bus Number</th>
                             <th>Actions</th>
                         </tr>
                         <?php
+                            $ser_no = 0;
                             while($row = mysqli_fetch_assoc($resultSqlResult))
-                            {
+                            {   
+                                $ser_no++;
                                 // echo "<pre>";
                                 // var_export($row);
                                 // echo "</pre>";
@@ -217,7 +219,7 @@
                         <tr>
                             <td>
                                 <?php
-                                    echo $id;
+                                    echo $ser_no;
                                 ?>
                             </td>
                             <td>
