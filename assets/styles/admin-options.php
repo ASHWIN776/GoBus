@@ -86,6 +86,10 @@
         width: 90%;
     }
 
+    #bus table{
+        width: 50%;
+    }
+
     #booking table{
         width: 100%;
     }
