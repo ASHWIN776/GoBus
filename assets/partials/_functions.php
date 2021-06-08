@@ -21,9 +21,9 @@
         return false;
     }
 
-    function exist_routes($conn, $viaCities, $time)
+    function exist_routes($conn, $viaCities, $depdate, $deptime)
     {
-        $sql = "SELECT * FROM `routes` WHERE route_cities='$viaCities' AND route_timing='$time'";
+        $sql = "SELECT * FROM `routes` WHERE route_cities='$viaCities' AND route_dep_date='$depdate' AND route_dep_time='$deptime'";
 
         $result = mysqli_query($conn, $sql);
         $num = mysqli_num_rows($result);

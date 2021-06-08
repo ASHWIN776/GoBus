@@ -43,15 +43,18 @@
                 // Should be validated client-side
                 $viaCities = strtoupper($_POST["viaCities"]);
                 $cost = $_POST["stepCost"];
-                $time = $_POST["time"];
+                $deptime = $_POST["dep_time"];
+                $depdate = $_POST["dep_date"];
         
-                $route_exists = exist_routes($conn,$viaCities,$time);
+                $route_exists = exist_routes($conn,$viaCities,$depdate, $deptime);
                 $route_added = false;
         
                 if(!$route_exists)
                 {
                     // Route is unique, proceed
-                    $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
+                    $sql = "INSERT INTO `routes` (`route_cities`, 
+                     `route_dep_date`,
+                     `route_dep_time`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$depdate','$deptime', '$cost', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
                     // Gives back the Auto Increment id
                     $autoInc_id = mysqli_insert_id($conn);
@@ -293,15 +296,22 @@
                                 <input type="text" class="form-control" id="stepCost" name="stepCost">
                             </div>
                             <div class="mb-3">
-                                <label for="time" class="form-label">Timing</label>
-                                <select name="time" id="time">
-                                    <option value="day">
-                                        Day
-                                    </option>
-                                                    <option value="night">
-                                        Night    
-                                    </option>
-                                </select>
+                                <label for="date" class="form-label">Departure Date</label>
+                                <input type="date" name="dep_date" id="time" min="<?php 
+                                date_default_timezone_set("Asia/Kolkata");
+                                echo date("Y-m-d");?>" value="
+                                <?php 
+                                    echo date("Y-m-d");
+                                ?>
+                                ">
+                            </div>
+                            <div class="mb-3">
+                                <label for="time" class="form-label">Departure Time</label>
+                                <input type="time" name="dep_time" id="time" min="
+                                <?php
+                                    echo date("H:i");
+                                ?>
+                                " required>
                             </div>
                             <button type="submit" class="btn btn-success" name="submit">Submit</button>
                         </form>
