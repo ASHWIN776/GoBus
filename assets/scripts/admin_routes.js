@@ -2,6 +2,8 @@ const resultRows = document.querySelectorAll("tr");
 const editBtns = document.querySelectorAll(".edit-button");
 const deleteBtns = document.querySelectorAll(".delete-button");
 const table = document.querySelector("table");
+const addRouteForm = document.querySelector("#addRouteForm");
+
 
 resultRows.forEach(row => 
     row.addEventListener("click", editOrDelete)  
@@ -67,4 +69,11 @@ function editOrDelete(evt){
     }
 }
 
+
+// AddRouteForm
+const busJsonInput = document.querySelector("#busJson");
+const busJson = busJsonInput.value;
+// Here is the bus data to be shown in the add Modal
+let data = JSON.parse(busJson);
+console.log(data);
 
