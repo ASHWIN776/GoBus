@@ -98,16 +98,19 @@
                 // EDIT ROUTES
                 $viaCities = strtoupper($_POST["viaCities"]);
                 $cost = $_POST["stepCost"];
-                $time = $_POST["time"];
                 $id = $_POST["id"];
+                $deptime = $_POST["dep_time"];
+                $depdate = $_POST["dep_date"];
 
-                $id_if_route_exists = exist_routes($conn,$viaCities,$time);
+                $id_if_route_exists = exist_routes($conn,$viaCities,$depdate,$deptime);
            
                 if(!$id_if_route_exists || $id == $id_if_route_exists)
                 {
                     $updateSql = "UPDATE `routes` SET
                     `route_cities` = '$viaCities',
-                    `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
+                    `route_dep_date` = '$depdate',
+                    `route_dep_time` = '$deptime',
+                    `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
             
                     $updateResult = mysqli_query($conn, $updateSql);
                     $rowsAffected = mysqli_affected_rows($conn);
@@ -272,8 +275,12 @@
                                             <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
                                                 echo $id;?>" data-cities="<?php 
                                                 echo $route_cities;?>" data-cost="<?php 
-                                                echo $route_step_cost;?>"
-                                                >Edit</button>
+                                                echo $route_step_cost;?>" data-date="<?php 
+                                                echo $route_dep_date;
+                                            ?>" data-time="<?php 
+                                            echo $route_dep_time;
+                                            ?>"
+                                            >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
                                                 echo $id;?>">Delete</button>
                                         </td>
@@ -312,7 +319,7 @@
                                 date_default_timezone_set("Asia/Kolkata");
                                 echo date("Y-m-d");?>" value="
                                 <?php 
-                                    echo date("Y-m-d");
+                                echo date("Y-m-d");
                                 ?>
                                 ">
                             </div>

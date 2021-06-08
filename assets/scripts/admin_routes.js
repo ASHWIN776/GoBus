@@ -36,20 +36,16 @@ function editOrDelete(evt){
 
         const editRow = document.createElement("tr");
         editRow.innerHTML = `
-        <td colspan="5">
+        <td colspan="6">
             <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
 
                 <input type="hidden" name="id" value="${evt.target.dataset.id}">
                 <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
 
-                <select name="time">
-                    <option value="day">
-                            Day
-                    </option>
-                    <option value="night">
-                        Night    
-                    </option>
-                </select> 
+                <input type="date" class="form-control date" name="dep_date" value="${evt.target.dataset.date}">
+
+                <input type="time" class="form-control time" name="dep_time" value="${evt.target.dataset.time}">  
+                
             
                 <input type="text" class="form-control cost" name="stepCost" value="${evt.target.dataset.cost}">        
            

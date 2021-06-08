@@ -123,6 +123,13 @@
         flex-basis: 15%;
     }
 
+    .editRouteForm input.time{
+        flex-basis: 30%;
+    }
+    /* .editRouteForm input.date{
+        flex-basis: 40%;
+    } */
+
     #noRoutes,
     #noCustomers{
         background-color: black;
