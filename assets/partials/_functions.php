@@ -63,4 +63,16 @@
         }
         return false;
     }
+
+    function bus_assign($conn, $busno)
+    {
+        $sql = "UPDATE buses SET bus_assigned=1 WHERE bus_no='$busno'";
+        $result = mysqli_query($conn, $sql);
+    }
+
+    function bus_free($conn, $busno)
+    {
+        $sql = "UPDATE buses SET bus_assigned=0 WHERE bus_no='$busno'";
+        $result = mysqli_query($conn, $sql);
+    }
 ?>
