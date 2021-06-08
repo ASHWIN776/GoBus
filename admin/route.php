@@ -296,7 +296,7 @@
             </div>
     </main>
             <?php
-                $busSql = "Select * from buses where bus_assigned=1";
+                $busSql = "Select * from buses where bus_assigned=0";
                 $resultBusSql = mysqli_query($conn, $busSql);
                 $arr = array();
                 while($row = mysqli_fetch_assoc($resultBusSql))
@@ -320,7 +320,12 @@
                             <input type="hidden" id="busJson" name="busJson" value='<?php echo $busJson; ?>'>
                             <div class="mb-3">
                                 <label for="busno" class="form-label">Bus Number</label>
-                                <input type="text" class="form-control" id="busno" name="busno">
+                                <!-- Search Functionality -->
+                                <div id="searchBus">
+                                    <input type="text" class="form-control" id="busno" name="busno">
+                                    <div id="sugg">
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="stepCost" class="form-label">Step Cost</label>

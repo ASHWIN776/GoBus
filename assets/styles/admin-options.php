@@ -161,4 +161,19 @@
         border: none;
         border-radius: 0px 5px 5px 0px;
     }
+
+    .hl{
+        background-color: #79ff9c; 
+    }
+
+    #sugg{
+        margin-top: 0.4rem;
+    }
+
+    #sugg li{
+        border: 2px solid #b0b0b0;
+        border-radius: 5px;
+        list-style-type: none;
+        padding: 0.35rem 0.8rem;
+    }
 </style>

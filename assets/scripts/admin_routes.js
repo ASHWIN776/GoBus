@@ -73,7 +73,34 @@ function editOrDelete(evt){
 // AddRouteForm
 const busJsonInput = document.querySelector("#busJson");
 const busJson = busJsonInput.value;
+const searchBox = document.querySelector("#searchBus");
+const searchInput = document.querySelector("#busno");
+const suggBox = document.querySelector("#sugg");
 // Here is the bus data to be shown in the add Modal
 let data = JSON.parse(busJson);
-console.log(data);
+
+searchInput.addEventListener("input", showSuggestions);
+
+function showSuggestions()
+{
+    const word = this.value;
+
+    if(!word)
+    {
+        suggBox.innerText = "";
+        return;
+    }
+
+    const regex = new RegExp(word, "gi");
+
+    let suggestions = data.filter(({bus_no}) => {
+        return bus_no.match(regex);
+    }).map(({bus_no}) => {
+        const bus_num = bus_no.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);
+        console.log(bus_num);
+        return `<li>${bus_num}</li>`;
+    }).join("");
+
+    suggBox.innerHTML = suggestions;
+}
 
