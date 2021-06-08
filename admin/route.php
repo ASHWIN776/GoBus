@@ -228,6 +228,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Via Cities</th>
+                                <th>Bus Number</th>
                                 <th>Departure Date</th>
                                 <th>Departure Time</th>
                                 <th>Step Cost</th>
@@ -245,6 +246,7 @@
                                     $route_dep_time = $row["route_dep_time"];
                                     $route_dep_date = $row["route_dep_date"];
                                     $route_step_cost = $row["route_step_cost"];
+                                    $bus_no = $_POST["busno"];
                                         ?>
                                     <tr>
                                         <td>
@@ -255,6 +257,11 @@
                                         <td>
                                             <?php 
                                                 echo $route_cities;
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo $bus_no;
                                             ?>
                                         </td>
                                         <td>
@@ -279,6 +286,8 @@
                                                 echo $route_dep_date;
                                             ?>" data-time="<?php 
                                             echo $route_dep_time;
+                                            ?>" data-busno="<?php 
+                                            echo $bus_no;
                                             ?>"
                                             >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
