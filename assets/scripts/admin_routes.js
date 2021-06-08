@@ -19,7 +19,7 @@ function collapseForm(evt){
         const collapseRow = evt.target.parentElement.parentElement.parentElement.parentElement;
 
         // enable the edit button
-        const editBtn = collapseRow.previousElementSibling.children[4].children[0];
+        const editBtn = collapseRow.previousElementSibling.children[6].children[0];
         editBtn.disabled = false;
         editBtn.classList.remove("disabled");
 
@@ -38,11 +38,13 @@ function editOrDelete(evt){
 
         const editRow = document.createElement("tr");
         editRow.innerHTML = `
-        <td colspan="6">
+        <td colspan="7">
             <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
 
                 <input type="hidden" name="id" value="${evt.target.dataset.id}">
                 <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
+
+                <input type="text" class="form-control busno" name="busno" value="${evt.target.dataset.busno}">
 
                 <input type="date" class="form-control date" name="dep_date" value="${evt.target.dataset.date}">
 

@@ -81,9 +81,8 @@
         color: white;
     }
 
-
-    table{
-        width: 90%;
+    #route table{
+        width: 100%;
     }
 
     #bus table{
@@ -124,7 +123,7 @@
     }
 
     .editRouteForm input.time{
-        flex-basis: 30%;
+        flex-basis: 40%;
     }
     /* .editRouteForm input.date{
         flex-basis: 40%;
