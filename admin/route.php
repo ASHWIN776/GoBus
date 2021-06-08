@@ -56,6 +56,7 @@
                      `route_dep_date`,
                      `route_dep_time`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$depdate','$deptime', '$cost', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
+                    
                     // Gives back the Auto Increment id
                     $autoInc_id = mysqli_insert_id($conn);
                     // If the id exists then, 
@@ -224,7 +225,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Via Cities</th>
-                                <th>Time</th>
+                                <th>Departure Date</th>
+                                <th>Departure Time</th>
                                 <th>Step Cost</th>
                                 <th>Actions</th>
                             </tr>
@@ -237,21 +239,30 @@
                                     $id = $row["id"];
                                     $route_id = $row["route_id"];
                                     $route_cities = $row["route_cities"];
-                                    $route_time = $row["route_timing"];
+                                    $route_dep_time = $row["route_dep_time"];
+                                    $route_dep_date = $row["route_dep_date"];
                                     $route_step_cost = $row["route_step_cost"];
                                         ?>
                                     <tr>
                                         <td>
                                             <?php 
-                                                echo $route_id;?>
+                                                echo $route_id;
+                                            ?>
                                         </td>
                                         <td>
                                             <?php 
-                                                echo $route_cities;?>
+                                                echo $route_cities;
+                                            ?>
                                         </td>
                                         <td>
                                             <?php 
-                                                echo $route_time;?>
+                                                echo $route_dep_date;
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo $route_dep_time;
+                                            ?>
                                         </td>
                                         <td>
                                             <?php 
@@ -297,7 +308,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="date" class="form-label">Departure Date</label>
-                                <input type="date" name="dep_date" id="time" min="<?php 
+                                <input type="date" name="dep_date" id="date" min="<?php 
                                 date_default_timezone_set("Asia/Kolkata");
                                 echo date("Y-m-d");?>" value="
                                 <?php 
