@@ -80,6 +80,15 @@ const suggBox = document.querySelector("#sugg");
 let data = JSON.parse(busJson);
 
 searchInput.addEventListener("input", showSuggestions);
+suggBox.addEventListener("click", selectSuggestion);
+
+function selectSuggestion(evt){
+    if(evt.target.nodeName === "LI")
+    {
+        searchInput.value = evt.target.innerText;
+        suggBox.innerText = "";
+    }
+}
 
 function showSuggestions()
 {

@@ -176,4 +176,8 @@
         list-style-type: none;
         padding: 0.35rem 0.8rem;
     }
+
+    #sugg li:hover{
+        background-color: #b0b0b0;
+    }
 </style>
