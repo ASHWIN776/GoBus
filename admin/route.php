@@ -45,16 +45,17 @@
                 $cost = $_POST["stepCost"];
                 $deptime = $_POST["dep_time"];
                 $depdate = $_POST["dep_date"];
-        
+                $busno = $_POST["busno"];
                 $route_exists = exist_routes($conn,$viaCities,$depdate, $deptime);
                 $route_added = false;
         
                 if(!$route_exists)
                 {
                     // Route is unique, proceed
-                    $sql = "INSERT INTO `routes` (`route_cities`, 
+                    $sql = "INSERT INTO `routes` (`route_cities`,
+                     `bus_no`, 
                      `route_dep_date`,
-                     `route_dep_time`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$depdate','$deptime', '$cost', current_timestamp());";
+                     `route_dep_time`, `route_step_cost`, `route_created`) VALUES ('$viaCities','$busno', '$depdate','$deptime', '$cost', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
                     
                     // Gives back the Auto Increment id
@@ -71,9 +72,13 @@
                         if(!$queryResult)
                             echo "Not Working";
                     }
-
+                    
                     if($result)
+                    {
                         $route_added = true;
+                        // The bus is now assigned, updating uses table
+                        bus_assign($conn, $busno);
+                    }
                 }
     
                 if($route_added)
@@ -246,7 +251,7 @@
                                     $route_dep_time = $row["route_dep_time"];
                                     $route_dep_date = $row["route_dep_date"];
                                     $route_step_cost = $row["route_step_cost"];
-                                    $bus_no = $_POST["busno"];
+                                    $bus_no = $row["bus_no"];
                                         ?>
                                     <tr>
                                         <td>
