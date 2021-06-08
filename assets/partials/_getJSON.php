@@ -1,4 +1,3 @@
-<!-- To get buses: send req to : http://localhost:8000/assets/partials/_getBuses.php/query=buses&id=7 eg-->
 
 <?php
     require '_functions.php';
@@ -20,11 +19,12 @@
             $sql = "Select * from $table;";
             
         $result = mysqli_query($conn, $sql);
-        $busArr = array();
+        $arr = array();
         while($row = mysqli_fetch_assoc($result))
-            $busArr[] = $row;
+            $arr[] = $row;
         
-        print(json_encode($busArr));
+            $json = json_encode($arr);
+        print($json);
     }
 
 ?>

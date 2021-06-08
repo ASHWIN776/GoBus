@@ -43,16 +43,20 @@
                 // Should be validated client-side
                 $viaCities = strtoupper($_POST["viaCities"]);
                 $cost = $_POST["stepCost"];
-                $time = $_POST["time"];
+                $deptime = $_POST["dep_time"];
+                $depdate = $_POST["dep_date"];
         
-                $route_exists = exist_routes($conn,$viaCities,$time);
+                $route_exists = exist_routes($conn,$viaCities,$depdate, $deptime);
                 $route_added = false;
         
                 if(!$route_exists)
                 {
                     // Route is unique, proceed
-                    $sql = "INSERT INTO `routes` (`route_cities`, `route_timing`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$time', '$cost', current_timestamp());";
+                    $sql = "INSERT INTO `routes` (`route_cities`, 
+                     `route_dep_date`,
+                     `route_dep_time`, `route_step_cost`, `route_created`) VALUES ('$viaCities', '$depdate','$deptime', '$cost', current_timestamp());";
                     $result = mysqli_query($conn, $sql);
+                    
                     // Gives back the Auto Increment id
                     $autoInc_id = mysqli_insert_id($conn);
                     // If the id exists then, 
@@ -94,16 +98,19 @@
                 // EDIT ROUTES
                 $viaCities = strtoupper($_POST["viaCities"]);
                 $cost = $_POST["stepCost"];
-                $time = $_POST["time"];
                 $id = $_POST["id"];
+                $deptime = $_POST["dep_time"];
+                $depdate = $_POST["dep_date"];
 
-                $id_if_route_exists = exist_routes($conn,$viaCities,$time);
+                $id_if_route_exists = exist_routes($conn,$viaCities,$depdate,$deptime);
            
                 if(!$id_if_route_exists || $id == $id_if_route_exists)
                 {
                     $updateSql = "UPDATE `routes` SET
                     `route_cities` = '$viaCities',
-                    `route_timing` = '$time', `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
+                    `route_dep_date` = '$depdate',
+                    `route_dep_time` = '$deptime',
+                    `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
             
                     $updateResult = mysqli_query($conn, $updateSql);
                     $rowsAffected = mysqli_affected_rows($conn);
@@ -221,7 +228,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Via Cities</th>
-                                <th>Time</th>
+                                <th>Departure Date</th>
+                                <th>Departure Time</th>
                                 <th>Step Cost</th>
                                 <th>Actions</th>
                             </tr>
@@ -234,21 +242,30 @@
                                     $id = $row["id"];
                                     $route_id = $row["route_id"];
                                     $route_cities = $row["route_cities"];
-                                    $route_time = $row["route_timing"];
+                                    $route_dep_time = $row["route_dep_time"];
+                                    $route_dep_date = $row["route_dep_date"];
                                     $route_step_cost = $row["route_step_cost"];
                                         ?>
                                     <tr>
                                         <td>
                                             <?php 
-                                                echo $route_id;?>
+                                                echo $route_id;
+                                            ?>
                                         </td>
                                         <td>
                                             <?php 
-                                                echo $route_cities;?>
+                                                echo $route_cities;
+                                            ?>
                                         </td>
                                         <td>
                                             <?php 
-                                                echo $route_time;?>
+                                                echo $route_dep_date;
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                                echo $route_dep_time;
+                                            ?>
                                         </td>
                                         <td>
                                             <?php 
@@ -258,8 +275,12 @@
                                             <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
                                                 echo $id;?>" data-cities="<?php 
                                                 echo $route_cities;?>" data-cost="<?php 
-                                                echo $route_step_cost;?>"
-                                                >Edit</button>
+                                                echo $route_step_cost;?>" data-date="<?php 
+                                                echo $route_dep_date;
+                                            ?>" data-time="<?php 
+                                            echo $route_dep_time;
+                                            ?>"
+                                            >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
                                                 echo $id;?>">Delete</button>
                                         </td>
@@ -274,6 +295,14 @@
             ?>
             </div>
     </main>
+            <?php
+                $busSql = "Select * from buses where bus_assigned=1";
+                $resultBusSql = mysqli_query($conn, $busSql);
+                $arr = array();
+                while($row = mysqli_fetch_assoc($resultBusSql))
+                    $arr[] = $row;
+                $busJson = json_encode($arr);
+            ?>
             <!-- Add Route Modal -->
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -288,20 +317,32 @@
                                     <label for="viaCities" class="form-label">Via Cities</label>
                                 <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">
                             </div>
+                            <input type="hidden" id="busJson" name="busJson" value='<?php echo $busJson; ?>'>
+                            <div class="mb-3">
+                                <label for="busno" class="form-label">Bus Number</label>
+                                <input type="text" class="form-control" id="busno" name="busno">
+                            </div>
                             <div class="mb-3">
                                 <label for="stepCost" class="form-label">Step Cost</label>
                                 <input type="text" class="form-control" id="stepCost" name="stepCost">
                             </div>
                             <div class="mb-3">
-                                <label for="time" class="form-label">Timing</label>
-                                <select name="time" id="time">
-                                    <option value="day">
-                                        Day
-                                    </option>
-                                                    <option value="night">
-                                        Night    
-                                    </option>
-                                </select>
+                                <label for="date" class="form-label">Departure Date</label>
+                                <input type="date" name="dep_date" id="date" min="<?php 
+                                date_default_timezone_set("Asia/Kolkata");
+                                echo date("Y-m-d");?>" value="
+                                <?php 
+                                echo date("Y-m-d");
+                                ?>
+                                ">
+                            </div>
+                            <div class="mb-3">
+                                <label for="time" class="form-label">Departure Time</label>
+                                <input type="time" name="dep_time" id="time" min="
+                                <?php
+                                    echo date("H:i");
+                                ?>
+                                " required>
                             </div>
                             <button type="submit" class="btn btn-success" name="submit">Submit</button>
                         </form>
