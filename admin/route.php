@@ -295,6 +295,14 @@
             ?>
             </div>
     </main>
+            <?php
+                $busSql = "Select * from buses where bus_assigned=1";
+                $resultBusSql = mysqli_query($conn, $busSql);
+                $arr = array();
+                while($row = mysqli_fetch_assoc($resultBusSql))
+                    $arr[] = $row;
+                $busJson = json_encode($arr);
+            ?>
             <!-- Add Route Modal -->
             <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -308,6 +316,11 @@
                             <div class="mb-3">
                                     <label for="viaCities" class="form-label">Via Cities</label>
                                 <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">
+                            </div>
+                            <input type="hidden" id="busJson" name="busJson" value='<?php echo $busJson; ?>'>
+                            <div class="mb-3">
+                                <label for="busno" class="form-label">Bus Number</label>
+                                <input type="text" class="form-control" id="busno" name="busno">
                             </div>
                             <div class="mb-3">
                                 <label for="stepCost" class="form-label">Step Cost</label>
