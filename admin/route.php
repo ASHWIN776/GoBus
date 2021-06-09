@@ -167,6 +167,8 @@
             {
                 // DELETE ROUTES
                 $id = $_POST["id"];
+                // Get the bus_no from route_id
+                $busno_toFree = busno_from_routeid($conn, $id);
                 // Delete the route with id => id
                 $deleteSql = "DELETE FROM `routes` WHERE `routes`.`id` = $id";
                 $deleteResult = mysqli_query($conn, $deleteSql);
@@ -187,6 +189,8 @@
                     $messageStatus = "success";
                     $messageInfo = "Route Details deleted";
                     $messageHeading = "Successfull!";
+                    // Free the bus assigned
+                    bus_free($conn, $busno_toFree);
                 }
                 else{
                     // Show error alert

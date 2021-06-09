@@ -182,6 +182,7 @@
         position: absolute;
         margin-top: 0.4rem;
         width:100%;
+        border-radius: 5px;
     }
 
     .editRouteForm .sugg{

@@ -75,4 +75,12 @@
         $sql = "UPDATE buses SET bus_assigned=0 WHERE bus_no='$busno'";
         $result = mysqli_query($conn, $sql);
     }
+
+    function busno_from_routeid($conn, $id)
+    {
+        $sql = "SELECT * from routes WHERE id=$id";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row["bus_no"];
+    }
 ?>
