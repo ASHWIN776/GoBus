@@ -107,6 +107,7 @@
                 $deptime = $_POST["dep_time"];
                 $depdate = $_POST["dep_date"];
                 $busno = $_POST["busno"];
+                $oldBusNo = $_POST["old-busno"];
 
                 $id_if_route_exists = exist_routes($conn,$viaCities,$depdate,$deptime);
            
@@ -133,6 +134,9 @@
     
                     elseif($updateResult)
                     {
+                        // To assign the new bus, and free the old one
+                        bus_assign($conn,$busno);
+                        bus_free($conn, $oldBusNo);
                         // Show success alert
                         $messageStatus = "success";
                         $messageHeading = "Successfull!";

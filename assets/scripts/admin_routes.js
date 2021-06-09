@@ -50,6 +50,8 @@ function editOrDelete(evt){
                     </div>
                 </div>
 
+                <input type="hidden"  name="old-busno" value="${evt.target.dataset.busno}">
+
                 <input type="date" class="form-control date" name="dep_date" value="${evt.target.dataset.date}">
 
                 <input type="time" class="form-control time" name="dep_time" value="${evt.target.dataset.time}">  
