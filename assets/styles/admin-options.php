@@ -169,16 +169,22 @@
         background-color: #79ff9c; 
     }
 
+    .editRouteForm .searchBus{
+        margin: 0 1rem;
+    }
+
     .searchBus{
         position: relative;
-        margin: 0 1rem;
     }
 
     .sugg{
         background-color: white;
         position: absolute;
-        width:100%;
         margin-top: 0.4rem;
+        width:100%;
+    }
+
+    .editRouteForm .sugg{
     }
 
     .sugg li{
