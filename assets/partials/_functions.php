@@ -81,6 +81,11 @@
         $sql = "SELECT * from routes WHERE id=$id";
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        return $row["bus_no"];
+
+        if($row)
+        {
+            return $row["bus_no"];
+        }
+        return false;
     }
 ?>
