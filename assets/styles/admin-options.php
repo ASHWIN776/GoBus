@@ -210,7 +210,7 @@
         padding: 1rem;
         text-align: center;
         margin: 0.3rem;
-        width: 20px;
+        width: 60px;
         border: 3px solid transparent;
         display: inline-block;
         background-color: #efefef;
@@ -218,10 +218,11 @@
     }
 
     #seatsDiagram{
+        width: 100%;
         margin-bottom: 1rem;
     }
 
-    .selected{
+    #seatsDiagram  td.selected{
         background-color: greenyellow;
         -webkit-animation-name: rubberBand;
         animation-name: rubberBand;
@@ -233,7 +234,7 @@
         cursor: pointer;
         border-color:greenyellow;
     }
-    .space{
+    #seatsDiagram .space{
         background-color: white;
         border: none;
     }

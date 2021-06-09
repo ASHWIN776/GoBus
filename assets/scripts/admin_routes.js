@@ -136,8 +136,7 @@ function showSuggestions()
     let suggestions = data.filter(({bus_no}) => {
         return bus_no.match(regex);
     }).map(({bus_no}) => {
-        const bus_num = bus_no.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);
-        console.log(bus_num);
+        const bus_num = bus_no.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);;
         return `<li>${bus_num}</li>`;
     }).join("");
 
