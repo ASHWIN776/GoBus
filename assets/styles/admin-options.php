@@ -128,6 +128,11 @@
         flex-basis: 40%;
     }
 
+    .editRouteForm input.busnoInput{
+        width: 100%;
+        margin: 0;
+    }
+
     #noRoutes,
     #noCustomers{
         background-color: black;
@@ -166,6 +171,7 @@
 
     .searchBus{
         position: relative;
+        margin: 0 1rem;
     }
 
     .sugg{
