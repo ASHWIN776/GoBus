@@ -106,6 +106,7 @@
                 $id = $_POST["id"];
                 $deptime = $_POST["dep_time"];
                 $depdate = $_POST["dep_date"];
+                $busno = $_POST["busno"];
 
                 $id_if_route_exists = exist_routes($conn,$viaCities,$depdate,$deptime);
            
@@ -113,6 +114,7 @@
                 {
                     $updateSql = "UPDATE `routes` SET
                     `route_cities` = '$viaCities',
+                    `bus_no`='$busno',
                     `route_dep_date` = '$depdate',
                     `route_dep_time` = '$deptime',
                     `route_step_cost` = '$cost' WHERE `routes`.`id` = '$id';";
