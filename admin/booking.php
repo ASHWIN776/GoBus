@@ -228,25 +228,134 @@
     <!-- All Modals Here -->
     <!-- Add Route Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add A Customer</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Book here</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addCustomerForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                        <form id="addBookingForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
                             <div class="mb-3">
-                                <label for="cfirstname" class="form-label">Customer Firstname</label>
-                                <input type="text" class="form-control" id="cfirstname" name="cfirstname">
+                                <label for="cid" class="form-label">Customer ID</label>
+                                <input type="text" class="form-control" id="cid" name="cid">
                             </div>
                             <div class="mb-3">
-                                <label for="clastname" class="form-label">Customer Lastname</label>
-                                <input type="text" class="form-control" id="clastname" name="clastname">
+                                <label for="cname" class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="cname" name="cname" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="cphone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="cphone" name="cphone">
+                                <input type="tel" class="form-control" id="cphone" name="cphone" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="routeSearch" class="form-label">Route</label>
+                                <!-- Search Functionality -->
+                                <div class="searchQuery">
+                                    <input type="text" class="form-control searchInput" id="routeSearch" name="routeSearch">
+                                    <div class="sugg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="sourceSearch" class="form-label">Source</label>
+                                <!-- Search Functionality -->
+                                <div class="searchQuery">
+                                    <input type="text" class="form-control sourceInput" id="sourceSearch" name="sourceSearch">
+                                    <div class="sugg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="destinationSearch" class="form-label">Destination</label>
+                                <!-- Search Functionality -->
+                                <div class="searchQuery">
+                                    <input type="text" class="form-control sourceInput" id="destinationSearch" name="destinationSearch">
+                                    <div class="sugg">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Seats Diagram -->
+                            <div class="mb-3">
+                                <table id="seatsDiagram">
+                                    <tr>
+                                    <td data-name="1">1</td>
+                                    <td data-name="2">2</td>
+                                    <td data-name="3">3</td>
+                                    <td data-name="4">4</td>
+                                    <td data-name="5">5</td>
+                                    <td data-name="6">6</td>
+                                    <td data-name="7">7</td>
+                                    <td data-name="8">8</td>
+                                    <td data-name="9">9</td>
+                                    <td data-name="10">10</td>
+                                    </tr>
+                                    <tr>
+                                    <td data-name="11">11</td>
+                                    <td data-name="12">12</td>
+                                    <td data-name="13">13</td>
+                                    <td data-name="14">14</td>
+                                    <td data-name="15">15</td>
+                                    <td data-name="16">16</td>
+                                    <td data-name="17">17</td>
+                                    <td data-name="18">18</td>
+                                    <td data-name="19">19</td>
+                                    <td data-name="20">20</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                        <td class="space">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                    <td data-name="21">21</td>
+                                    <td data-name="22">22</td>
+                                    <td data-name="23">23</td>
+                                    <td data-name="24">24</td>
+                                    <td data-name="25">25</td>
+                                    <td data-name="26">26</td>
+                                    <td data-name="27">27</td>
+                                            <td class="space">&nbsp;</td>
+                                    <td data-name="28">28</td>
+                                    <td data-name="29">29</td>
+                                    </tr>
+                                    <tr>
+                                    <td data-name="30">30</td>
+                                    <td data-name="31">31</td>
+                                    <td data-name="32">32</td>
+                                    <td data-name="33">33</td>
+                                    <td data-name="34">34</td>
+                                    <td data-name="35">35</td>
+                                    <td data-name="36">36</td>
+                                    <td class="space">&nbsp;</td>
+                                    <td data-name="37">37</td>
+                                    <td data-name="38">38</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="row g-3 align-items-center mb-3">
+                                <div class="col-auto">
+                                    <label for="seatInput" class="col-form-label">Seat Number</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="text" id="seatInput" class="form-control" readonly >
+                                </div>
+                                <div class="col-auto">
+                                    <span id="seatInfo" class="form-text">
+                                    Select from the above figure, Maximum 1 seat.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookAmount" class="form-label">Amount</label>
+                                <input type="text" class="form-control" id="bookAmount" name="bookAmount" readonly>
                             </div>
                             <button type="submit" class="btn btn-success" name="submit">Submit</button>
                         </form>
