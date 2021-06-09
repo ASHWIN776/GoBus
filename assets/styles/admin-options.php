@@ -183,18 +183,24 @@
         margin-top: 0.4rem;
         width:100%;
         border-radius: 5px;
+        max-height: 114px;
+        overflow: auto;
     }
 
     .editRouteForm .sugg{
     }
 
     .sugg li{
-        border: 2px solid #b0b0b0;
+        border: solid #b0b0b0;
+        border-width: 0 2px 2px 2px;
         border-radius: 5px;
         list-style-type: none;
         padding: 0.35rem 0.8rem;
     }
 
+    .sugg li:first-child{
+        border-top-width: 2px;
+    }
     .sugg li:hover{
         cursor: pointer;
         background-color: #b0b0b0;
