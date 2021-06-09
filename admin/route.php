@@ -337,9 +337,9 @@
                             <div class="mb-3">
                                 <label for="busno" class="form-label">Bus Number</label>
                                 <!-- Search Functionality -->
-                                <div id="searchBus">
-                                    <input type="text" class="form-control" id="busno" name="busno">
-                                    <div id="sugg">
+                                <div class="searchBus">
+                                    <input type="text" class="form-control busnoInput" id="busno" name="busno">
+                                    <div class="sugg">
                                     </div>
                                 </div>
                             </div>

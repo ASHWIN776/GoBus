@@ -44,7 +44,11 @@ function editOrDelete(evt){
                 <input type="hidden" name="id" value="${evt.target.dataset.id}">
                 <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
 
-                <input type="text" class="form-control busno" name="busno" value="${evt.target.dataset.busno}">
+                <div class="searchBus">
+                    <input type="text" class="form-control busno busnoInput" name="busno" value="${evt.target.dataset.busno}">
+                    <div class="sugg">
+                    </div>
+                </div>
 
                 <input type="date" class="form-control date" name="dep_date" value="${evt.target.dataset.date}">
 
@@ -72,33 +76,44 @@ function editOrDelete(evt){
 }
 
 
+
+// Route element
+const routesBody = document.body;
 // AddRouteForm
 const busJsonInput = document.querySelector("#busJson");
 const busJson = busJsonInput.value;
-const searchBox = document.querySelector("#searchBus");
-const searchInput = document.querySelector("#busno");
-const suggBox = document.querySelector("#sugg");
+const searchBoxes = document.querySelectorAll(".searchBus");
+const searchInputs = document.querySelectorAll(".busnoInput");
+const suggBoxes = document.querySelectorAll(".sugg");
 // Here is the bus data to be shown in the add Modal
 let data = JSON.parse(busJson);
 
-searchInput.addEventListener("input", showSuggestions);
-suggBox.addEventListener("click", selectSuggestion);
+routesBody.addEventListener("click", listenforBusSearches);
+function listenforBusSearches(evt){
+    if(evt.target.className.includes("busnoInput"))
+    {
+        const searchInput = evt.target;
+        const searchBox = searchInput.parentElement;
+        const suggBox = searchInput.nextElementSibling;
+        searchInput.addEventListener("input", showSuggestions);
+        suggBox.addEventListener("click", selectSuggestion);
+    }
+}
 
 function selectSuggestion(evt){
     if(evt.target.nodeName === "LI")
     {
-        searchInput.value = evt.target.innerText;
-        suggBox.innerText = "";
+        this.previousElementSibling.value = evt.target.innerText;
+        this.innerText = "";
     }
 }
 
 function showSuggestions()
 {
     const word = this.value;
-
     if(!word)
     {
-        suggBox.innerText = "";
+        this.nextElementSibling.innerText = "";
         return;
     }
 
@@ -112,6 +127,5 @@ function showSuggestions()
         return `<li>${bus_num}</li>`;
     }).join("");
 
-    suggBox.innerHTML = suggestions;
+    this.nextElementSibling.innerHTML = suggestions;
 }
-

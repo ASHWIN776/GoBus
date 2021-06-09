@@ -122,12 +122,11 @@
         flex-basis: 15%;
     }
 
-    .editRouteForm input.time{
+    .editRouteForm input.time,
+    .editRouteForm input.date,
+    .editRouteForm > div.searchBus{
         flex-basis: 40%;
     }
-    /* .editRouteForm input.date{
-        flex-basis: 40%;
-    } */
 
     #noRoutes,
     #noCustomers{
@@ -165,18 +164,26 @@
         background-color: #79ff9c; 
     }
 
-    #sugg{
+    .searchBus{
+        position: relative;
+    }
+
+    .sugg{
+        background-color: white;
+        position: absolute;
+        width:100%;
         margin-top: 0.4rem;
     }
 
-    #sugg li{
+    .sugg li{
         border: 2px solid #b0b0b0;
         border-radius: 5px;
         list-style-type: none;
         padding: 0.35rem 0.8rem;
     }
 
-    #sugg li:hover{
+    .sugg li:hover{
+        cursor: pointer;
         background-color: #b0b0b0;
     }
 </style>
