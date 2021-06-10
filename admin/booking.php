@@ -225,6 +225,32 @@
             </section>
         </div>
     </main>
+    <?php
+    // Route JSON
+        $rtSql = "Select * from routes";
+        $resultrtSql = mysqli_query($conn, $rtSql);
+        $arr = array();
+        while($row = mysqli_fetch_assoc($resultrtSql))
+            $arr[] = $row;
+        $routeJson = json_encode($arr);
+    
+    // Customer JSON
+        $ctSql = "Select * from customers";
+        $resultctSql = mysqli_query($conn, $ctSql);
+        $arr = array();
+        while($row = mysqli_fetch_assoc($resultctSql))
+            $arr[] = $row;
+        $customerJson = json_encode($arr);
+    
+    // Seats JSON
+        $stSql = "Select * from seats";
+        $resultstSql = mysqli_query($conn, $stSql);
+        $arr = array();
+        while($row = mysqli_fetch_assoc($resultstSql))
+            $arr[] = $row;
+        $seatJson = json_encode($arr);
+        
+    ?>
     <!-- All Modals Here -->
     <!-- Add Route Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -236,6 +262,13 @@
                     </div>
                     <div class="modal-body">
                         <form id="addBookingForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                            <!-- Passing Route JSON -->
+                            <input type="hidden" id="routeJson" name="routeJson" value='<?php echo $routeJson; ?>'>
+                            <!-- Passing Customer JSON -->
+                            <input type="hidden" id="customerJson" name="customerJson" value='<?php echo $customerJson; ?>'>
+                            <!-- Passing Seat JSON -->
+                            <input type="hidden" id="seatJson" name="seatJson" value='<?php echo $seatJson; ?>'>
+                            
                             <div class="mb-3">
                                 <label for="cid" class="form-label">Customer ID</label>
                                 <input type="text" class="form-control" id="cid" name="cid">
