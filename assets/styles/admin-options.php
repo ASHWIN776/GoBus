@@ -206,7 +206,8 @@
         background-color: #b0b0b0;
     }
     /* styles for Booking.php Forms nd all */
-    #seatsDiagram td{
+    #seatsDiagram td,
+    #displaySeats td{
         padding: 1rem;
         text-align: center;
         margin: 0.3rem;
@@ -234,7 +235,8 @@
         cursor: pointer;
         border-color:greenyellow;
     }
-    #seatsDiagram .space{
+    #seatsDiagram .space,
+    #displaySeats .space{
         background-color: white;
         border: none;
     }
