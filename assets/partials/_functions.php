@@ -64,6 +64,20 @@
         return false;
     }
 
+    function exist_booking($conn, $customer_id, $route_id)
+    {
+        $sql = "SELECT * FROM `bookings` WHERE customer_id='$customer_id' AND route_id='$route_id'";
+
+        $result = mysqli_query($conn, $sql);
+        $num = mysqli_num_rows($result);
+        if($num)
+        {
+            $row = mysqli_fetch_assoc($result);   
+            return $row["id"];
+        }
+        return false;
+    }
+
     function bus_assign($conn, $busno)
     {
         $sql = "UPDATE buses SET bus_assigned=1 WHERE bus_no='$busno'";

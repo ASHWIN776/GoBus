@@ -40,16 +40,24 @@
                  Check if the $_POST key 'submit' exists
                 */
                 // Should be validated client-side
-                $cname = $_POST["cfirstname"] . " " . $_POST["clastname"];
-                $cphone = $_POST["cphone"];
+                $customer_id = $_POST["cid"];
+                $customer_name = $_POST["cname"];
+                $customer_phone = $_POST["cphone"];
+                $route_id = $_POST["route_id"];
+                $route_source = $_POST["sourceSearch"];
+                $route_destination = $_POST["destinationSearch"];
+                $booked_seat = $_POST["seatInput"];
+                $amount = $_POST["bookAmount"];
+                $dep_date = $_POST["dep_date"];
+
+                $booking_exists = exist_booking($conn,$customer_id,$route_id);
+                $booking_added = false;
         
-                $customer_exists = exist_customers($conn,$cname,$cphone);
-                $customer_added = false;
-        
-                if(!$customer_exists)
+                if(!$booking_exists)
                 {
                     // Route is unique, proceed
-                    $sql = "INSERT INTO `customers` (`customer_name`, `customer_phone`, `customer_created`) VALUES ('$cname', '$cphone', current_timestamp());";
+                    $sql = "INSERT INTO `bookings` (`customer_id`, `route_id`, `booked_amount`, `booked_seat`, `booked_date`, `booking_created`) VALUES ('$customer_id', '$route_id', '$amount', '$booked_seat', '$dep_date', current_timestamp());";
+
                     $result = mysqli_query($conn, $sql);
                     // Gives back the Auto Increment id
                     $autoInc_id = mysqli_insert_id($conn);
@@ -57,10 +65,10 @@
                     if($autoInc_id)
                     {
                         $code = rand(1,99999);
-                        // Generates the unique userid
-                        $customer_id = "CUST-".$code.$autoInc_id;
+                        // Generates the unique bookingid
+                        $booking_id = "CUST-".$code.$autoInc_id;
                         
-                        $query = "UPDATE `customers` SET `customer_id` = '$customer_id' WHERE `customers`.`id` = $autoInc_id;";
+                        $query = "UPDATE `bookings` SET `booking_id` = '$booking_id' WHERE `bookings`.`id` = $autoInc_id;";
                         $queryResult = mysqli_query($conn, $query);
 
                         if(!$queryResult)
@@ -68,21 +76,21 @@
                     }
 
                     if($result)
-                        $customer_added = true;
+                        $booking_added = true;
                 }
     
-                if($customer_added)
+                if($booking_added)
                 {
                     // Show success alert
                     echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Successful!</strong> Customer Added
+                    <strong>Successful!</strong> Booking Added
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>';
                 }
                 else{
                     // Show error alert
                     echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Error!</strong> Customer already exists
+                    <strong>Error!</strong> Booking already exists
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>';
                 }
@@ -274,7 +282,13 @@
 
                             <div class="mb-3">
                                 <label for="cid" class="form-label">Customer ID</label>
-                                <input type="text" class="form-control" id="cid" name="cid">
+                                <!-- Search Functionality -->
+                                <div class="searchQuery">
+                                    <input type="text" class="form-control searchInput" id="cid" name="cid">
+                                    <div class="sugg">
+                                        
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="cname" class="form-label">Customer Name</label>
@@ -293,11 +307,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Send the route_id -->
+                            <input type="hidden" name="route_id" id="route_id">
+                            <!-- Send the departure date too -->
+                            <input type="hidden" name="dep_date" id="dep_date">
+
                             <div class="mb-3">
                                 <label for="sourceSearch" class="form-label">Source</label>
                                 <!-- Search Functionality -->
                                 <div class="searchQuery">
-                                    <input type="text" class="form-control sourceInput" id="sourceSearch" name="sourceSearch">
+                                    <input type="text" class="form-control searchInput" id="sourceSearch" name="sourceSearch">
                                     <div class="sugg">
                                     </div>
                                 </div>
@@ -306,7 +325,7 @@
                                 <label for="destinationSearch" class="form-label">Destination</label>
                                 <!-- Search Functionality -->
                                 <div class="searchQuery">
-                                    <input type="text" class="form-control sourceInput" id="destinationSearch" name="destinationSearch">
+                                    <input type="text" class="form-control searchInput" id="destinationSearch" name="destinationSearch">
                                     <div class="sugg">
                                     </div>
                                 </div>
@@ -381,7 +400,7 @@
                                     <label for="seatInput" class="col-form-label">Seat Number</label>
                                 </div>
                                 <div class="col-auto">
-                                    <input type="text" id="seatInput" class="form-control" readonly >
+                                    <input type="text" id="seatInput" class="form-control" name="seatInput" readonly>
                                 </div>
                                 <div class="col-auto">
                                     <span id="seatInfo" class="form-text">
