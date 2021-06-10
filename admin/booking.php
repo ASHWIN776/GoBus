@@ -230,24 +230,27 @@
         $rtSql = "Select * from routes";
         $resultrtSql = mysqli_query($conn, $rtSql);
         $arr = array();
-        while($row = mysqli_fetch_assoc($resultrtSql))
-            $arr[] = $row;
+        if(mysqli_num_rows($resultrtSql))
+            while($row = mysqli_fetch_assoc($resultrtSql))
+                $arr[] = $row;
         $routeJson = json_encode($arr);
     
     // Customer JSON
         $ctSql = "Select * from customers";
         $resultctSql = mysqli_query($conn, $ctSql);
         $arr = array();
-        while($row = mysqli_fetch_assoc($resultctSql))
-            $arr[] = $row;
+        if(mysqli_num_rows($resultctSql))
+            while($row = mysqli_fetch_assoc($resultctSql))
+                $arr[] = $row;
         $customerJson = json_encode($arr);
     
     // Seats JSON
         $stSql = "Select * from seats";
         $resultstSql = mysqli_query($conn, $stSql);
         $arr = array();
-        while($row = mysqli_fetch_assoc($resultstSql))
-            $arr[] = $row;
+        if(mysqli_num_rows($resultstSql))
+            while($row = mysqli_fetch_assoc($resultstSql))
+                $arr[] = $row;
         $seatJson = json_encode($arr);
         
     ?>
@@ -268,7 +271,7 @@
                             <input type="hidden" id="customerJson" name="customerJson" value='<?php echo $customerJson; ?>'>
                             <!-- Passing Seat JSON -->
                             <input type="hidden" id="seatJson" name="seatJson" value='<?php echo $seatJson; ?>'>
-                            
+
                             <div class="mb-3">
                                 <label for="cid" class="form-label">Customer ID</label>
                                 <input type="text" class="form-control" id="cid" name="cid">
