@@ -103,16 +103,16 @@ function listenforBusSearches(evt){
 }
 
 // Collapses the suggestions Box when the input is not focussed on
-routesBody.addEventListener("change", collapseSugg);
+// routesBody.addEventListener("click", collapseSugg);
 
-function collapseSugg(evt){
-    if(evt.target.className.includes("busnoInput"))
-    {
-        const searchInput = evt.target;
-        const suggBox = searchInput.nextElementSibling;
-        suggBox.innerText = "";
-    }
-}
+// function collapseSugg(evt){
+//     if(evt.target.className.includes("busnoInput"))
+//     {
+//         const searchInput = evt.target;
+//         const suggBox = searchInput.nextElementSibling;
+//         suggBox.innerText = "";
+//     }
+// }
 
 function selectSuggestion(evt){
     if(evt.target.nodeName === "LI")
