@@ -102,4 +102,18 @@
         }
         return false;
     }
+
+
+    function get_from_table($conn, $table, $primaryKey, $pKeyValue, $toget)
+    {
+        $sql = "SELECT * FROM $table WHERE $primaryKey='$pKeyValue'";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+
+        if($row)
+        {
+            return $row["$toget"];
+        }
+        return false;
+    }
 ?>
