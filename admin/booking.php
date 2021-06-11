@@ -40,6 +40,9 @@
                  Check if the $_POST key 'submit' exists
                 */
                 // Should be validated client-side
+                // echo "<pre>";
+                // var_export($_POST);
+                // echo "</pre>";
                 $customer_id = $_POST["cid"];
                 $customer_name = $_POST["cname"];
                 $customer_phone = $_POST["cphone"];
@@ -61,12 +64,17 @@
                     $result = mysqli_query($conn, $sql);
                     // Gives back the Auto Increment id
                     $autoInc_id = mysqli_insert_id($conn);
+                    echo $autoInc_id;
                     // If the id exists then, 
                     if($autoInc_id)
                     {
-                        $code = rand(1,99999);
+                        $key = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                        $code = "";
+                        for($i = 0; $i < 5; ++$i)
+                            $code .= $key[rand(0,strlen($key) - 1)];
+                        
                         // Generates the unique bookingid
-                        $booking_id = "CUST-".$code.$autoInc_id;
+                        $booking_id = $code.$autoInc_id;
                         
                         $query = "UPDATE `bookings` SET `booking_id` = '$booking_id' WHERE `bookings`.`id` = $autoInc_id;";
                         $queryResult = mysqli_query($conn, $query);
@@ -185,6 +193,25 @@
             }
         }
         ?>
+        <?php
+            $resultSql = "SELECT * FROM `bookings` ORDER BY booking_created DESC";
+                            
+            $resultSqlResult = mysqli_query($conn, $resultSql);
+
+            if(!mysqli_num_rows($resultSqlResult)){ ?>
+                <!-- Bookings are not present -->
+                <div class="container mt-4">
+                    <div id="noCustomers" class="alert alert-dark " role="alert">
+                        <h1 class="alert-heading">No Bookings Found!!</h1>
+                        <p class="fw-light">Be the first person to add one!</p>
+                        <hr>
+                        <div id="addCustomerAlert" class="alert alert-success" role="alert">
+                                Click on <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button> to add a booking!
+                        </div>
+                    </div>
+                </div>
+            <?php }
+            else { ?>   
             <section id="booking">
                 <div id="head">
                     <h4>Booking Status</h4>
@@ -202,17 +229,27 @@
                     </div>
                     <table>
                         <tr>
-                            <th>ID</th>
+                            <th>PNR</th>
                             <th>Customer Name</th>
                             <th>Phone</th>
-                            <th>Bus</th>
-                            <th>Seats</th>
+                            <th>Bus Number</th>
+                            <th>Booked Seat</th>
                             <th>Amount</th>
-                            <th>Date</th>
-                            <th>Departure Time</th>
+                            <th>Departure Timing</th>
                             <th>Booked Date</th>
                             <th>Actions</th>
                         </tr>
+                        <?php
+                            while($row = mysqli_fetch_assoc($resultSqlResult))
+                            {
+                                    // echo "<pre>";
+                                    // var_export($row);
+                                    // echo "</pre>";
+                                $id = $row["id"];
+                                $customer_id = $row["customer_id"];
+                                $customer_name = $row["customer_name"];
+                                $customer_phone = $row["customer_phone"]; 
+                        ?>
                         <tr>
                             <td>1002</td>
                             <td>Twist</td>
