@@ -1,3 +1,15 @@
+// Required Constants
+const routeJson = document.querySelector("#routeJson").value;
+const customerJson = document.querySelector("#customerJson").value;
+const seatJson = document.querySelector("#seatJson").value;
+
+const routeData = JSON.parse(routeJson);
+const customerData = JSON.parse(customerJson);
+const seatData = JSON.parse(seatJson);
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+
 // Selecting Seats
 const seatDiagram = document.querySelector("#seatsDiagram");
 const seatInputInput = document.querySelector("#seatInput");
@@ -18,20 +30,28 @@ function selectSeat(evt)
         selected_id = "";
       }
 
-      seatInput.value = selected_id || "";
+      seatInput.value = selected_id;
+
+      if(selected_id)
+      {
+        // Put a value for amount
+        const sourceSelected = document.querySelector("#sourceSearch").value;
+        const destSelected  = document.querySelector("#destinationSearch").value;
+        const citiesArr = convertToArray(document.querySelector("#routeSearch").dataset.id);
+
+        console.log(sourceSelected, destSelected, citiesArr);
+        const stepCost = document.querySelector("#routeSearch").dataset.stepcost;
+
+        const amount = (citiesArr.indexOf(destSelected) - citiesArr.indexOf(sourceSelected)) * parseInt(stepCost);
+        console.log(citiesArr.indexOf(destSelected), citiesArr.indexOf(sourceSelected), stepCost);
+        document.querySelector("#bookAmount").value = amount;
+      }
     }
   }
 }
 
 
 // Add Form Operations
-const routeJson = document.querySelector("#routeJson").value;
-const customerJson = document.querySelector("#customerJson").value;
-const seatJson = document.querySelector("#seatJson").value;
-
-const routeData = JSON.parse(routeJson);
-const customerData = JSON.parse(customerJson);
-const seatData = JSON.parse(seatJson);
 
 const bookingBody = document.body;
 
@@ -66,7 +86,6 @@ function listenForSearches(evt){
 
 function showCustomerSuggestions(evt)
 {
-  console.log("fired");
   const word = this.value;
 
   if(!word)
@@ -99,9 +118,17 @@ function showRouteSuggestions(evt)
   }
   const regex = new RegExp(word, "gi");
   let suggestions = routeData.filter(({route_cities}) =>     route_cities.match(regex))
-  .map(({route_cities}) => {
+  .map(({route_id, route_cities, route_dep_date, route_dep_time, route_step_cost}) => {
     const viaCities = route_cities.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);
-    return `<li>${viaCities}</li>`
+
+    let route_date = route_dep_date.split("-");
+    route_date[1] = months[parseInt(route_date[1])];
+    route_date = route_date.reverse().join("-");
+  
+    return `<li id="routeSugg" data-id='${route_id}' data-depdate='${route_dep_date}' data-stepcost='${route_step_cost}'>
+    <span>${viaCities}</span>
+    <span>${route_date}, ${route_dep_time}</span
+    ></li>`
   })
   .join("");
 
@@ -111,7 +138,7 @@ function showRouteSuggestions(evt)
 function showSourceSuggestions(evt)
 {
   const word = this.value;
-  const routeSelected = document.querySelector("#routeSearch").value;
+  const routeSelected = document.querySelector("#routeSearch").dataset.id;
 
   if(!word)
   {
@@ -140,7 +167,7 @@ function showSourceSuggestions(evt)
 function showDestinationSuggestions(evt)
 {
   const word = this.value;
-  const routeSelected = document.querySelector("#routeSearch").value;
+  const routeSelected = document.querySelector("#routeSearch").dataset.id;
   const sourceSelected = document.querySelector("#sourceSearch").value;
 
   if(!word)
@@ -183,9 +210,20 @@ function lockSuggestion(evt)
 
   else if(searchInput.id === "routeSearch")
   {
+    // Set the route_id & depDate
+    const route_id = evt.target.dataset.id;
+    const dep_date = evt.target.dataset.depdate;
+    document.querySelector("#route_id").value = route_id;
+    document.querySelector("#dep_date").value = dep_date;
+
+    // Pass the route_id to the searchInput's dataset 
+    searchInput.setAttribute("data-id", route_id);
+    searchInput.setAttribute("data-depdate", dep_date);
+    searchInput.setAttribute("data-stepcost", evt.target.dataset.stepcost);
+
     // If there are just 2 cities, then fix source and destination as the 1st and 2nd city respectively
     // Converting comma separated cities to an array
-    const citiesArr = convertToArray(evt.target.innerText);
+    const citiesArr = convertToArray(route_id);
     if(citiesArr.length === 2)
     {
       document.querySelector("#sourceSearch").value = citiesArr[0];
@@ -202,8 +240,12 @@ function convertToArray(routeSelected)
 {
   // Converting comma separated cities to an array
   const arr = routeData
-    .find(({route_cities}) => route_cities === routeSelected)
+    .find(({route_id}) => route_id === routeSelected)
     .route_cities
     .split(",");
   return arr;
 }
+
+
+const sourceSelected = document.querySelector("#sourceSearch");
+const destSelected  = document.querySelector("#destinationSearch");
