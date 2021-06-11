@@ -248,7 +248,8 @@
                                 $id = $row["id"];
                                 $customer_id = $row["customer_id"];
                                 $customer_name = $row["customer_name"];
-                                $customer_phone = $row["customer_phone"]; 
+                                $customer_phone = $row["customer_phone"];
+                                 
                         ?>
                         <tr>
                             <td>1002</td>
