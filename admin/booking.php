@@ -43,23 +43,27 @@
                 // echo "<pre>";
                 // var_export($_POST);
                 // echo "</pre>";
+                // die;
                 $customer_id = $_POST["cid"];
                 $customer_name = $_POST["cname"];
                 $customer_phone = $_POST["cphone"];
                 $route_id = $_POST["route_id"];
                 $route_source = $_POST["sourceSearch"];
                 $route_destination = $_POST["destinationSearch"];
+                $route = $route_source . " &rarr; " . $route_destination;
                 $booked_seat = $_POST["seatInput"];
                 $amount = $_POST["bookAmount"];
-                $dep_date = $_POST["dep_date"];
+                // $dep_timing = $_POST["dep_timing"];
 
                 $booking_exists = exist_booking($conn,$customer_id,$route_id);
+                echo $booking_exists;
                 $booking_added = false;
         
                 if(!$booking_exists)
                 {
                     // Route is unique, proceed
-                    $sql = "INSERT INTO `bookings` (`customer_id`, `route_id`, `booked_amount`, `booked_seat`, `booked_date`, `booking_created`) VALUES ('$customer_id', '$route_id', '$amount', '$booked_seat', '$dep_date', current_timestamp());";
+                    $sql = "INSERT INTO `bookings` (`customer_id`, `route_id`, `customer_route`, `booked_amount`, `booked_seat`, `booking_created`) VALUES ('$customer_id', '$route_id','$route', '$amount', '$booked_seat', current_timestamp());";
+                    echo $sql;
 
                     $result = mysqli_query($conn, $sql);
                     // Gives back the Auto Increment id
@@ -233,10 +237,11 @@
                             <th>Customer Name</th>
                             <th>Phone</th>
                             <th>Bus Number</th>
+                            <th>Route</th>
                             <th>Booked Seat</th>
                             <th>Amount</th>
                             <th>Departure Timing</th>
-                            <th>Booked Date</th>
+                            <th>Booked Timing</th>
                             <th>Actions</th>
                         </tr>
                         <?php
@@ -247,28 +252,84 @@
                                     // echo "</pre>";
                                 $id = $row["id"];
                                 $customer_id = $row["customer_id"];
-                                $customer_name = $row["customer_name"];
-                                $customer_phone = $row["customer_phone"];
-                                 
+                                $route_id = $row["route_id"];
+
+                                $customer_name = get_from_table($conn, "customers","customer_id", $customer_id, "customer_name");
+                                
+                                $customer_phone = get_from_table($conn,"customers","customer_id", $customer_id, "customer_phone");
+
+                                $bus_no = get_from_table($conn, "routes", "route_id", $route_id, "bus_no");
+
+                                $route = $row["customer_route"];
+
+                                $booked_seat = $row["booked_seat"];
+                                
+                                $booked_amount = $row["booked_amount"];
+
+                                $dep_date = get_from_table($conn, "routes", "route_id", $route_id, "route_dep_date");
+
+                                $dep_time = get_from_table($conn, "routes", "route_id", $route_id, "route_dep_time");
+
+                                $booked_timing = $row["booking_created"];
                         ?>
                         <tr>
-                            <td>1002</td>
-                            <td>Twist</td>
-                            <td>9584736876</td>
-                            <td>Barone</td>
-                            <td>28</td>
-                            <td>2000</td>
-                            <td>16/8/21</td>
-                            <td>08:00</td>
-                            <td>10/8/21</td>
                             <td>
-                                <button class="button edit-button">Edit</button>
-                                <button class="button delete-button">Delete</button>
+                                <?php 
+                                    echo $customer_name;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $customer_phone;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $bus_no;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $route;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $booked_seat;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $booked_amount;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $dep_date . " , ". $dep_time;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    echo $booked_timing;
+                                ?>
+                            </td>
+                            <td>
+                                <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
+                                                echo $id;?>" data-name="<?php 
+                                                echo $customer_name;?>" data-phone="<?php 
+                                                echo $customer_phone;?>"
+                                                >Edit</button>
+                                            <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
+                                                echo $id;?>">Delete</button>
                             </td>
                         </tr>
+                        <?php 
+                        }
+                    ?>
                     </table>
                 </div>
             </section>
+            <?php } ?> 
         </div>
     </main>
     <?php
@@ -347,8 +408,8 @@
                             </div>
                             <!-- Send the route_id -->
                             <input type="hidden" name="route_id" id="route_id">
-                            <!-- Send the departure date too -->
-                            <input type="hidden" name="dep_date" id="dep_date">
+                            <!-- Send the departure timing too -->
+                            <input type="hidden" name="dep_timing" id="dep_timing">
 
                             <div class="mb-3">
                                 <label for="sourceSearch" class="form-label">Source</label>

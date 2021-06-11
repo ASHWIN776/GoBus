@@ -117,7 +117,8 @@ function showRouteSuggestions(evt)
     return;
   }
   const regex = new RegExp(word, "gi");
-  let suggestions = routeData.filter(({route_cities}) =>     route_cities.match(regex))
+
+  let suggestions = routeData.filter(({route_cities}) =>   route_cities.match(regex))
   .map(({route_id, route_cities, route_dep_date, route_dep_time, route_step_cost}) => {
     const viaCities = route_cities.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);
 
@@ -125,8 +126,8 @@ function showRouteSuggestions(evt)
     route_date[1] = months[parseInt(route_date[1])];
     route_date = route_date.reverse().join("-");
   
-    return `<li id="routeSugg" data-id='${route_id}' data-depdate='${route_dep_date}' data-stepcost='${route_step_cost}'>
-    <span>${viaCities}</span>
+    return `<li id="routeSugg" data-id='${route_id}' data-deptiming='${route_dep_date}, ${route_dep_time}' data-stepcost='${route_step_cost}'>
+    <span class="viaCities-span">${viaCities}</span>
     <span>${route_date}, ${route_dep_time}</span
     ></li>`
   })
@@ -212,13 +213,13 @@ function lockSuggestion(evt)
   {
     // Set the route_id & depDate
     const route_id = evt.target.dataset.id;
-    const dep_date = evt.target.dataset.depdate;
+    const dep_timing = evt.target.dataset.deptiming;
     document.querySelector("#route_id").value = route_id;
-    document.querySelector("#dep_date").value = dep_date;
+    document.querySelector("#dep_timing").value = dep_timing;
 
     // Pass the route_id to the searchInput's dataset 
     searchInput.setAttribute("data-id", route_id);
-    searchInput.setAttribute("data-depdate", dep_date);
+    searchInput.setAttribute("data-deptiming", dep_timing);
     searchInput.setAttribute("data-stepcost", evt.target.dataset.stepcost);
 
     // If there are just 2 cities, then fix source and destination as the 1st and 2nd city respectively
@@ -229,7 +230,8 @@ function lockSuggestion(evt)
       document.querySelector("#sourceSearch").value = citiesArr[0];
       document.querySelector("#destinationSearch").value = citiesArr[1];
     }
-
+    // So that timing is avoided when selecting the route
+      evt.target.innerText = evt.target.firstElementChild.innerText;
   }
   // This is default
   searchInput.value = evt.target.innerText;
@@ -245,7 +247,3 @@ function convertToArray(routeSelected)
     .split(",");
   return arr;
 }
-
-
-const sourceSelected = document.querySelector("#sourceSearch");
-const destSelected  = document.querySelector("#destinationSearch");
