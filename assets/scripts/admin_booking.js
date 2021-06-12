@@ -345,6 +345,11 @@ function editOrDelete(evt){
   else if(evt.target.className.includes("delete-button"))
   {
       const deleteInput = document.querySelector("#delete-id");
+      const deleteRouteId = document.querySelector("#delete-route-id");
+      const deleteBookedSeat = document.querySelector("#delete-booked-seat");
+      
+      deleteRouteId.value = evt.target.dataset.bookedseat;
+      deleteRouteId.value = evt.target.dataset.routeid;
       deleteInput.value = evt.target.dataset.id;
   }
 }
