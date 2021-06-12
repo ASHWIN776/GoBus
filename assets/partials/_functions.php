@@ -45,7 +45,7 @@
         if($num)
         {
             $row = mysqli_fetch_assoc($result);   
-            return $row["id"];
+            return $row["customer_id"];
         }
         return false;
     }
