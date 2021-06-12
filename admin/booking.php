@@ -109,17 +109,21 @@
             }
             if(isset($_POST["edit"]))
             {
-                // EDIT ROUTES
+                // EDIT BOOKING
+                // echo "<pre>";
+                // var_export($_POST);
+                // echo "</pre>";die;
                 $cname = $_POST["cname"];
                 $cphone = $_POST["cphone"];
                 $id = $_POST["id"];
+                $customer_id = $_POST["customer_id"];
                 $id_if_customer_exists = exist_customers($conn,$cname,$cphone);
 
-                if(!$id_if_customer_exists || $id == $id_if_customer_exists)
+                if(!$id_if_customer_exists || $customer_id == $id_if_customer_exists)
                 {
                     $updateSql = "UPDATE `customers` SET
                     `customer_name` = '$cname',
-                    `customer_phone` = '$cphone' WHERE `customers`.`id` = '$id';";
+                    `customer_phone` = '$cphone' WHERE `customers`.`customer_id` = '$customer_id';";
 
                     $updateResult = mysqli_query($conn, $updateSql);
                     $rowsAffected = mysqli_affected_rows($conn);
@@ -321,10 +325,11 @@
                                 ?>
                             </td>
                             <td>
-                                <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
+                                <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-customerid="<?php 
+                                                echo $customer_id;?>" data-id="<?php 
                                                 echo $id;?>" data-name="<?php 
                                                 echo $customer_name;?>" data-phone="<?php 
-                                                echo $customer_phone;?>"
+                                                echo $customer_phone;?>" 
                                                 >Edit</button>
                                             <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
                                                 echo $id;?>">Delete</button>
