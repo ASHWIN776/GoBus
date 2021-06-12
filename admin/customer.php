@@ -99,7 +99,7 @@
                 {
                     $updateSql = "UPDATE `customers` SET
                     `customer_name` = '$cname',
-                    `customer_phone` = '$cphone' WHERE `customers`.`id` = '$id';";
+                    `customer_phone` = '$cphone' WHERE `customers`.`customer_id` = '$id';";
 
                     $updateResult = mysqli_query($conn, $updateSql);
                     $rowsAffected = mysqli_affected_rows($conn);
@@ -248,7 +248,7 @@
                             </td>
                             <td>
                             <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-id="<?php 
-                                                echo $id;?>" data-name="<?php 
+                                                echo $customer_id;?>" data-name="<?php 
                                                 echo $customer_name;?>" data-phone="<?php 
                                                 echo $customer_phone;?>"
                                                 >Edit</button>
