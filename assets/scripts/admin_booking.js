@@ -200,6 +200,7 @@ function lockSuggestion(evt)
     // If there are just 2 cities, then fix source and destination as the 1st and 2nd city respectively
     // Converting comma separated cities to an array
     const citiesArr = convertToArray(route_id);
+
     if(citiesArr.length === 2)
     {
       document.querySelector("#sourceSearch").value = citiesArr[0];
@@ -209,17 +210,25 @@ function lockSuggestion(evt)
       evt.target.innerText = evt.target.firstElementChild.innerText;
 
     // To Color the not Available Seats in this route
-    const route_busNo = routeData.find(({route_id:id}) => id === route_id).bus_no;
-    
-    let seatsBooked = seatData.find(({bus_no}) => bus_no === route_busNo).seat_booked;
-    seatsBooked = seatsBooked.split(",");
+    const route_busNo = routeData.find(({route_id:id}) => {
+      return id === route_id
+    }).bus_no;
 
-    seatsBooked.forEach(seatNo => {
-      const seat = document.querySelector(`#seat-${seatNo}`);
-      seat.classList.add("notAvailable");
-    })
+    let seatsBooked = seatData.find(({bus_no}) => 
+    {
+      console.log(bus_no, route_busNo);
+     return bus_no === route_busNo;
+    }).seat_booked;
 
-
+    // If already booked seats exists
+    if(seatsBooked)
+    {
+      seatsBooked = seatsBooked.split(",");
+      seatsBooked.forEach(seatNo => {
+        const seat = document.querySelector(`#seat-${seatNo}`);
+        seat.classList.add("notAvailable");
+      })
+    }
   }
   // This is default
   searchInput.value = evt.target.innerText;
@@ -229,10 +238,13 @@ function lockSuggestion(evt)
 function convertToArray(routeSelected)
 {
   // Converting comma separated cities to an array
+  console.log(routeData);
   const arr = routeData
-    .find(({route_id}) => route_id === routeSelected)
-    .route_cities
-    .split(",");
+    .find(({route_id}) => {
+      console.log(route_id,routeSelected);
+      return route_id === routeSelected
+    }).route_cities.split(",");
+
   return arr;
 }
 
@@ -348,7 +360,7 @@ function editOrDelete(evt){
       const deleteRouteId = document.querySelector("#delete-route-id");
       const deleteBookedSeat = document.querySelector("#delete-booked-seat");
       
-      deleteRouteId.value = evt.target.dataset.bookedseat;
+      deleteBookedSeat.value = evt.target.dataset.bookedseat;
       deleteRouteId.value = evt.target.dataset.routeid;
       deleteInput.value = evt.target.dataset.id;
   }

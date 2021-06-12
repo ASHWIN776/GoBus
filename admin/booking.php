@@ -182,6 +182,7 @@
             {
                 // DELETE BOOKING
                 $id = $_POST["id"];
+                $route_id = $_POST["route_id"];
                 // Delete the booking with id => id
                 $deleteSql = "DELETE FROM `bookings` WHERE `bookings`.`id` = $id";
 
@@ -201,6 +202,17 @@
                     $messageStatus = "success";
                     $messageInfo = "Booking Details deleted";
                     $messageHeading = "Successfull!";
+
+                    // Update the Seats table
+                    $bus_no = get_from_table($conn, "routes", "route_id", $route_id, "bus_no");
+                    $seats = get_from_table($conn, "seats", "bus_no", $bus_no, "seat_booked");
+
+                    // Extract the seat no. that needs to be deleted
+                    $booked_seat = $_POST["booked_seat"];
+
+                    $seats = explode(",", $seats);
+                    var_dump($seats);
+                    die;
                 }
                 else{
 
@@ -339,14 +351,18 @@
                                 ?>
                             </td>
                             <td>
-                                <button class="button edit-button " data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-customerid="<?php 
+                            <button class="button edit-button" data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-customerid="<?php 
                                                 echo $customer_id;?>" data-id="<?php 
                                                 echo $id;?>" data-name="<?php 
                                                 echo $customer_name;?>" data-phone="<?php 
-                                                echo $customer_phone;?>" 
-                                                >Edit</button>
-                                            <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php 
-                                                echo $id;?>">Delete</button>
+                                                echo $customer_phone;?>" >Edit</button>
+                                <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" 
+                                data-id="<?php 
+                                                echo $id;?>" data-bookedseat="<?php 
+                                                echo $booked_seat;
+                                            ?>" data-routeid="<?php 
+                                            echo $route_id;
+                                        ?>"> Delete</button>
                             </td>
                         </tr>
                         <?php 
@@ -388,7 +404,7 @@
         
     ?>
     <!-- All Modals Here -->
-    <!-- Add Route Modal -->
+    <!-- Add Booking Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
                     <div class="modal-content">
@@ -564,6 +580,8 @@
                 <!-- Needed to pass id -->
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" id="delete-form"  method="POST">
                     <input id="delete-id" type="hidden" name="id">
+                    <input id="delete-booked-seat" type="text" name="booked_seat">
+                    <input id="delete-route-id" type="text" name="route_id">
                 </form>
             </div>
             <div class="modal-footer d-flex justify-content-center">
