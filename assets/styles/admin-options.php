@@ -231,10 +231,18 @@
         animation-fill-mode: both;
     }
 
-    #seatsDiagram td:not(.space):hover{
+    #seatsDiagram td.notAvailable,
+    #displaySeats td.notAvailable
+    {
+        color: white;
+        background-color: purple;
+    }
+
+    #seatsDiagram td:not(.space,.notAvailable):hover{
         cursor: pointer;
         border-color:greenyellow;
     }
+
     #seatsDiagram .space,
     #displaySeats .space{
         background-color: white;
