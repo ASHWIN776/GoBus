@@ -211,8 +211,12 @@
                     $booked_seat = $_POST["booked_seat"];
 
                     $seats = explode(",", $seats);
-                    var_dump($seats);
-                    die;
+                    $idx = array_search($booked_seat, $seats);
+                    array_splice($seats,$idx,1);
+                    $seats = implode(",", $seats);
+
+                    $updateSeatSql = "UPDATE `seats` SET `seat_booked` = '$seats' WHERE `seats`.`bus_no` = '$bus_no';";
+                    mysqli_query($conn, $updateSeatSql);
                 }
                 else{
 
