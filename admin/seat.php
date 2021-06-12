@@ -23,6 +23,14 @@
 <body>
     <!-- Requiring the admin header files -->
     <?php require '../assets/partials/_admin-header.php';?>
+    <?php
+                $busSql = "Select * from buses";
+                $resultBusSql = mysqli_query($conn, $busSql);
+                $arr = array();
+                while($row = mysqli_fetch_assoc($resultBusSql))
+                    $arr[] = $row;
+                $busJson = json_encode($arr);
+            ?>
 
             <section id="seat">
                 <div id="head">
@@ -36,7 +44,15 @@
                 </div>
                 <div id="main">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
-                        <input type="text" id="bus-no" name="bus-no" placeholder="Bus Number">
+                        <div class="searchBus">
+                            <input type="text" id="bus-no" name="bus-no" placeholder="Bus Number"
+                            class="busnoInput">
+                            <div class="sugg">
+                            </div>
+                        </div>
+
+                        <!-- Sending busJson -->
+                        <input type="hidden" id="busJson" name="busJson" value='<?php echo $busJson; ?>'>
                         <button type="submit" name="submit">Search</button>
                     </form>
                     <div id="seat-results">
@@ -45,6 +61,7 @@
                             {
                                 $busno = $_GET["bus-no"];
                                 $sql = "SELECT * FROM seats WHERE bus_no='$busno'";
+                                echo $sql;
                                 $result = mysqli_query($conn, $sql);
 
                                 $booked_seats = false;
