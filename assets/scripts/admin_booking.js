@@ -306,26 +306,14 @@ function editOrDelete(evt){
 
       const editRow = document.createElement("tr");
       editRow.innerHTML = `
-      <td colspan="7">
+      <td colspan="10">
           <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
 
               <input type="hidden" name="id" value="${evt.target.dataset.id}">
-              <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
 
-              <div class="searchBus">
-                  <input type="text" class="form-control busno busnoInput" name="busno" value="${evt.target.dataset.busno}">
-                  <div class="sugg">
-                  </div>
-              </div>
-
-              <input type="hidden"  name="old-busno" value="${evt.target.dataset.busno}">
-
-              <input type="date" class="form-control date" name="dep_date" value="${evt.target.dataset.date}">
-
-              <input type="time" class="form-control time" name="dep_time" value="${evt.target.dataset.time}">  
-              
-          
-              <input type="text" class="form-control cost" name="stepCost" value="${evt.target.dataset.cost}">        
+              <input type="text" class="form-control" name="cname" value="${evt.target.dataset.name}">
+            
+              <input type="text" class="form-control cphone" name="cphone" value="${evt.target.dataset.phone}">        
          
               <div class="d-flex justify-content-between">
                   <button type="submit" class="btn btn-success btn-sm" name="edit">SUBMIT</button>
