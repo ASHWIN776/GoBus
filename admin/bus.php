@@ -64,6 +64,10 @@
                     <strong>Successful!</strong> Bus Information Added
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>';
+                    // Add the bus to seats table
+                    $seatSql = "INSERT INTO `seats` (`bus_no`) VALUES ('$busno');";
+                    echo $seatSql;
+                    $result = mysqli_query($conn, $seatSql);
                 }
                 else{
                     
