@@ -103,7 +103,11 @@ function showCustomerSuggestions(evt)
     return `<li>${customerID}</li>`;
   }).join("");
   
+  if(!suggestions)
+    suggestions = `<span>No Search Results Found</span>`;
+  
   this.nextElementSibling.innerHTML = suggestions;
+
 }
 
 
@@ -132,6 +136,8 @@ function showRouteSuggestions(evt)
     ></li>`
   })
   .join("");
+  if(!suggestions)
+    suggestions = `<span>No Search Results Found</span>`;
 
   this.nextElementSibling.innerHTML = suggestions;
 }
@@ -156,11 +162,14 @@ function showSourceSuggestions(evt)
   let suggestions = citiesArr.filter(city => 
     city.match(regex) && citiesArr.indexOf(city) !== citiesArr.length - 1)
   .map(city => {
-    const cityName = city.replace(regex, `<span class="hl">${this.value.toUpperCase()}<span>`);
+    const cityName = city.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);
 
     return `<li>${cityName}</li>`;
   })
   .join("");
+  
+  if(!suggestions)
+    suggestions = `<span>No Search Results Found</span>`;
   
   this.nextElementSibling.innerHTML = suggestions;
 }
@@ -183,14 +192,22 @@ function showDestinationSuggestions(evt)
   let suggestions = [];
 
   // Inputs those  cities into suggestions array which comes after sourceSelected
+  console.log(citiesArr.indexOf(sourceSelected));
   for(let i = 0; i < citiesArr.length; ++i)
     if(i > citiesArr.indexOf(sourceSelected))
       suggestions.push(citiesArr[i]);
 
-  suggestions = suggestions.map(city => {
+  console.log(suggestions);
+  suggestions = suggestions.filter(city => city.match(regex))
+  .map(city => {
     const cityName = city.replace(regex, `<span class="hl">${this.value.toUpperCase()}</span>`);
     return `<li>${cityName}</li>`;
-  })
+  }).join("");
+  console.log(suggestions);
+
+  if(!suggestions)
+    suggestions = `<span>No Search Results Found</span>`;
+
   this.nextElementSibling.innerHTML = suggestions;
 }
 
@@ -247,3 +264,84 @@ function convertToArray(routeSelected)
     .split(",");
   return arr;
 }
+
+// Table Operations
+const resultRows = document.querySelectorAll("tr");
+const editBtns = document.querySelectorAll(".edit-button");
+const deleteBtns = document.querySelectorAll(".delete-button");
+const table = document.querySelector("table");
+const addRouteForm = document.querySelector("#addRouteForm");
+
+
+resultRows.forEach(row => 
+  row.addEventListener("click", editOrDelete)  
+);
+
+if(table)
+{
+  table.addEventListener("click", collapseForm);
+}
+
+function collapseForm(evt){
+  if(evt.target.className.includes("btn-close")){
+      const collapseRow = evt.target.parentElement.parentElement.parentElement.parentElement;
+
+      // enable the edit button
+      const editBtn = collapseRow.previousElementSibling.children[9].children[0];
+      editBtn.disabled = false;
+      editBtn.classList.remove("disabled");
+
+      // Collapse the row
+      collapseRow.remove();
+  }
+}
+
+function editOrDelete(evt){
+  
+  if(evt.target.className.includes("edit-button"))
+  {
+      // Disable the button
+      evt.target.disabled = true;
+      evt.target.classList.add("disabled");
+
+      const editRow = document.createElement("tr");
+      editRow.innerHTML = `
+      <td colspan="7">
+          <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
+
+              <input type="hidden" name="id" value="${evt.target.dataset.id}">
+              <input type="text" class="form-control" name="viaCities" value="${evt.target.dataset.cities}">
+
+              <div class="searchBus">
+                  <input type="text" class="form-control busno busnoInput" name="busno" value="${evt.target.dataset.busno}">
+                  <div class="sugg">
+                  </div>
+              </div>
+
+              <input type="hidden"  name="old-busno" value="${evt.target.dataset.busno}">
+
+              <input type="date" class="form-control date" name="dep_date" value="${evt.target.dataset.date}">
+
+              <input type="time" class="form-control time" name="dep_time" value="${evt.target.dataset.time}">  
+              
+          
+              <input type="text" class="form-control cost" name="stepCost" value="${evt.target.dataset.cost}">        
+         
+              <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-success btn-sm" name="edit">SUBMIT</button>
+                  <button type="button" class="btn-close align-self-center"></button>
+              </div>
+          </form>
+      </td>
+  `;
+  
+  this.after(editRow);
+  }
+  // if delete button is clicked
+  else if(evt.target.className.includes("delete-button"))
+  {
+      const deleteInput = document.querySelector("#delete-id");
+      deleteInput.value = evt.target.dataset.id;
+  }
+}
+
