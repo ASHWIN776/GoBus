@@ -8,9 +8,13 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["signup"]))
     {
+        // echo "<pre>";
+        // var_export($_POST);
+        // echo "</pre>";
+
         $fullName = $_POST["firstName"] . " " . $_POST["lastName"];
         $username = $_POST["username"];
-        $password = $_POST["password"];
+        $password = $_POST["password"]; 
 
         // Check if the username already exists
         $user_exists = exist_user($conn, $username);
