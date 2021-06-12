@@ -162,10 +162,10 @@
             }
             if(isset($_POST["delete"]))
             {
-                // DELETE ROUTES
+                // DELETE BOOKING
                 $id = $_POST["id"];
-                // Delete the route with id => id
-                $deleteSql = "DELETE FROM `customers` WHERE `customers`.`id` = $id";
+                // Delete the booking with id => id
+                $deleteSql = "DELETE FROM `bookings` WHERE `bookings`.`id` = $id";
 
                 $deleteResult = mysqli_query($conn, $deleteSql);
                 $rowsAffected = mysqli_affected_rows($conn);
@@ -181,7 +181,7 @@
                 elseif($deleteResult)
                 {   
                     $messageStatus = "success";
-                    $messageInfo = "Customer Details deleted";
+                    $messageInfo = "Booking Details deleted";
                     $messageHeading = "Successfull!";
                 }
                 else{
@@ -254,6 +254,8 @@
                                 $customer_id = $row["customer_id"];
                                 $route_id = $row["route_id"];
 
+                                $pnr = $row["booking_id"];
+
                                 $customer_name = get_from_table($conn, "customers","customer_id", $customer_id, "customer_name");
                                 
                                 $customer_phone = get_from_table($conn,"customers","customer_id", $customer_id, "customer_phone");
@@ -273,6 +275,11 @@
                                 $booked_timing = $row["booking_created"];
                         ?>
                         <tr>
+                            <td>
+                                <?php 
+                                    echo $pnr;
+                                ?>
+                            </td>
                             <td>
                                 <?php 
                                     echo $customer_name;
