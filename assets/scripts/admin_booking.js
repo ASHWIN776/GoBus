@@ -9,48 +9,6 @@ const seatData = JSON.parse(seatJson);
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
-
-// Selecting Seats
-const seatDiagram = document.querySelector("#seatsDiagram");
-const seatInputInput = document.querySelector("#seatInput");
-seatDiagram.addEventListener("click", selectSeat);
-let selected_id;
-
-function selectSeat(evt)
-{
-  if(evt.target.nodeName == "TD" && !evt.target.className.includes("space"))
-  {
-    if(!selected_id || evt.target.dataset.name === selected_id)
-    {
-      selected_id = evt.target.dataset.name;
-      evt.target.classList.toggle("selected");
-
-      if(!evt.target.className.includes("selected"))
-      {
-        selected_id = "";
-      }
-
-      seatInput.value = selected_id;
-
-      if(selected_id)
-      {
-        // Put a value for amount
-        const sourceSelected = document.querySelector("#sourceSearch").value;
-        const destSelected  = document.querySelector("#destinationSearch").value;
-        const citiesArr = convertToArray(document.querySelector("#routeSearch").dataset.id);
-
-        console.log(sourceSelected, destSelected, citiesArr);
-        const stepCost = document.querySelector("#routeSearch").dataset.stepcost;
-
-        const amount = (citiesArr.indexOf(destSelected) - citiesArr.indexOf(sourceSelected)) * parseInt(stepCost);
-        console.log(citiesArr.indexOf(destSelected), citiesArr.indexOf(sourceSelected), stepCost);
-        document.querySelector("#bookAmount").value = amount;
-      }
-    }
-  }
-}
-
-
 // Add Form Operations
 
 const bookingBody = document.body;
@@ -249,6 +207,19 @@ function lockSuggestion(evt)
     }
     // So that timing is avoided when selecting the route
       evt.target.innerText = evt.target.firstElementChild.innerText;
+
+    // To Color the not Available Seats in this route
+    const route_busNo = routeData.find(({route_id:id}) => id === route_id).bus_no;
+    
+    let seatsBooked = seatData.find(({bus_no}) => bus_no === route_busNo).seat_booked;
+    seatsBooked = seatsBooked.split(",");
+
+    seatsBooked.forEach(seatNo => {
+      const seat = document.querySelector(`#seat-${seatNo}`);
+      seat.classList.add("notAvailable");
+    })
+
+
   }
   // This is default
   searchInput.value = evt.target.innerText;
@@ -264,6 +235,50 @@ function convertToArray(routeSelected)
     .split(",");
   return arr;
 }
+
+
+// Selecting Seats
+const seatDiagram = document.querySelector("#seatsDiagram");
+const seatInputInput = document.querySelector("#seatInput");
+seatDiagram.addEventListener("click", selectSeat);
+let selected_id; 
+
+function selectSeat(evt)
+{
+  if(evt.target.nodeName == "TD" && !evt.target.className.includes("space") && !evt.target.className.includes("notAvailable"))
+  {
+    if(!selected_id || evt.target.dataset.name === selected_id)
+    {
+      selected_id = evt.target.dataset.name;
+      evt.target.classList.toggle("selected");
+
+      if(!evt.target.className.includes("selected"))
+      {
+        selected_id = "";
+      }
+
+      seatInput.value = selected_id;
+
+      if(selected_id)
+      {
+        // Put a value for amount
+        const sourceSelected = document.querySelector("#sourceSearch").value;
+        const destSelected  = document.querySelector("#destinationSearch").value;
+        const citiesArr = convertToArray(document.querySelector("#routeSearch").dataset.id);
+
+        console.log(sourceSelected, destSelected, citiesArr);
+        const stepCost = document.querySelector("#routeSearch").dataset.stepcost;
+
+        const amount = (citiesArr.indexOf(destSelected) - citiesArr.indexOf(sourceSelected)) * parseInt(stepCost);
+        console.log(citiesArr.indexOf(destSelected), citiesArr.indexOf(sourceSelected), stepCost);
+        document.querySelector("#bookAmount").value = amount;
+      }
+    }
+  }
+}
+
+
+
 
 // Table Operations
 const resultRows = document.querySelectorAll("tr");
@@ -310,6 +325,7 @@ function editOrDelete(evt){
           <form class="editRouteForm d-flex justify-content-between" action="${evt.target.dataset.link}" method="POST">
 
               <input type="hidden" name="id" value="${evt.target.dataset.id}">
+              <input type="hidden" name="customer_id" value="${evt.target.dataset.customerid}">
 
               <input type="text" class="form-control" name="cname" value="${evt.target.dataset.name}">
             
