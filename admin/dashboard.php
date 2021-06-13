@@ -109,7 +109,7 @@
                         <div class="info-content">
                             <p>Total Seats</p>
                             <p class="num" data-target="<?php 
-                                    echo count($seatData);
+                                    echo 38 * count($busData);
                                 ?>">
                                 999
                             </p>
