@@ -109,6 +109,7 @@
         width: 100%;
         font-size: inherit;
         border-radius: 5px;
+        padding-left: 0.3rem;
     }
 
 
