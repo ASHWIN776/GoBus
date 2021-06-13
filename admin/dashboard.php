@@ -36,6 +36,13 @@
     $busData = json_decode($busJson);
     $adminData = json_decode($adminJson);
     $bookingData = json_decode($bookingJson);
+
+    // echo "<pre>";
+    // var_export(get_object_vars($adminData[0])["user_fullname"]);
+    // var_export($adminData);
+    // var_export($_SESSION);
+    // echo "</pre>";
+
     ?>
 
             <section id="dashboard">
@@ -149,36 +156,23 @@
                 </div>
                 <h3>Admin</h3>
                 <div id="admin">
-                    <div class="info-box admin-item">
-                        <img src="../assets/img/admin1.png" alt="Profile Pic">
-                        <h4>Admin - 1</h4>
-                        <p class="bio">Front End Developer</p>
-                    </div>
-                    <div class="info-box admin-item">
-                        <img src="../assets/img/admin2.png" alt="Profile Pic" >
-                        <h4>Admin - 2</h4>
-                        <p class="bio">Front End Developer</p>
-                    </div>
-                    <div class="info-box admin-item">
-                        <img src="../assets/img/admin3.png" alt="Profile Pic" >
-                        <h4>Admin - 3</h4>
-                        <p class="bio">Front End Developer</p>
-                    </div>
-                    <div class="info-box admin-item">
-                        <img src="../assets/img/admin4.png" alt="Profile Pic" >
-                        <h4>Admin - 4</h4>
-                        <p class="bio">Front End Developer</p>
-                    </div>
-                    <div class="info-box admin-item">
-                        <img src="../assets/img/admin5.png" alt="Profile Pic" >
-                        <h4>Admin - 5</h4>
-                        <p class="bio">Front End Developer</p>
-                    </div>
-                    <div class="info-box admin-item">
-                        <img src="../assets/img/admin6.png" alt="Profile Pic" >
-                        <h4>Admin - 6</h4>
-                        <p class="bio">Front End Developer</p>
-                    </div>
+                    <?php 
+                        // Loop through Admin Data and show the admins in boxes other than the existing admin which is $user_id  == $_SESSION["user_id"]
+                        foreach($adminData as $admin)
+                        {
+                            $adminArr = get_object_vars($admin);
+                            if($adminArr["user_id"] == $user_id) 
+                                continue;
+                            $username = $adminArr["user_name"];
+                        ?>
+                            <div class="info-box admin-item">
+                                <img src="../assets/img/admin1.png" alt="Profile Pic">
+                                <h4><?php echo $username; ?></h4>
+                                <p class="bio">Front End Developer</p>
+                            </div>
+                        <?php 
+                        }
+                    ?>
                 </div>
                 <h3>Activity</h3>
                 <div id="activity">
