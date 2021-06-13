@@ -194,7 +194,7 @@
 
                 if(!$rowsAffected)
                 {
-                    $messageInfo = "Record Doesnt Exist";
+                    $messageInfo = "Record Doesn't Exist";
                 }
 
                 elseif($deleteResult)
@@ -378,35 +378,13 @@
             <?php } ?> 
         </div>
     </main>
-    <?php
-    // Route JSON
-        $rtSql = "Select * from routes";
-        $resultrtSql = mysqli_query($conn, $rtSql);
-        $arr = array();
-        if(mysqli_num_rows($resultrtSql))
-            while($row = mysqli_fetch_assoc($resultrtSql))
-                $arr[] = $row;
-        $routeJson = json_encode($arr);
-    
-    // Customer JSON
-        $ctSql = "Select * from customers";
-        $resultctSql = mysqli_query($conn, $ctSql);
-        $arr = array();
-        if(mysqli_num_rows($resultctSql))
-            while($row = mysqli_fetch_assoc($resultctSql))
-                $arr[] = $row;
-        $customerJson = json_encode($arr);
-    
-    // Seats JSON
-        $stSql = "Select * from seats";
-        $resultstSql = mysqli_query($conn, $stSql);
-        $arr = array();
-        if(mysqli_num_rows($resultstSql))
-            while($row = mysqli_fetch_assoc($resultstSql))
-                $arr[] = $row;
-        $seatJson = json_encode($arr);
-        
-    ?>
+    <!-- Requiring _getJSON.php-->
+    <!-- Will have access to variables 
+        1. routeJson
+        2. customerJson
+        3. seatJson
+    -->
+    <?php require '../assets/partials/_getJSON.php'?>
     <!-- All Modals Here -->
     <!-- Add Booking Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

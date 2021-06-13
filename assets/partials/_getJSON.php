@@ -1,30 +1,29 @@
-
 <?php
-    require '_functions.php';
-
-    $conn = db_connect();
-
-    if(!$conn)
-        die("Connection Failed");
-
-    if(isset($_GET["query"]))
-    {
-        $table = $_GET["query"];
-        if(isset($_GET["id"]))
-        {
-            $id = $_GET["id"];
-            $sql = "Select * from $table where id=$id;";
-        }
-        else
-            $sql = "Select * from $table;";
-            
-        $result = mysqli_query($conn, $sql);
-        $arr = array();
-        while($row = mysqli_fetch_assoc($result))
+    // Route JSON
+    $rtSql = "Select * from routes";
+    $resultrtSql = mysqli_query($conn, $rtSql);
+    $arr = array();
+    if(mysqli_num_rows($resultrtSql))
+        while($row = mysqli_fetch_assoc($resultrtSql))
             $arr[] = $row;
+        $routeJson = json_encode($arr);
+    
+    // Customer JSON
+    $ctSql = "Select * from customers";
+    $resultctSql = mysqli_query($conn, $ctSql);
+    $arr = array();
+    if(mysqli_num_rows($resultctSql))
+        while($row = mysqli_fetch_assoc($resultctSql))
+            $arr[] = $row;
+    $customerJson = json_encode($arr);
+    
+    // Seats JSON
+    $stSql = "Select * from seats";
+    $resultstSql = mysqli_query($conn, $stSql);
+    $arr = array();
+    if(mysqli_num_rows($resultstSql))
+        while($row = mysqli_fetch_assoc($resultstSql))
+            $arr[] = $row;
+    $seatJson = json_encode($arr);
         
-            $json = json_encode($arr);
-        print($json);
-    }
-
 ?>
