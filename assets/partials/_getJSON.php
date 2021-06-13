@@ -25,5 +25,28 @@
         while($row = mysqli_fetch_assoc($resultstSql))
             $arr[] = $row;
     $seatJson = json_encode($arr);
+
+    // Bus JSON
+    $busSql = "Select * from buses";
+    $resultBusSql = mysqli_query($conn, $busSql);
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultBusSql))
+        $arr[] = $row;
+    $busJson = json_encode($arr);
+
+    // Booking JSON
+    $bookingSql = "Select * from bookings";
+    $resultBookingSql = mysqli_query($conn, $bookingSql);
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultBookingSql))
+        $arr[] = $row;
+    $bookingJson = json_encode($arr);
         
+    // Admin JSON
+    $adminSql = "Select * from users";
+    $resultAdminSql = mysqli_query($conn, $adminSql);
+    $arr = array();
+    while($row = mysqli_fetch_assoc($resultAdminSql))
+        $arr[] = $row;
+    $adminJson = json_encode($arr);
 ?>
