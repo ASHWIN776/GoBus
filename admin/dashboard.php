@@ -21,7 +21,22 @@
 </head>
 <body>
     <!-- Requiring the admin header files -->
-    <?php require '../assets/partials/_admin-header.php';?>
+    <?php require '../assets/partials/_admin-header.php';
+        require '../assets/partials/_getJSON.php';
+    //  Will have access to variables 
+    //     1. routeJson
+    //     2. customerJson
+    //     3. seatJson
+    //     4. busJson
+    //     5. adminJson
+    //     6. bookingJSON
+    $routeData = json_decode($routeJson);
+    $customerData = json_decode($customerJson);
+    $seatData = json_decode($seatJson);
+    $busData = json_decode($busJson);
+    $adminData = json_decode($adminJson);
+    $bookingData = json_decode($bookingJson);
+    ?>
 
             <section id="dashboard">
                 <h3>Status</h3>
@@ -35,7 +50,11 @@
                         </div>
                         <div class="info-content">
                             <p>Total Bookings</p>
-                            <p class="num">24</p>
+                            <p class="num" data-target="<?php 
+                                    echo count($bookingData);
+                                ?>">
+                                999
+                            </p>
                         </div>
                         <a href="./booking.php">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -48,7 +67,11 @@
                         </div>
                         <div class="info-content">
                             <p>Total Buses</p>
-                            <p class="num">69</p>
+                            <p class="num" data-target="<?php 
+                                    echo count($busData);
+                                ?>">
+                                999
+                            </p>
                         </div>
                         <a href="./bus.php">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -61,7 +84,11 @@
                         </div>
                         <div class="info-content">
                             <p>Total Routes</p>
-                            <p class="num">9</p>
+                            <p class="num" data-target="<?php 
+                                    echo count($routeData);
+                                ?>">
+                                999
+                            </p>
                         </div>
                         <a href="./route.php">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -74,7 +101,11 @@
                         </div>
                         <div class="info-content">
                             <p>Total Seats</p>
-                            <p class="num">50</p>
+                            <p class="num" data-target="<?php 
+                                    echo count($seatData);
+                                ?>">
+                                999
+                            </p>
                         </div>
                         <a href="./seat.php">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -90,7 +121,11 @@
                         </div>
                         <div class="info-content">
                             <p>Total Customers</p>
-                            <p class="num">100</p>
+                            <p class="num" data-target="<?php 
+                                    echo count($customerData);
+                                ?>">
+                                999
+                            </p>
                         </div>
                         <a href="./customer.php">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -103,7 +138,11 @@
                         </div>
                         <div class="info-content">
                             <p>Total Admins</p>
-                            <p class="num">6</p>
+                            <p class="num" data-target="<?php 
+                                    echo count($adminData);
+                                ?>">
+                                999
+                            </p>
                         </div>
                         <a href="#admin">View More <i class="fas fa-arrow-right"></i></a>
                     </div>
@@ -148,5 +187,6 @@
             </section>
         </div>
     </main>
+    <script src="../assets/scripts/admin_dashboard.js"></script>
 </body>
 </html>
