@@ -20,5 +20,5 @@ counters.forEach(counter => {
         else counter.innerText = target;
     }
 
-    setTimeout(updateCount,100);
+    setTimeout(updateCount,900);
 });

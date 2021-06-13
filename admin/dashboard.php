@@ -52,7 +52,7 @@
                         <div class="heading">
                             <h5>Bookings</h5>
                             <div class="info">
-                                <i title="Details about the bookings" class="fas fa-info-circle"></i>
+                                <i class="fas fa-info-circle"></i>
                             </div>
                         </div>
                         <div class="info-content">
@@ -69,7 +69,7 @@
                         <div class="heading">
                             <h5>Buses</h5>
                             <div class="info">
-                                <i title="Details about the buses"  class="fas fa-info-circle"></i>
+                                <i  class="fas fa-info-circle"></i>
                             </div>
                         </div>
                         <div class="info-content">
@@ -86,7 +86,7 @@
                         <div class="heading">
                             <h5>Routes</h5>
                             <div class="info">
-                                <i title="Details about the routes" class="fas fa-info-circle"></i>
+                                <i class="fas fa-info-circle"></i>
                             </div>
                         </div>
                         <div class="info-content">
@@ -103,7 +103,7 @@
                         <div class="heading">
                             <h5>Seats</h5>
                             <div class="info">
-                                <i title="Details about the seats" class="fas fa-info-circle"></i>
+                                <i class="fas fa-info-circle"></i>
                             </div>
                         </div>
                         <div class="info-content">
@@ -123,7 +123,7 @@
                         <div class="heading">
                             <h5>Customers</h5>
                             <div class="info">
-                                <i title="Details about the customers" class="fas fa-info-circle"></i>
+                                <i class="fas fa-info-circle"></i>
                             </div>
                         </div>
                         <div class="info-content">
@@ -140,7 +140,7 @@
                         <div class="heading">
                             <h5>Admins</h5>
                             <div class="info">
-                                <i title="Details about the admins" class="fas fa-info-circle"></i>
+                                <i class="fas fa-info-circle"></i>
                             </div>
                         </div>
                         <div class="info-content">
