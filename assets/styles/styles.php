@@ -106,7 +106,7 @@
     form input, form textarea{
         border: 2px solid black;
         outline: none;
-        width: 100%;
+        /* width: 100%; */
         font-size: inherit;
         border-radius: 5px;
         padding-left: 0.3rem;
