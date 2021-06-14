@@ -1,3 +1,33 @@
+<?php
+    require 'assets/partials/_functions.php';
+    $conn = db_connect();    
+
+    if(!$conn) 
+        die("Connection Failed");
+
+    if(!$_SERVER["REQUEST_METHOD"] == "POST" || !isset($_POST["search"]))
+    {
+        header("location: index.php");
+        exit;
+    }
+
+    // Operate on Search Route Form details
+    // echo "<pre>";
+    // var_export($_POST);
+    // echo "</pre>";
+    // die;
+
+    $source = $_POST["source"];
+    $destination = $_POST["destination"];
+    $dep_date = $_POST["departure"];
+
+    // Search the tables if we have any routes thats matches the form details
+    
+    
+    
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
