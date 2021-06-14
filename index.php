@@ -43,21 +43,21 @@
     <section id="home">
         <div id="route-search-form">
             <h1>Find Routes</h1>
-            <form action="">
+            <form action="routes.php" method="POST">
                 <div>
-                    <label for="source">Source</label><br>
+                    <label for="source">Source</label>
                     <input type="text" id="source" name="source">
                 </div>
                 <div>
-                    <label for="destination">Destination</label><br>
+                    <label for="destination">Destination</label>
                     <input type="text" id="destination" name="destination">
                 </div>
                 <div>
-                    <label for="departure">Date of Departure</label><br>
+                    <label for="departure">Date of Departure</label>
                     <input type="date" id="departure" name="departure">
                 </div>
                 <div>
-                    <button type="button" name="search">Search</button>
+                    <button type="submit" name="search">Search</button>
                 </div>
             </form>
         </div>
