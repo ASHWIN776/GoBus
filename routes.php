@@ -18,6 +18,7 @@
     
     $sql = "SELECT * FROM routes WHERE route_dep_date='$dep_date'";
     $result = mysqli_query($conn, $sql);
+    $no_results = mysqli_num_rows($result);
 ?>
 
 
@@ -59,9 +60,20 @@
     <main id="container">
         <section id="searched-route">
             <ul>
-                <li class="searched-route-item" id="">Total Results : <span id="result-num">100</span></li>
+                <li class="searched-route-item" id="">Total Results : <span id="result-num">
+                    <?php 
+                        echo $no_results;
+                    ?>
+                </span></li>
                 <li class="searched-route-item"><?php echo $source; ?> <span class="arrow">&rarr;</span> <?php echo $destination; ?>
-                <li class="searched-route-item" id="date"><?php echo $dep_date; ?></li>
+                <li class="searched-route-item" id="date">
+                <?php 
+                    // Changing format from yyyy-mm-dd to dd-mm-yyyy
+                    $dep_date = implode("-",(array_reverse(explode("-", $dep_date))));
+                    
+                    echo $dep_date;
+
+                ?></li>
             </ul>
         </section>
         <section id="searched-results">
@@ -77,15 +89,23 @@
                 $route_id = $row["route_id"];
                 $route_dep_time = $row["route_dep_time"];
                 $route_stepCost = $row["route_step_cost"];
+                $bus_no = $row["bus_no"];
 
                 $source_idx = array_search($source, $citiesArr);
                 $dest_idx = array_search($destination, $citiesArr);
 
-                $viaCities = implode(",", array_slice($citiesArr, $source_idx, $dest_idx - $source_idx));
+                $viaCities = false;
+                if($source_idx + 1 != $dest_idx)
+                {
+                    $viaCities = implode(",", array_slice($citiesArr, $source_idx + 1, $dest_idx - $source_idx));
+                }
 
                 $booking_amount = ($dest_idx - $source_idx) * $route_stepCost;
-            
+                
+                $booked_seats = get_from_table($conn,"seats", "bus_no", $bus_no, "seat_booked");
+                $booked_seats = explode(",", $booked_seats);
 
+                $no_available_seats = 38 - count($booked_seats);
                 ?>
 
                 <div id="searched-result-item">
@@ -116,9 +136,14 @@
                             </span>
                         </p>
                         <p id="cities">
-                            <span class="via">Via</span> 
-                            <?php 
-                                echo $viaCities;
+                            <?php if($viaCities){ ?>
+                                <span class="via">Via</span> 
+                                <?php 
+                                    echo $viaCities;
+                            }
+                            else{ ?>
+                                <span class="via">Direct</span>
+                            <?php }
                             ?>
                         </p>
                     </div>
@@ -126,7 +151,9 @@
                         <div>
                             <span id="num-seats">
                             <!-- Total or taken?? -->
-                            30
+                            <?php 
+                                echo $no_available_seats;
+                            ?>
                         </span> seats
                         </div>
                     </div>
