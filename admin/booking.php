@@ -387,7 +387,8 @@
         5. adminJson
         6. bookingJSON
     -->
-    <?php require '../assets/partials/_getJSON.php'?>
+    <?php require '../assets/partials/_getJSON.php';?>
+    
     <!-- All Modals Here -->
     <!-- Add Booking Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
