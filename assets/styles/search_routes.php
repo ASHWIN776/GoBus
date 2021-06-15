@@ -196,6 +196,7 @@
         background-color: white;
         border-radius: 5px;
         padding: 0.5rem;
+        margin-bottom: 2rem;
     }
 
     .bookForm{
