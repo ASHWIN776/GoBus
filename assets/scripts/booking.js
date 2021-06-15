@@ -1,9 +1,3 @@
-// Selecting Seats
-
-
-
-
-
 // Booking Operations
 const routeItems = document.querySelectorAll(".searched-result-item");
 const bookContainers = document.querySelectorAll(".bookContainer");
@@ -20,12 +14,15 @@ function bookingForm(evt)
         btn.disabled = true;
         btn.style.opacity = "0.5";
 
+        const bus_no = btn.dataset.busno;
+
         const bookRow = btn.parentElement.parentElement.nextElementSibling;
         bookRow.classList.add("bookRow");
 
         bookRow.innerHTML = `
         <form class="bookForm" action="" method="POST">
         <!-- Seats Diagram -->
+                <div>
                 <table class="seatsDiagram">
                     <tr>
                         <td class="seat-1" data-name="1">1</td>
@@ -87,9 +84,9 @@ function bookingForm(evt)
                         <td class="seat-37" data-name="37">37</td>
                         <td class="seat-38" data-name="38">38</td>
                     </tr>
-                    <!-- Pass the seat selected from here -->
-                    <input type="hidden" name="seat">
                 </table>
+                <div class="busNo">${bus_no}</div>
+                </div>
                 <div class="customer-details">
                     <div class="form-continued">
                         <div>
@@ -99,12 +96,28 @@ function bookingForm(evt)
                         <div>
                             <input type="text" name="phone" placeholder="Phone Number*">
                         </div>
+                        <div>
+                            <input type="text" name="seat_selected" placeholder="Seat Number*" readonly>
+                        </div>
                         <button class="signup-btn" type="submit" name="signup">BOOK</button>
                     </div>
                 </div>
                 <i class="fas fa-times close-btn"></i>
         </form>
         `;
+
+        // Coloring booked seats
+        let seatData = btn.dataset.seats;
+        
+        // If already booked seat exists
+        if(seatData)
+        {
+            seatData = seatData.split(",");
+            seatData.forEach(seatNo => {
+                const seat = bookRow.querySelector(`.seat-${seatNo}`);
+                seat.classList.add("notAvailable");
+            })
+        }
     }
 }
 
@@ -124,3 +137,31 @@ function collapseForm(evt)
         bookForm.remove();
     }
 }
+
+// Selecting Seats
+bookContainers.forEach(container => {
+    container.addEventListener("click", selectSeat);
+});
+
+let selected_id; 
+function selectSeat(evt)
+{
+  if(evt.target.nodeName == "TD" && !evt.target.className.includes("space") && !evt.target.className.includes("notAvailable"))
+  {
+    if(!selected_id || evt.target.dataset.name === selected_id)
+    {
+      selected_id = evt.target.dataset.name;
+      evt.target.classList.toggle("selected");
+
+      if(!evt.target.className.includes("selected"))
+      {
+        selected_id = "";
+      }
+
+    //   Selected seat will be shown in the particular input
+      evt.target.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].children[2].children["seat_selected"].value = selected_id;
+
+    }
+  }
+}
+
