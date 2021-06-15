@@ -1,16 +1,14 @@
-const counters = document.querySelectorAll(".counters");
+// Animation Counter
+const counters = document.querySelectorAll(".counter");
+
 counters.forEach(counter => {
-    let target = +counter.CDATA_SECTION_NODE.target;
+    let target = +counter.dataset.target;
     let step = 100;
     let dec = parseInt((999 - target) / step);
-    let i = 0;
 
     function updateCount()
     {
-        console.log(i++);
-        if(i === 1000) return;
         const curr = +counter.innerText;
-        console.log(curr, target);
         if(curr > target)
         {
             counter.innerText = curr - dec;
