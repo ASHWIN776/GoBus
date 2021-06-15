@@ -209,7 +209,8 @@
 
     #pnr-form button{
         font-weight: bold;
-        padding: 0.3rem 1rem;
+        font-size: 14px;
+        padding: 0.3rem 0.5rem;
         text-transform: uppercase;
         border: 3px solid;
         border-radius: 5px;

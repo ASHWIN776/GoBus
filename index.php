@@ -138,7 +138,7 @@
         </section>
         <section id="pnr-enquiry">
             <div id="pnr-form">
-                <h1>PNR ENQUIRY</h1>
+                <h2>PNR ENQUIRY</h2>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Click Here</button>
             </div>
         </section>
