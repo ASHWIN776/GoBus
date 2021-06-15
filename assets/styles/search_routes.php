@@ -202,6 +202,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
     }
 
     .seatsDiagram, 
@@ -250,7 +251,23 @@
         padding: 0.5rem 0;
     }
 
+    .close-btn{
+        position: absolute;
+        top: 0%;
+        right: 0.3%;
+    }
 
+    .close-btn:hover{
+        color: #495057;
+    }
+
+    .busNo{
+        font-size: 1.2rem;
+        padding-top: 1rem;
+        text-align: center;
+        font-weight: bold;
+        color: #9a031e;
+    }
 
     @-webkit-keyframes rubberBand {
         0% {

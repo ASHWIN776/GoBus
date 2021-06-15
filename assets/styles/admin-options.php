@@ -253,6 +253,7 @@
         display: flex;
         justify-content: space-between;
     }
+    
     @-webkit-keyframes rubberBand {
         0% {
             -webkit-transform: scale3d(1, 1, 1);
