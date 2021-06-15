@@ -103,74 +103,83 @@
                 $booking_amount = ($dest_idx - $source_idx) * $route_stepCost;
                 
                 $booked_seats = get_from_table($conn,"seats", "bus_no", $bus_no, "seat_booked");
-                $booked_seats = explode(",", $booked_seats);
+                    
+                $booked_seatsArr = [];
 
-                $no_available_seats = 38 - count($booked_seats);
+                if($booked_seats)
+                $booked_seatsArr = explode(",", $booked_seats);
+
+                $no_available_seats = 38 - count($booked_seatsArr);
                 ?>
-
-                <div id="searched-result-item">
-                    <div id="route-id">
-                        <p>
-                            <?php echo $route_id; ?>
-                        </p>
-                    </div>
-                    <div id="timing">
-                        <p>
-                            <?php 
-                                echo $route_dep_time;
-                            ?>
-                        </p>
-                    </div>
-                    <div id="route-desc">
-                        <p id="main-route">
-                            <span id="source-route">
+                <div class="searched-container">
+                    <div class="searched-result-item">
+                        <div class="route-id">
+                            <p>
+                                <?php echo $route_id; ?>
+                            </p>
+                        </div>
+                        <div class="timing">
+                            <p>
                                 <?php 
-                                    echo $source;
+                                    echo $route_dep_time;
                                 ?>
-                            </span> 
-                            <span class="arrow">&rarr;</span> 
-                            <span id="dest-route">
-                                <?php 
-                                    echo $destination;
+                            </p>
+                        </div>
+                        <div class="route-desc">
+                            <p class="main-route">
+                                <span class="source-route">
+                                    <?php 
+                                        echo $source;
+                                    ?>
+                                </span> 
+                                <span class="arrow">&rarr;</span> 
+                                <span class="dest-route">
+                                    <?php 
+                                        echo $destination;
+                                    ?>
+                                </span>
+                            </p>
+                            <p class="cities">
+                                <?php if($viaCities){ ?>
+                                    <span class="via">Via</span> 
+                                    <?php 
+                                        echo $viaCities;
+                                }
+                                else{ ?>
+                                    <span class="via">Direct</span>
+                                <?php }
                                 ?>
-                            </span>
-                        </p>
-                        <p id="cities">
-                            <?php if($viaCities){ ?>
-                                <span class="via">Via</span> 
+                            </p>
+                        </div>
+                        <div class="seats-desc">
+                            <div>
+                                <span class="num-seats">
+                                <!-- Total or taken?? -->
                                 <?php 
-                                    echo $viaCities;
-                            }
-                            else{ ?>
-                                <span class="via">Direct</span>
-                            <?php }
-                            ?>
-                        </p>
-                    </div>
-                    <div id="seats-desc">
-                        <div>
-                            <span id="num-seats">
-                            <!-- Total or taken?? -->
-                            <?php 
-                                echo $no_available_seats;
-                            ?>
-                        </span> seats
+                                    echo $no_available_seats;
+                                ?>
+                            </span> seats
+                            </div>
+                        </div>
+                        <div class="booking-desc">
+                            <p class="price"><i class="fas fa-rupee-sign"></i> 
+                                <?php 
+                                    echo $booking_amount;
+                                ?></p>
+                            <button class="book-seat-btn" data-busno="<?php 
+                            echo $bus_no;?>" data-seats="<?php echo $booked_seats; ?>">
+                                Select Seats
+                            </button>
                         </div>
                     </div>
-                    <div id="booking-desc">
-                        <p id="price"><i class="fas fa-rupee-sign"></i> 
-                            <?php 
-                                echo $booking_amount;
-                            ?></p>
-                        <button id="book-seat-btn">
-                            Select Seats
-                        </button>
-                    </div>
+                <!-- Book Row -->
+                <div class="bookContainer">
+                
                 </div>
-           <?php  }
-        
-        ?>
+            </div>
+        <?php  }?>
         </section>
     </main>
+    <script src="assets/scripts/booking.js"></script>
 </body>
 </html>
