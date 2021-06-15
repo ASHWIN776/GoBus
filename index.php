@@ -45,6 +45,13 @@
             </div>';
         }
     }
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["pnr-search"]))
+    {
+        $pnr = $_POST["pnr"];
+    ?>
+        
+    <?php }
     ?>
     <header>
         <nav>
@@ -74,7 +81,7 @@
     ?>
 
 
-
+    
 
     <section id="home">
         <div id="route-search-form">
@@ -131,16 +138,8 @@
         </section>
         <section id="pnr-enquiry">
             <div id="pnr-form">
-                <h1>PNR Enquiry</h1>
-                <form action="">
-                    <div>
-                        <label for="pnr">PNR Number : </label>
-                        <input type="text" name="pnr" id="pnr">
-                    </div>
-                    <div>
-                        <button type="button" name="pnr-search">submit</button>
-                    </div>
-                </form>
+                <h1>PNR ENQUIRY</h1>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Click Here</button>
             </div>
         </section>
         <section id="about">
@@ -180,6 +179,31 @@
             </p>
         </footer>
     </div>
+    <!--PNR Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">PNR Enquiry</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
+                    <div>
+                        <input type="text" name="pnr" id="pnr" placeholder="Enter PNR">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        <!-- Modal Ends --> 
+    
+
     <!-- External JS -->
     <script src="assets/scripts/main.js"></script>
      <!-- Option 1: Bootstrap Bundle with Popper -->
