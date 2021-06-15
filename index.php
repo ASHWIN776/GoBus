@@ -1,3 +1,11 @@
+<?php
+    require 'assets/partials/_functions.php';
+    $conn = db_connect();    
+
+    if(!$conn) 
+        die("Connection Failed");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +26,26 @@
     ?>
 </head>
 <body>
+    <?php
+    
+    if(isset($_GET["booking_added"]))
+    {
+        if($_GET["booking_added"])
+        {
+            echo '<div class="my-0 alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Successful!</strong> Booking Added, your PNR is <span style="font-weight:bold; color: #272640;">'. $_GET["pnr"] .'</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+        }
+        else{
+            // Show error alert
+            echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> Booking already exists
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>';
+        }
+    }
+    ?>
     <header>
         <nav>
             <div>
@@ -37,7 +65,15 @@
         </nav>
     </header>
     <!-- Login Modal -->
-    <?php require 'assets/partials/_loginModal.php'?>
+    <?php require 'assets/partials/_loginModal.php'; 
+        require 'assets/partials/_getJSON.php';
+
+        $routeData = json_decode($routeJson);
+        $busData = json_decode($busJson);
+        $customerData = json_decode($customerJson);
+    ?>
+
+
 
 
     <section id="home">
@@ -67,28 +103,28 @@
             <figure>
                 <img src="assets/img/route.svg" alt="Bus Route Icon" width="100px" height="100px">
                 <figcaption>
-                    <span class="num">10000</span>
+                    <span class="num counter" data-target="<?php echo count($routeData); ?>">999</span>
                     <span class="icon-name">routes</span>
                 </figcaption>
             </figure>
             <figure>
                 <img src="assets/img/bus.svg" alt="Bus Icon" width="100px" height="100px">
                 <figcaption>
-                    <span class="num">20000</span>
+                    <span class="num counter" data-target="<?php echo count($busData); ?>">999</span>
                     <span class="icon-name">bus</span>
                 </figcaption>
             </figure>
             <figure>
                 <img src="assets/img/customer.svg" alt="Happy Customer Icon" width="100px" height="100px">
                 <figcaption>
-                    <span class="num">30000</span>
+                    <span class="num counter" data-target="<?php echo count($customerData); ?>">999</span>
                     <span class="icon-name">happy customers</span>
                 </figcaption>
             </figure>
             <figure>
                 <img src="assets/img/ticket.svg" alt="Instant Ticket Icon" width="100px" height="100px">
                 <figcaption>
-                    <span class="num">20 SEC</span>
+                    <span class="num"><span class="counter" data-target="20">999</span> SEC</span> 
                     <span class="icon-name">Instant Tickets</span>
                 </figcaption>
             </figure>
@@ -144,6 +180,8 @@
             </p>
         </footer>
     </div>
+    <!-- External JS -->
+    <script src="assets/scripts/main.js"></script>
      <!-- Option 1: Bootstrap Bundle with Popper -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>

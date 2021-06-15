@@ -15,12 +15,16 @@ function bookingForm(evt)
         btn.style.opacity = "0.5";
 
         const bus_no = btn.dataset.busno;
+        const route_id = btn.dataset.routeid;
+        const booked_amount = btn.dataset.amount;
+        const source = btn.dataset.source;
+        const destination = btn.dataset.destination;
 
         const bookRow = btn.parentElement.parentElement.nextElementSibling;
         bookRow.classList.add("bookRow");
 
         bookRow.innerHTML = `
-        <form class="bookForm" action="" method="POST">
+        <form class="bookForm" action="assets/partials/_handleBooking.php" method="POST">
         <!-- Seats Diagram -->
                 <div>
                 <table class="seatsDiagram">
@@ -99,7 +103,13 @@ function bookingForm(evt)
                         <div>
                             <input type="text" name="seat_selected" placeholder="Seat Number*" readonly>
                         </div>
-                        <button class="signup-btn" type="submit" name="signup">BOOK</button>
+
+                        <input type="hidden" name="route_id" value="${route_id}">
+                        <input type="hidden" name="booked_amount" value="${booked_amount}">
+                        <input type="hidden" name="source" value="${source}">
+                        <input type="hidden" name="destination" value="${destination}">
+                        
+                        <button class="book-btn" type="submit" name="book">BOOK</button>
                     </div>
                 </div>
                 <i class="fas fa-times close-btn"></i>

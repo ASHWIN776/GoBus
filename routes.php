@@ -19,6 +19,21 @@
     $sql = "SELECT * FROM routes WHERE route_dep_date='$dep_date'";
     $result = mysqli_query($conn, $sql);
     $no_results = mysqli_num_rows($result);
+    $count = 0;
+
+    while($row = mysqli_fetch_assoc($result))
+    {
+        $citiesArr = explode(",",$row["route_cities"]);
+        
+        // Search the tables if we have any routes thats matches the form details
+        if(!in_array($source, $citiesArr) || !in_array($destination, $citiesArr) || !(array_search($source, $citiesArr) < array_search($destination, $citiesArr)))
+            continue;
+        $count++;
+    }
+
+    $sql = "SELECT * FROM routes WHERE route_dep_date='$dep_date'";
+    $result = mysqli_query($conn, $sql);
+    $no_results = mysqli_num_rows($result);
 ?>
 
 
@@ -62,7 +77,7 @@
             <ul>
                 <li class="searched-route-item" id="">Total Results : <span id="result-num">
                     <?php 
-                        echo $no_results;
+                        echo $count;
                     ?>
                 </span></li>
                 <li class="searched-route-item"><?php echo $source; ?> <span class="arrow">&rarr;</span> <?php echo $destination; ?>
@@ -82,9 +97,11 @@
             {
                 $citiesArr = explode(",",$row["route_cities"]);
                 
-                // Search the tables if we have any routes thats matches the form details
+                // Search the tables if we have any routes that matches the form details
                 if(!in_array($source, $citiesArr) || !in_array($destination, $citiesArr) || !(array_search($source, $citiesArr) < array_search($destination, $citiesArr)))
                     continue;
+
+                
                 
                 $route_id = $row["route_id"];
                 $route_dep_time = $row["route_dep_time"];
@@ -167,7 +184,7 @@
                                     echo $booking_amount;
                                 ?></p>
                             <button class="book-seat-btn" data-busno="<?php 
-                            echo $bus_no;?>" data-seats="<?php echo $booked_seats; ?>">
+                            echo $bus_no;?>" data-seats="<?php echo $booked_seats; ?>" data-routeid="<?php echo $route_id; ?>" data-amount="<?php echo $booking_amount; ?>" data-source="<?php echo $source; ?>" data-destination="<?php echo $destination; ?>">
                                 Select Seats
                             </button>
                         </div>

@@ -55,6 +55,12 @@
         transition: none;
     }
 
+    /* Alert Message on top of the header */
+    .alert{
+        z-index: 3;
+        border-radius: 0px;
+    }
+
 
     #home{
         height: 70vh;

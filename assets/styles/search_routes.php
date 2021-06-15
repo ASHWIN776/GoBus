@@ -242,7 +242,7 @@
         flex-basis: 47%; 
     }
 
-    .bookForm .signup-btn{
+    .bookForm .book-btn{
         border-radius: 5px;
         font-family: Montserrat;
         font-weight: bold;
@@ -259,7 +259,7 @@
     }
 
     .close-btn:hover{
-        color: #495057;
+        color: #6c757d;
     }
 
     .busNo{

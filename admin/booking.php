@@ -56,7 +56,6 @@
                 // $dep_timing = $_POST["dep_timing"];
 
                 $booking_exists = exist_booking($conn,$customer_id,$route_id);
-                echo $booking_exists;
                 $booking_added = false;
         
                 if(!$booking_exists)
@@ -111,7 +110,6 @@
 
                     $updateSeatSql = "UPDATE `seats` SET `seat_booked` = '$seats' WHERE `seats`.`bus_no` = '$bus_no';";
                     mysqli_query($conn, $updateSeatSql);
-                    echo "Seat Updated";
                 }
                 else{
                     // Show error alert
