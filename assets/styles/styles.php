@@ -181,7 +181,11 @@
     }
 
     #pnr-form{
-        width: 100%;
+        padding: 4rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         color: white;
         position: relative;
         z-index: 1;
@@ -194,12 +198,9 @@
         width: 100%;
         right: 0%;
         background-color: black;
+        border-radius: 10px;
         z-index: -1;
         opacity: 0.5;
-    }
-
-    #pnr-form input{
-        width: 60%;
     }
 
     #pnr-form div{
@@ -211,13 +212,14 @@
         padding: 0.3rem 1rem;
         text-transform: uppercase;
         border: 3px solid;
+        border-radius: 5px;
         color: #212529;
-        background-color: white;
+        background-color: #CCD3DD;
+        transition: background-color 400ms;
     }
 
     #pnr-form button:hover{
-        color: #fff;
-        background-color: #212529;
+        background-color: #ebecee;
         cursor: pointer;
     }
 
