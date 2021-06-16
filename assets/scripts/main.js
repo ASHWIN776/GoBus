@@ -1,34 +1,38 @@
-// Adding styles to navbar while scroll
-window.addEventListener("scroll", styleNav);
-
-function styleNav()
-{
-    document.querySelector("header").classList.toggle("nav-scroll", window.scrollY > 0);
-}
 
 
 
 // Animation Counter
 const counters = document.querySelectorAll(".counter");
 
-counters.forEach(counter => {
-    let target = +counter.dataset.target;
-    let step = 100;
-    let dec = parseInt((999 - target) / step);
+// Adding styles to navbar while scroll
+window.addEventListener("scroll", styleNav);
 
-    function updateCount()
+function styleNav()
+{
+    document.querySelector("header").classList.toggle("nav-scroll", window.scrollY > 0);
+    
+    if(window.scrollY > 0)
     {
-        const curr = +counter.innerText;
-        if(curr > target)
-        {
-            counter.innerText = curr - dec;
-            setTimeout(updateCount, 5);
-        }
-        else counter.innerText = target;
+        counters.forEach(counter => {
+            let target = +counter.dataset.target;
+            let step = 100;
+            let dec = parseInt((999 - target) / step);
+            
+            function updateCount()
+            {
+                const curr = +counter.innerText;
+                if(curr > target)
+                {
+                    counter.innerText = curr - dec;
+                    setTimeout(updateCount, 5);
+                }
+                else counter.innerText = target;
+            }
+            setTimeout(updateCount,900);
+        })
+        
     }
-    setTimeout(updateCount,900);
-})
-
+}
 
 // Routes 
 
