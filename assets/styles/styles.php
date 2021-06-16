@@ -88,6 +88,7 @@
     }
 
     .nav-logo{
+        color: #207DFF;
         letter-spacing: 5px;
         transition: none;
     }
@@ -314,8 +315,13 @@
 
 
     footer{
+        padding: 1rem 0;
         text-align: center;
         font-weight: bold;
+    }
+
+    footer p{
+        margin: 0;
     }
 
     .pnr-details{
@@ -323,23 +329,29 @@
         padding: 0;
     }
 
+    .nav-scroll{
+        position: fixed;
+        background-color: white;
+    }
 
     /* Tablet */
     @media only screen and (min-width: 784px){
         
+
         header{
             position: absolute;
             display: block;
             top: 0;
             width: 100%;
-            z-index: 1;
+            z-index: 2;
+            transition: background-color 500ms;
         }
         nav{
             display: flex;
             justify-content: space-between;
             width: 100%;
             margin: 0 auto;
-            padding-top: 1rem;
+            padding: 0.5rem;
         }
 
         nav > div{

@@ -19,10 +19,14 @@
         font-weight: normal;
     }
 
+    #noRoutes{
+        background-color: black;
+        color: white;
+    }
 
     #navbar{
         text-align: center;
-        padding: 1.5rem 0;
+        padding: 0.4rem 0;
     }
 
     nav div, nav ul{
@@ -61,15 +65,23 @@
     }
 
     .nav-logo{
+        color: #207DFF;
         letter-spacing: 5px;
         transition: none;
     }
 
-
+    .nav-scroll{
+        position: fixed;
+        background-color: white;
+    }
+    
     /* Navbar Styling  - END*/
+    main{
+        height: 85vh;
+    }
 
     #searched-route{
-        margin-top: 4rem;
+        /* margin-top: 2rem; */
         margin-bottom: 2rem;
         background-color: black;
         color: white;
@@ -279,6 +291,19 @@
         color: #9a031e;
     }
 
+
+    footer{
+        /* background-color: black;
+        color: white; */
+        border-top: 2px solid #e2e2e2;
+        padding: 0.5rem 0;
+        text-align: center;
+        font-weight: bold;
+    }
+   
+    footer p{
+        margin: 0;
+    }
     @-webkit-keyframes rubberBand {
         0% {
             -webkit-transform: scale3d(1, 1, 1);
@@ -361,7 +386,7 @@
     /* Tablet */
     @media only screen and (min-width: 784px){
         header{
-            position: absolute;
+            position: fixed;
             display: block;
             top: 0;
             width: 100%;
