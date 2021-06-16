@@ -66,7 +66,6 @@
                     </div>';
                     // Add the bus to seats table
                     $seatSql = "INSERT INTO `seats` (`bus_no`) VALUES ('$busno');";
-                    echo $seatSql;
                     $result = mysqli_query($conn, $seatSql);
                 }
                 else{
@@ -81,7 +80,7 @@
             if(isset($_POST["edit"]))
             {
                 // EDIT ROUTES
-                $busno = $_POST["busno"];
+                $busno = strtoupper($_POST["busno"]);
                 $id = $_POST["id"];
                 $id_if_bus_exists = exist_buses($conn, $busno);
                 
@@ -253,10 +252,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addCustomerForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
+                        <form id="addBusForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
                             <div class="mb-3">
-                                <label for="busnumber" class="form-label">Bus Number</label>
-                                <input type="text" class="form-control" id="busnumber" name="busnumber">
+                                <label for="busnumber" class="form-label">Bus Number</label><br>
+
+                                </span>
+                                <input type="text" class="form-control" id="busnumber" name="busnumber" required>
+                                <span id="error" class="error">
                             </div>
                             <button type="submit" class="btn btn-success" name="submit">Submit</button>
                         </form>
@@ -280,7 +282,7 @@
                     Are you sure?
                 </h2>
                 <p>
-                    Do you really want to delete this route id? <strong>This process cannot be undone.</strong>
+                    Do you really want to delete this bus? <strong>This process cannot be undone.</strong>
                 </p>
                 <!-- Needed to pass id -->
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" id="delete-form"  method="POST">

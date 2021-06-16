@@ -60,4 +60,21 @@ function editOrDelete(evt){
     }
 }
 
+// Add Bus Form validation
+const addBusForm = document.querySelector("#addBusForm");
+
+addBusForm.addEventListener("submit", validateForm);
+
+function validateForm(evt)
+{
+    const busnoInput = addBusForm.elements.busnumber;
+    const regex = new RegExp("[a-z]+", "g");
+    const errorSpan = document.querySelector("#error");
+
+    if(busnoInput.value.match(regex))
+    {
+        evt.preventDefault();
+        errorSpan.innerText = "Bus Number should have capital letters";
+    }
+}
 
