@@ -64,7 +64,7 @@
     <header>
         <nav id="navbar">
             <div>
-                <a href="#" class="nav-item nav-logo">Logo</a>
+                <a href="#" class="nav-item nav-logo">GOBUS</a>
                 <a href="#" class="nav-item">Gallery</a>
             </div>
             <ul>
@@ -214,11 +214,7 @@
         <?php  }?>
         </section>
     </main>
-    <footer>
-            <p>
-                <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil, Alwin Poulose and Faris Mohammed
-            </p>
-        </footer>
+    
     <script src="assets/scripts/booking.js"></script>
      <!-- Option 1: Bootstrap Bundle with Popper -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

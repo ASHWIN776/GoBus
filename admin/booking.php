@@ -251,31 +251,24 @@
             <section id="booking">
                 <div id="head">
                     <h4>Booking Status</h4>
-                    <div id="search">
-                        <div id="wrapper">
-                            <a href="#"><i class="fas fa-search"></i></a>
-                            <input type="text" name="search" placeholder="Search">
-                        </div>
-                    </div>
                 </div>
                 <div id="booking-results">
                     <div>
                         <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>
-                        <button id="filter-button" class="button btn-sm">FILTER <i class="fas fa-filter"></i></button>
                     </div>
-                    <table>
-                        <tr>
+                    <table class="table table-hover table-bordered">
+                        <thead>
                             <th>PNR</th>
-                            <th>Customer Name</th>
+                            <th>Name</th>
                             <th>Phone</th>
-                            <th>Bus Number</th>
+                            <th>Bus No</th>
                             <th>Route</th>
-                            <th>Booked Seat</th>
+                            <th>Seat</th>
                             <th>Amount</th>
-                            <th>Departure Timing</th>
-                            <th>Booked Timing</th>
+                            <th>Departure</th>
+                            <th>Booked Time</th>
                             <th>Actions</th>
-                        </tr>
+                        </thead>
                         <?php
                             while($row = mysqli_fetch_assoc($resultSqlResult))
                             {
@@ -353,12 +346,12 @@
                                 ?>
                             </td>
                             <td>
-                            <button class="button edit-button" data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-customerid="<?php 
+                            <button class="button btn-sm edit-button" data-link="<?php echo $_SERVER['REQUEST_URI']; ?>" data-customerid="<?php 
                                                 echo $customer_id;?>" data-id="<?php 
                                                 echo $id;?>" data-name="<?php 
                                                 echo $customer_name;?>" data-phone="<?php 
                                                 echo $customer_phone;?>" >Edit</button>
-                                <button class="button delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal" 
+                                <button class="button delete-button btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" 
                                 data-id="<?php 
                                                 echo $id;?>" data-bookedseat="<?php 
                                                 echo $booked_seat;

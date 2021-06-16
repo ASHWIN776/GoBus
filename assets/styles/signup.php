@@ -60,7 +60,7 @@
 
         #add-admin > div{
             flex-basis: 50%;
-            height: calc(100vh - 59.2px - 2.3rem);
+            height: calc(100vh - 50px);
         }
 
         #add-admin > div:first-child{

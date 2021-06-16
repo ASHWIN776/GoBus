@@ -74,7 +74,7 @@
         position: fixed;
         background-color: white;
     }
-    
+
     /* Navbar Styling  - END*/
     main{
         height: 85vh;
@@ -299,6 +299,10 @@
         padding: 0.5rem 0;
         text-align: center;
         font-weight: bold;
+    }
+
+    #searched-route{
+        margin-bottom: 2rem;
     }
    
     footer p{

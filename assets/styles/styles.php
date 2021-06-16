@@ -33,7 +33,9 @@
         text-align: left;
         padding: 0.3rem;
         text-transform: capitalize;
-        border-bottom: 2px solid black;
+        border-style: solid; 
+        border-color: black;
+        border-width: 0 2px 2px 2px;
         border-radius: 5px;
     }
 

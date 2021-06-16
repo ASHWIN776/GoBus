@@ -227,21 +227,13 @@
                 <section id="route">
                     <div id="head">
                         <h4>Route Status</h4>
-                        <div id="search">
-                            <div id="wrapper">
-                                <a href="#"><i class="fas fa-search"></i></a>
-                                <input type="text" name="search" placeholder="Search">
-                            </div>
-                        </div>
                     </div>
                     <div id="route-results">
                         <div>
                             <button id="add-button" class="button btn-sm"type="button"data-bs-toggle="modal" data-bs-target="#addModal">ADD <i class="fas fa-plus"></i></button>
-                                
-                            <button id="filter-button" class="button btn-sm">FILTER <i class="fas fa-filter"></i></button>
                         </div>
-                        <table>
-                            <tr>
+                        <table class="table table-hover table-bordered">
+                            <thead>
                                 <th>ID</th>
                                 <th>Via Cities</th>
                                 <th>Bus Number</th>
@@ -249,7 +241,7 @@
                                 <th>Departure Time</th>
                                 <th>Step Cost</th>
                                 <th>Actions</th>
-                            </tr>
+                            </thead>
                             <?php
                                 while($row = mysqli_fetch_assoc($resultSqlResult))
                                 {

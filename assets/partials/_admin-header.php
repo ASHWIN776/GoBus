@@ -14,7 +14,7 @@
     }
 ?>
 
-<header>
+<!-- <header>
         <nav id="navbar">
             <ul>
                 <li class="nav-item">
@@ -27,7 +27,7 @@
                 </li>
             </ul>
         </nav>
-    </header>
+    </header> -->
     <main id="container">
         <div id="sidebar">
             <div>
@@ -79,12 +79,14 @@
             <section id="welcome">
                 <ul>
                     <li class="welcome-item">Welcome, 
-                        <?php 
-                            echo $user_fullname;
-                        ?>
+                        <span id="USER">
+                            <?php 
+                                echo $user_fullname;
+                            ?>
+                        </span>
                     </li>
                     <li class="welcome-item">
-                        <button id="logout">
+                        <button id="logout" class="btn-sm">
                             <a href="../assets/partials/_logout.php">LOGOUT</a>
                         </button>
                     </li>

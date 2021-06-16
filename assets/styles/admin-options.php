@@ -9,8 +9,8 @@
     #seat #head,
     #bus #head
     {
-        display: flex;
-        justify-content: space-between;
+        /* display: flex;
+        justify-content: space-between; */
         padding-top: 1rem;
     }
 
@@ -65,7 +65,7 @@
     #route button,
     #bus-results button
     {
-        padding: 0.3rem 1rem;
+        /* padding: 0.3rem 1rem; */
         border-radius: 5px;
     }
 
@@ -75,7 +75,6 @@
         text-transform: uppercase;
     }
 
-    #filter-button, 
     #add-button{
         background-color: black;
         color: white;
@@ -85,17 +84,30 @@
         width: 100%;
     }
 
-    #bus table{
+    table{
+        font-size: 14px;
+    }
+
+     #bus table{
         width: 50%;
+        margin: 0 auto;
     }
 
-    #booking table{
+    #bus .edit-button,
+    #bus .delete-button,
+    #route .edit-button,
+    #route .delete-button,
+    #customer .edit-button,
+    #customer .delete-button{
+        padding: 0.3rem 0.7rem;
+    }
+    /* #booking table{
         width: 100%;
-    }
+    } */
 
-    table td, th{
-        padding: 0.4rem 1rem;
-        border: 1px solid;
+
+    table th,td{
+        padding-left: 0.3rem;
     }
 
     table button{
@@ -108,6 +120,11 @@
 
     .delete-button{
         background-color: #EF0000;
+    }
+
+    .edit-button,
+    .delete-button{
+        font-size: 10px
     }
 
     .disabled{
@@ -142,7 +159,6 @@
     /* For seat.html */
     #main form{
         display: flex;
-        padding: 0 1rem;
     }
 
     #main form input, 
@@ -217,6 +233,11 @@
         background-color: #efefef;
         border-radius: 5px;
     }
+
+    #displaySeats{
+        margin: 3rem auto 1rem auto;
+    }
+
 
     #seatsDiagram{
         width: 100%;

@@ -28,7 +28,7 @@
 <body>
     <?php
     
-    if(isset($_GET["booking_added"]))
+    if(isset($_GET["booking_added"]) && !isset($_POST['pnr-search']))
     {
         if($_GET["booking_added"])
         {

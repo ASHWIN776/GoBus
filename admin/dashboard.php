@@ -174,11 +174,12 @@
                         }
                     ?>
                 </div>
-                <h3>Activity</h3>
-                <div id="activity">
-                    <h4>Activity here</h4>
-                </div>
             </section>
+                <footer>
+                    <p>
+                        <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil, Alwin Poulose and Faris Mohammed
+                        </p>
+                </footer>
         </div>
     </main>
     <script src="../assets/scripts/admin_dashboard.js"></script>

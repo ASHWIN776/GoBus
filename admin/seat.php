@@ -35,12 +35,6 @@
             <section id="seat">
                 <div id="head">
                     <h2>Seat Status</h2>
-                    <div id="search">
-                        <div id="wrapper">
-                            <a href="#"><i class="fas fa-search"></i></a>
-                            <input type="text" name="search" placeholder="Search">
-                        </div>
-                    </div>
                 </div>
                 <div id="main">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
@@ -61,7 +55,6 @@
                             {
                                 $busno = $_GET["bus-no"];
                                 $sql = "SELECT * FROM seats WHERE bus_no='$busno'";
-                                echo $sql;
                                 $result = mysqli_query($conn, $sql);
 
                                 $booked_seats = false;
@@ -134,6 +127,11 @@
                                     <td id="seat-38" data-name="38">38</td>
                                 </tr>
                             </table>
+                            <div style="text-align: center; color: #9a031e; font-weight: bold;">
+                                <?php 
+                                    echo $busno;
+                                ?>
+                            </div>
                             <?php }
                             // If booked_seats is empty
                             else { ?>

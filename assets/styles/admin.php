@@ -3,7 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-    background-color: #E5E5E5;
+    background-color: white;
     }
 
     html{
@@ -14,7 +14,7 @@
         box-sizing: inherit;
     }
 
-    #navbar{
+    /* #navbar{
         background-color: black;
         color: white;
         display: flex;
@@ -38,7 +38,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    } */
+
+    #USER{
+        color: #207DFF;
     }
+
 
     .adminDp{
         border-radius: 50%;
@@ -46,7 +51,7 @@
 
     #welcome{
         background-color: white;
-        border-bottom: 1px solid rgb(19, 18, 18);
+        /* border-bottom: 1px solid rgb(19, 18, 18); */
     }
 
     #welcome ul{
@@ -59,7 +64,7 @@
 
     #welcome li{
         margin: 0 1rem;
-        padding: 1rem 0;
+        padding: 0.5rem 0;
     }
 
     #welcome li:first-child{
@@ -68,24 +73,39 @@
     }
 
     #logout{
+        padding: 0.3rem 0.7rem;
+        background-color: #207DFF;
         font-weight: 600;
-        border-radius: 4px;
+        outline: none;
+        border: none;
+        border-radius: 7px;
     }
 
     #logout a{
-        color: black;
+        color: white;
         text-decoration: none;
     }
 
+    footer{
+        border-top: 2px solid #e2e2e2;
+        padding: 0.5rem 0;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    footer p{
+        margin: 0;
+    }
 
     @media only screen and (min-width:1000px){
         #sidebar{
             text-align: center;
-            background-color: black;
+            background-color: #207DFF;
             color: white;
             width: 15%;
             position: fixed;
-            top: 2%;
+            top: 0%;
+            padding-top: 1rem;
             z-index: 2;
             height: 100vh;
         }
@@ -119,8 +139,7 @@
         }
 
         #main-content{
-            margin-left: 15%;
-            margin-top: 2.2rem;
+            margin-left: 16%;
         }
 
         .info-box{
