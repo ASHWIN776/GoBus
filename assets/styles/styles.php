@@ -10,6 +10,43 @@
     *, *::after, *::before{
         box-sizing: inherit;
     }
+    .link-light{
+        text-decoration: none;
+    }
+
+    .searchQuery{
+        position: relative;
+    }
+
+    .sugg{
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        background-color: white;
+        max-height: 179px;
+        overflow: auto;
+    }
+
+    .sugg li{
+        list-style-type: none;
+        padding: 0;
+        text-align: left;
+        padding: 0.3rem;
+        text-transform: capitalize;
+        border-bottom: 2px solid black;
+        border-radius: 5px;
+    }
+
+    .sugg li:hover{
+        background-color: #efefef;
+        cursor: pointer;
+    }
+
+
+    .hl{
+        background-color: #ddbea9;
+    }
+
 
     /* Overriding Bootstrap */
     nav a:hover{
@@ -105,14 +142,14 @@
         font-weight: bold;
     }
 
-    #route-search-form div{
+    #route-search-form > div{
         margin: 1rem 0;
     }
 
     form input, form textarea{
         border: 2px solid black;
         outline: none;
-        /* width: 100%; */
+        width: 100%;
         font-size: inherit;
         border-radius: 5px;
         padding-left: 0.3rem;
@@ -361,7 +398,7 @@
             font-weight: bold;
         }
 
-        #route-search-form div{
+        #route-search-form form > div{
             margin: 1rem 0;
         }
 
@@ -401,7 +438,7 @@
 
         #route-search-form{
             position: absolute;
-            top: 22%;
+            top: 14%;
             right: 15%;
             width: 25rem;
             padding: 2.5rem 2rem;

@@ -82,7 +82,7 @@
             
             <h4 class="alert-heading">Booking Information!</h4>
             <p>
-                <button class="btn btn-sm btn-success">Download</button>
+                <button class="btn btn-sm btn-success"><a href="assets/partials/_download.php" class="link-light">Download</a></button>
             </p>
             <hr>
                 <p class="mb-0">
@@ -162,28 +162,48 @@
         $busData = json_decode($busJson);
         $customerData = json_decode($customerJson);
     ?>
-
-
     
 
     <section id="home">
         <div id="route-search-form">
             <h1>Find Routes</h1>
-            <form action="routes.php" method="POST">
+            <form id="routeForm" action="routes.php" method="POST">
                 <div>
                     <label for="source">Source</label>
-                    <input type="text" id="source" name="source">
+                    <!-- Source Search -->
+                <div class="searchQuery">
+                    <input class="searchInput" type="text" id="source_state" name="source_state" placeholder="State*">
+                    <div class="sugg">
+                    </div>
+                </div>
+                    <!-- Source City  -->
+                <div class="searchQuery">
+                    <input class="searchInput" type="text" id="source" name="source" placeholder="City*">
+                    <div class="sugg">
+                    </div>
+                </div>
                 </div>
                 <div>
                     <label for="destination">Destination</label>
-                    <input type="text" id="destination" name="destination">
+                    <div class="searchQuery">
+                        <input class="searchInput" type="text" id="destination_state" name="destination_state" placeholder="State*">
+                        <div class="sugg">
+                        </div>
+                    </div>
+                    <div class="searchQuery">
+                        <input class="searchInput" type="text" id="destination" name="destination" placeholder="City*">
+                        <div class="sugg">
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <label for="departure">Date of Departure</label>
-                    <input type="date" id="departure" name="departure">
+                    <input type="date" id="departure" name="departure" min="<?php 
+                                date_default_timezone_set("Asia/Kolkata");
+                                echo date("Y-m-d");?>">
                 </div>
                 <div>
-                    <button type="submit" name="search">Search</button>
+                    <button type="submit" name="search" >Search</button>
                 </div>
             </form>
         </div>
@@ -267,34 +287,28 @@
             </p>
         </footer>
     </div>
-    <!--PNR Modal -->
-    <div class="modal fade" id="pnrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">PNR Enquiry</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
-                    <div>
-                        <input type="text" name="pnr" id="pnr" placeholder="Enter PNR">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-            </div>
+    <!-- COVID Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="covidModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" form="routeForm" class="btn btn-primary">Save changes</button>
         </div>
         </div>
-        <!-- Modal Ends --> 
-    
-
-    <!-- External JS -->
-    <script src="assets/scripts/main.js"></script>
+    </div>
+    </div>
      <!-- Option 1: Bootstrap Bundle with Popper -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <!-- External JS -->
+    <script src="assets/scripts/main.js"></script>
 </body>
 </html>
