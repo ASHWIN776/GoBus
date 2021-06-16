@@ -191,6 +191,14 @@
         z-index: 1;
     }
 
+    #pnr-form form{
+        width: 70%;
+    }
+
+    #pnr-form input{
+        width: 100%;
+    }
+
     #pnr-form::before{
         content: "";
         position: absolute;
@@ -204,13 +212,14 @@
     }
 
     #pnr-form div{
-        margin: 2rem 0;
+        margin: 1rem auto;
+        width: 90%;
     }
 
     #pnr-form button{
         font-weight: bold;
         font-size: 14px;
-        padding: 0.3rem 0.5rem;
+        padding: 0.3rem 0.7rem;
         text-transform: uppercase;
         border: 3px solid;
         border-radius: 5px;
@@ -270,6 +279,11 @@
     footer{
         text-align: center;
         font-weight: bold;
+    }
+
+    .pnr-details{
+        list-style-type: none;
+        padding: 0;
     }
 
 
@@ -361,7 +375,20 @@
 
     /* Desktops */
     @media only screen and (min-width: 992px){
-        
+        /* Alert Message on top of the header */
+        .alert{
+            position: absolute;
+           width: 100%;
+            z-index: 3;
+            border-radius: 0px;
+        }
+
+        .alert-dark{
+            width: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius:;
+        }
 
         nav{
             width: 80%;

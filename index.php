@@ -49,6 +49,89 @@
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["pnr-search"]))
     {
         $pnr = $_POST["pnr"];
+
+        $sql = "SELECT * FROM bookings WHERE booking_id='$pnr'";
+        $result = mysqli_query($conn, $sql);
+
+        $num = mysqli_num_rows($result);
+
+        if($num)
+        {
+            $row = mysqli_fetch_assoc($result);
+            $route_id = $row["route_id"];
+            $customer_id = $row["customer_id"];
+            
+            $customer_name = get_from_table($conn, "customers", "customer_id", $customer_id, "customer_name");
+
+            $customer_phone = get_from_table($conn, "customers", "customer_id", $customer_id, "customer_phone");
+
+            $customer_route = $row["customer_route"];
+            $booked_amount = $row["booked_amount"];
+
+            $booked_seat = $row["booked_seat"];
+            $booked_timing = $row["booking_created"];
+
+            $dep_date = get_from_table($conn, "routes", "route_id", $route_id, "route_dep_date");
+
+            $dep_time = get_from_table($conn, "routes", "route_id", $route_id, "route_dep_time");
+
+            $bus_no = get_from_table($conn, "routes", "route_id", $route_id, "bus_no");
+            ?>
+
+            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+            
+            <h4 class="alert-heading">Booking Information!</h4>
+            <p>
+                <button class="btn btn-sm btn-success">Download</button>
+            </p>
+            <hr>
+                <p class="mb-0">
+                    <ul class="pnr-details">
+                        <li>
+                            <strong>PNR : </strong>
+                            <?php echo $pnr; ?>
+                        </li>
+                        <li>
+                            <strong>Customer Name : </strong>
+                            <?php echo $customer_name; ?>
+                        </li>
+                        <li>
+                            <strong>Customer Phone : </strong>
+                            <?php echo $customer_phone; ?>
+                        </li>
+                        <li>
+                            <strong>Route : </strong>
+                            <?php echo $customer_route; ?>
+                        </li>
+                        <li>
+                            <strong>Bus Number : </strong>
+                            <?php echo $bus_no; ?>
+                        </li>
+                        <li>
+                            <strong>Booked Seat Number : </strong>
+                            <?php echo $booked_seat; ?>
+                        </li>
+                        <li>
+                            <strong>Departure Date : </strong>
+                            <?php echo $dep_date; ?>
+                        </li>
+                        <li>
+                            <strong>Departure Time : </strong>
+                            <?php echo $dep_time; ?>
+                        </li>
+                        <li>
+                            <strong>Booked Timing : </strong>
+                            <?php echo $booked_timing; ?>
+                        </li>
+
+                </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php }
+        else{
+
+        }
+        
     ?>
         
     <?php }
@@ -139,7 +222,12 @@
         <section id="pnr-enquiry">
             <div id="pnr-form">
                 <h2>PNR ENQUIRY</h2>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Click Here</button>
+                <form action="<?php echo $_SERVER["REQUEST_URI"]; ?>" method="POST">
+                    <div>
+                        <input type="text" name="pnr" id="pnr" placeholder="Enter PNR">
+                    </div>
+                    <button type="submit" name="pnr-search">Submit</button>
+                </form>
             </div>
         </section>
         <section id="about">
@@ -180,7 +268,7 @@
         </footer>
     </div>
     <!--PNR Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="pnrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
