@@ -139,7 +139,7 @@
     <header>
         <nav>
             <div>
-                    <a href="#" class="nav-item nav-logo">Logo</a>
+                    <a href="#" class="nav-item nav-logo">gobus</a>
                     <a href="#" class="nav-item">Gallery</a>
             </div>
                 
@@ -283,7 +283,7 @@
         </section>
         <footer>
             <p>
-                <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil
+                <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil, Alwin Poulose and Faris Mohammed
             </p>
         </footer>
     </div>
