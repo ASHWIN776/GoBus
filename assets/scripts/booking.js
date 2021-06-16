@@ -1,3 +1,14 @@
+// Adding styles to navbar while scroll
+window.addEventListener("scroll", styleNav);
+
+function styleNav()
+{
+    document.querySelector("header").classList.toggle("nav-scroll", window.scrollY > 0);
+}
+
+
+
+
 // To show the covid Data
 const destState = capitalize(document.querySelector(".route-desc").dataset.dest);
 const covidInfo = document.querySelector("#covidInfo");

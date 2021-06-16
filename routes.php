@@ -68,14 +68,10 @@
                 <a href="#" class="nav-item">Gallery</a>
             </div>
             <ul>
-                <li><a href="#" class="nav-item">Home</a></li>
+                <li><a href="/index.php" class="nav-item">Home</a></li>
                 <li><a href="#about" class="nav-item">About</a></li>
                 <li><a href="#contact" class="nav-item">Contact</a></li>
             </ul>
-            <div>
-                <a href="#" class="login nav-item"><i class="fas fa-sign-in-alt" style="margin-right: 0.4rem;"></i>Login</a>
-                <a href="#pnr-enquiry" class="pnr nav-item">PNR Enquiry</a>
-            </div>
         </nav>
     </header>
     <main id="container">
@@ -99,6 +95,21 @@
         </section>
         <section id="searched-results">
         <?php 
+            if(!$count)
+            {?>
+                <div class="container mt-4">
+                    <div id="noRoutes" class="alert alert-dark " role="alert">
+                        <h1 class="alert-heading">No Routes Found!!</h1>
+                        <p class="fw-light">
+                            Currently there are no services for the specified route
+                        </p>
+                        <hr>
+                        <div id="addCustomerAlert" class="alert alert-success" role="alert">
+                                We will soon make this route available for service
+                        </div>
+                    </div>
+                </div>
+            <?php }
             while($row = mysqli_fetch_assoc($result))
             {
                 $citiesArr = explode(",",$row["route_cities"]);
@@ -203,6 +214,11 @@
         <?php  }?>
         </section>
     </main>
+    <footer>
+            <p>
+                <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil, Alwin Poulose and Faris Mohammed
+            </p>
+        </footer>
     <script src="assets/scripts/booking.js"></script>
      <!-- Option 1: Bootstrap Bundle with Popper -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
