@@ -1,3 +1,13 @@
+// Adding styles to navbar while scroll
+window.addEventListener("scroll", styleNav);
+
+function styleNav()
+{
+    document.querySelector("header").classList.toggle("nav-scroll", window.scrollY > 0);
+}
+
+
+
 // Animation Counter
 const counters = document.querySelectorAll(".counter");
 
