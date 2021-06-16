@@ -83,6 +83,9 @@
             <h4 class="alert-heading">Booking Information!</h4>
             <p>
                 <button class="btn btn-sm btn-success"><a href="assets/partials/_download.php" class="link-light">Download</a></button>
+                <button class="btn btn-danger btn-sm" id="deleteBooking" data-bs-toggle="modal" data-bs-target="#deleteModal" data-pnr="<?php echo $pnr;?>" data-seat="<?php echo $booked_seat;?>" data-bus="<?php echo $bus_no; ?>">
+                    Delete
+                </button>
             </p>
             <hr>
                 <p class="mb-0">
@@ -129,13 +132,71 @@
             </div>
         <?php }
         else{
-
+            echo '<div class="my-0 alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> Record Doesnt Exist
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
         }
         
     ?>
         
     <?php }
+
+
+        // Delete Booking
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteBtn"]))
+        {
+            $pnr = $_POST["id"];
+            $bus_no = $_POST["bus"];
+            $booked_seat = $_POST["booked_seat"];
+
+            $deleteSql = "DELETE FROM `bookings` WHERE `bookings`.`booking_id` = '$pnr'";
+
+                $deleteResult = mysqli_query($conn, $deleteSql);
+                $rowsAffected = mysqli_affected_rows($conn);
+                $messageStatus = "danger";
+                $messageInfo = "";
+                $messageHeading = "Error!";
+
+                if(!$rowsAffected)
+                {
+                    $messageInfo = "Record Doesn't Exist";
+                }
+
+                elseif($deleteResult)
+                {   
+                    $messageStatus = "success";
+                    $messageInfo = "Booking Details deleted";
+                    $messageHeading = "Successfull!";
+
+                    // Update the Seats table
+                    $seats = get_from_table($conn, "seats", "bus_no", $bus_no, "seat_booked");
+
+                    // Extract the seat no. that needs to be deleted
+                    $booked_seat = $_POST["booked_seat"];
+
+                    $seats = explode(",", $seats);
+                    $idx = array_search($booked_seat, $seats);
+                    array_splice($seats,$idx,1);
+                    $seats = implode(",", $seats);
+
+                    $updateSeatSql = "UPDATE `seats` SET `seat_booked` = '$seats' WHERE `seats`.`bus_no` = '$bus_no';";
+                    mysqli_query($conn, $updateSeatSql);
+                }
+                else{
+
+                    $messageInfo = "Your request could not be processed due to technical Issues from our part. We regret the inconvenience caused";
+                }
+
+                // Message
+                echo '<div class="my-0 alert alert-'.$messageStatus.' alert-dismissible fade show" role="alert">
+                <strong>'.$messageHeading.'</strong> '.$messageInfo.'
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+            }
     ?>
+
+    
     <header>
         <nav>
             <div>
@@ -287,25 +348,35 @@
             </p>
         </footer>
     </div>
-    <!-- COVID Modal -->
-    <!-- Modal -->
-    <div class="modal fade" id="covidModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" form="routeForm" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
+    
+    <!-- Delete Booking Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-exclamation-circle"></i></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <h2 class="text-center pb-4">
+                    Are you sure?
+            </h2>
+            <p>
+                Do you really want to delete your booking? <strong>This process cannot be undone.</strong>
+            </p>
+            <!-- Needed to pass pnr -->
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="delete-form"  method="POST">
+                    <input id="delete-id" type="hidden" name="id">
+                    <input id="delete-booked-seat" type="hidden" name="booked_seat">
+                    <input id="delete-booked-bus" type="hidden" name="bus">
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="delete-form" class="btn btn-primary btn-danger" name="deleteBtn">Delete</button>
+      </div>
     </div>
-    </div>
+  </div>
+</div>
      <!-- Option 1: Bootstrap Bundle with Popper -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <!-- External JS -->
