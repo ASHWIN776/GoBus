@@ -14,6 +14,7 @@
     $source = strtoupper($_POST["source"]);
     $destination = strtoupper($_POST["destination"]);
     $dep_date = $_POST["departure"];
+    $destination_state = strtoupper($_POST["destination_state"]);
 
     
     $sql = "SELECT * FROM routes WHERE route_dep_date='$dep_date'";
@@ -34,6 +35,8 @@
     $sql = "SELECT * FROM routes WHERE route_dep_date='$dep_date'";
     $result = mysqli_query($conn, $sql);
     $no_results = mysqli_num_rows($result);
+
+
 ?>
 
 
@@ -55,6 +58,9 @@
     <?php require 'assets/styles/search_routes.php'?>
 </head>
 <body>
+    <div id="covidInfo">
+
+    </div>
     <header>
         <nav id="navbar">
             <div>
@@ -142,7 +148,7 @@
                                 ?>
                             </p>
                         </div>
-                        <div class="route-desc">
+                        <div class="route-desc" data-dest="<?php echo $destination_state; ?>">
                             <p class="main-route">
                                 <span class="source-route">
                                     <?php 
@@ -198,5 +204,7 @@
         </section>
     </main>
     <script src="assets/scripts/booking.js"></script>
+     <!-- Option 1: Bootstrap Bundle with Popper -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

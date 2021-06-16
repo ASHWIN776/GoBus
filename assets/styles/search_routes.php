@@ -11,6 +11,15 @@
     }
     /* Navbar Styling  - START*/
 
+    .alert{
+        z-index: 3;
+    }
+
+    .alert li{
+        font-weight: normal;
+    }
+
+
     #navbar{
         text-align: center;
         padding: 1.5rem 0;
@@ -208,7 +217,7 @@
 
     .seatsDiagram, 
     .customer-details{
-        width: 644.2px;   
+        width: 640px;   
         max-width: 100%;
     }
 
@@ -217,7 +226,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 80%;
+        width: 90%;
         margin: 0 auto;
     }
     
@@ -227,7 +236,7 @@
     
     .bookForm input{
         width: 100%;
-        padding: 0.5rem 1rem;
+        padding: 0.3rem;
         border-radius: 4px;
         font-weight: bold;
     }
