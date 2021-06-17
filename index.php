@@ -82,7 +82,7 @@
             
             <h4 class="alert-heading">Booking Information!</h4>
             <p>
-                <button class="btn btn-sm btn-success"><a href="assets/partials/_download.php" class="link-light">Download</a></button>
+                <button class="btn btn-sm btn-success"><a href="assets/partials/_download.php?pnr=<?php echo $pnr; ?>" class="link-light">Download</a></button>
                 <button class="btn btn-danger btn-sm" id="deleteBooking" data-bs-toggle="modal" data-bs-target="#deleteModal" data-pnr="<?php echo $pnr;?>" data-seat="<?php echo $booked_seat;?>" data-bus="<?php echo $bus_no; ?>">
                     Delete
                 </button>
