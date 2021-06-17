@@ -332,21 +332,24 @@
                         <form id="addRouteForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST">
                             <div class="mb-3">
                                     <label for="viaCities" class="form-label">Via Cities</label>
-                                <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List">
+                                <input type="text" class="form-control" id="viaCities" name="viaCities" placeholder="Comma Separated List" required>
+                                <span id="error">
+
+                                </span>
                             </div>
                             <input type="hidden" id="busJson" name="busJson" value='<?php echo $busJson; ?>'>
                             <div class="mb-3">
                                 <label for="busno" class="form-label">Bus Number</label>
                                 <!-- Search Functionality -->
                                 <div class="searchBus">
-                                    <input type="text" class="form-control  busnoInput" id="busno" name="busno">
+                                    <input type="text" class="form-control  busnoInput" id="busno" name="busno" required>
                                     <div class="sugg">
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="stepCost" class="form-label">Step Cost</label>
-                                <input type="text" class="form-control" id="stepCost" name="stepCost">
+                                <input type="text" class="form-control" id="stepCost" name="stepCost" required>
                             </div>
                             <div class="mb-3">
                                 <label for="date" class="form-label">Departure Date</label>
@@ -356,7 +359,7 @@
                                 <?php 
                                 echo date("Y-m-d");
                                 ?>
-                                ">
+                                " required>
                             </div>
                             <div class="mb-3">
                                 <label for="time" class="form-label">Departure Time</label>
@@ -388,7 +391,7 @@
                     Are you sure?
                 </h2>
                 <p>
-                    Do you really want to delete this route id? <strong>This process cannot be undone.</strong>
+                    Do you really want to delete this route? <strong>This process cannot be undone.</strong>
                 </p>
                 <!-- Needed to pass id -->
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" id="delete-form"  method="POST">

@@ -180,3 +180,19 @@ function selectSuggestion(evt)
     }
 }
 
+// Booking Deletion
+const deleteBtn = document.querySelector("#deleteBooking");
+
+if(deleteBtn)
+{
+    deleteBtn.addEventListener("click", deleteBooking);
+}
+
+const deleteForm = document.querySelector("#delete-form");
+
+function deleteBooking()
+{
+    deleteForm.elements.id.value = this.dataset.pnr;
+    deleteForm.elements.booked_seat.value = this.dataset.seat;
+    deleteForm.elements.bus.value = this.dataset.bus;
+}

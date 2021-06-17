@@ -130,8 +130,9 @@
             }
             if(isset($_POST["delete"]))
             {
-                // DELETE ROUTES
+                // DELETE BUS
                 $id = $_POST["id"];
+                $bus_no = get_from_table($conn, "buses", "id", $id, "bus_no");
                 // Delete the bus with id => id
                 $deleteSql = "DELETE FROM `buses` WHERE `buses`.`id` = $id";
 
@@ -153,6 +154,10 @@
                     $messageStatus = "success";
                     $messageInfo = "Bus Details deleted";
                     $messageHeading = "Successfull!";
+
+                    // Delete Bus from Seat table
+                    $sql = "DELETE from seats WHERE bus_no='$bus_no'";
+                    mysqli_query($conn,$sql);
                 }
                 else{
                     // Show error alert

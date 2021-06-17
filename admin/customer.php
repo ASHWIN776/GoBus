@@ -303,7 +303,7 @@
                     Are you sure?
                 </h2>
                 <p>
-                    Do you really want to delete this route id? <strong>This process cannot be undone.</strong>
+                    Do you really want to delete these customer details? <strong>This process cannot be undone.</strong>
                 </p>
                 <!-- Needed to pass id -->
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" id="delete-form"  method="POST">

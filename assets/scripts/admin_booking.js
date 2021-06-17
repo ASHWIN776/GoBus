@@ -9,6 +9,9 @@ const seatData = JSON.parse(seatJson);
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
+console.log(routeData, customerData, seatData);
+
+
 // Add Form Operations
 
 const bookingBody = document.body;
@@ -214,6 +217,11 @@ function lockSuggestion(evt)
       return id === route_id
     }).bus_no;
 
+    console.log(seatData.find(({bus_no}) => 
+    {
+      console.log(bus_no, route_busNo);
+     return bus_no === route_busNo;
+    }));
     let seatsBooked = seatData.find(({bus_no}) => 
     {
       console.log(bus_no, route_busNo);

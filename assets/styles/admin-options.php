@@ -3,6 +3,12 @@
     font-family: Montserrat;
     }
 
+    .error{
+        font-size: 15px;
+        color: red;
+    }
+
+
     #booking #head, 
     #customer #head,
     #route #head,

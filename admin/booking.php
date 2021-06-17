@@ -62,7 +62,6 @@
                 {
                     // Route is unique, proceed
                     $sql = "INSERT INTO `bookings` (`customer_id`, `route_id`, `customer_route`, `booked_amount`, `booked_seat`, `booking_created`) VALUES ('$customer_id', '$route_id','$route', '$amount', '$booked_seat', current_timestamp());";
-                    echo $sql;
 
                     $result = mysqli_query($conn, $sql);
                     // Gives back the Auto Increment id
@@ -552,13 +551,13 @@
                     Are you sure?
                 </h2>
                 <p>
-                    Do you really want to delete this route id? <strong>This process cannot be undone.</strong>
+                    Do you really want to delete this booking? <strong>This process cannot be undone.</strong>
                 </p>
                 <!-- Needed to pass id -->
                 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" id="delete-form"  method="POST">
                     <input id="delete-id" type="hidden" name="id">
-                    <input id="delete-booked-seat" type="text" name="booked_seat">
-                    <input id="delete-route-id" type="text" name="route_id">
+                    <input id="delete-booked-seat" type="hidden" name="booked_seat">
+                    <input id="delete-route-id" type="hidden" name="route_id">
                 </form>
             </div>
             <div class="modal-footer d-flex justify-content-center">
