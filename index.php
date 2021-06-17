@@ -344,7 +344,7 @@
         </section>
         <footer>
             <p>
-                <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil, Alwin Poulose and Faris Mohammed
+                <i class="far fa-copyright"></i> 2021 | Made with &#10084;&#65039; by Ashwin Anil
             </p>
         </footer>
     </div>
