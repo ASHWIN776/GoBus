@@ -78,7 +78,6 @@
                         $route_added = true;
                         // The bus is now assigned, updating uses table
                         bus_assign($conn, $busno);
-                        echo "Bus assigned";
                     }
                 }
     

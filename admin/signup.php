@@ -53,17 +53,18 @@
                         <form action="../assets/partials/_handleSignup.php" method="POST">
                             <div>
                                 <input type="text" name="firstName" placeholder="First Name*">
-                                <input type="text" name="lastName" placeholder="Last Name*">
+                                <input type="text" name="lastName" placeholder="Last Name*" required>
                             </div>
                             <div>
-                                <input type="text" name="username" placeholder="Username*">
+                                <input type="text" name="username" placeholder="Username*" required>
                             </div>
                             <div>
-                                <input type="password" name="password" placeholder="Password*">
+                                <input id="password" type="password" name="password" placeholder="Password*" required>
+                                <span id="passwordErr" class="error"></span>
                             </div>
                             <div>
-                                <input type="password" name="confPassword" placeholder="Confirm Password*">
-                                <span>Password should be more than 8 characters</span>
+                                <input id="confPassword" type="password" name="confPassword" placeholder="Confirm Password*" required>
+                                <span id="confPassErr" class="error"></span>
                             </div>
                             <button id="signup-btn" type="submit" name="signup">SIGNUP</button>
                         </form>
@@ -73,6 +74,8 @@
                 </div>
             </section>
         </div>
+    <script src="../assets/scripts/admin_signup.js">
+    </script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>  
 </body>

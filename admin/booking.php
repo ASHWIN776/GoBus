@@ -66,7 +66,6 @@
                     $result = mysqli_query($conn, $sql);
                     // Gives back the Auto Increment id
                     $autoInc_id = mysqli_insert_id($conn);
-                    echo $autoInc_id;
                     // If the id exists then, 
                     if($autoInc_id)
                     {

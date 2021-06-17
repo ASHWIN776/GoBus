@@ -52,6 +52,10 @@
         padding: 0.5rem 0;
     }
 
+    .error{
+        color: red;
+    }
+
     @media only screen and (min-width: 1000px)
     {
         #add-admin{
