@@ -10,7 +10,7 @@ function styleNav()
 
 
 // To show the covid Data
-const destState = capitalize(document.querySelector(".route-desc").dataset.dest);
+const destState = document.querySelector(".route-desc").dataset.dest;
 const covidInfo = document.querySelector("#covidInfo");
 
 const endpoint = "https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true";
@@ -21,7 +21,11 @@ async function getCovidData()
 {
     const response = await fetch(endpoint);
     data = await response.json();
-    data = data.regionData.find(({region}) => region === destState);
+    data = data.regionData.find(({region}) => 
+    {
+        return region.toUpperCase() === destState.toUpperCase();
+    });
+    console.log(data);
     covidInfo.innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
     <h4 class="alert-heading">Destination Covid Details</h4> 
     <p>Destination State : <strong>${destState.toUpperCase()}<strong></p>
