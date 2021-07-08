@@ -134,9 +134,12 @@
     
                     elseif($updateResult)
                     {
-                        // To assign the new bus, and free the old one
-                        bus_assign($conn,$busno);
-                        bus_free($conn, $oldBusNo);
+                        // To assign the new bus, and free the old one - this should only reun when the bus no is edited.
+                        if($oldBusNo != $busno)
+                        {
+                            bus_assign($conn,$busno);
+                            bus_free($conn, $oldBusNo);
+                        }
                         // Show success alert
                         $messageStatus = "success";
                         $messageHeading = "Successfull!";
