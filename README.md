@@ -30,46 +30,46 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
 
 ### Website Screenshots
 
-- Index Page
+- #### Index Page
 ![Index Snap](assets/img/index_snap.png)
 
-- Routes Page
-    - Destination Covid Details
-        The destination state COVID detailsa ae showed here. 
+- #### Routes Page
+    - **Destination Covid Details** : The destination state COVID details are showed here. 
         > **API endpoint used**- `https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true` 
 
         ![Covid Stats](assets/img/dest_covid_details.png)
 
-    - Route Details
-        All routes matching the route Search Form values submitted by the user is shown here.
+    - **Route Details** : All routes matching the route Search Form values submitted by the user is shown here.
         ![Routes Snap](assets/img/routes_snap.png)
 
-- Admin Pages
-    - Dashboard
-       Contains the summary of all the other fields of importance i.e Bookings, Buses, Seats, Routes, Customers and Admins. 
+- #### Admin Pages
+    -  **Dashboard** : Contains the summary of all the other fields of importance i.e Bookings, Buses, Seats, Routes, Customers and Admins.
         ![Admin Dashboard Snap](assets/img/admin_dashboard_snap.png)
 
-    - Bookings
-        List of all bookings made.
+    - **Bookings** : List of all bookings made.
         ![Bookings Page Snap](assets/img/admin_booking_snap.png)
 
-    - Buses
-        List of all buses added.
+    - **Buses** : List of all buses added.
         ![Buses Page Snap](assets/img/admin_bus_snap.png)
 
-    - Add new Admin
-        Here, an existing admin can add more admins. This ensures that no fake accounts are created.
+    - **Add new Admin** : Here, an existing admin can add more admins. This ensures that no fake accounts are created.
         ![Admin Signup Snap](assets/img/admin_signup_snap.png)
     
-    - Customers
-        Details about all the customers present in the database is shown here.
+    - **Customers** : Details about all the customers present in the database is shown here.
         ![Customers Page Snap](assets/img/admin_customers_snap.png)
 
-    - Routes
-        Details about all the routes present in the database is shown here.
+    - **Routes** : Details about all the routes present in the database is shown here.
         ![Admin Routes Page snap](assets/img/admin_routes_snap.png)
-        
+
 ### To-Do List
 
+- [ ] Genuine Calculation of Booking Amount.
+- [ ] Admin should be able to upload image which can be cropped in the website.
+- [ ] Email should be sent to the customer on booking completion.
+- [ ] A booking ticket to be sent in the email, which can also be made available through PNR enquiry(Design - 30% done).
+- [ ] Displaying the weather in admin pages.(API)
+- [ ] Client Side form Validation
+- [ ] Code Gallery Page.
+- [ ] Contact Form should work as expected.
 
 
