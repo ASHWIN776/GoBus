@@ -3,7 +3,7 @@ GoBus
 
 GoBus is a **bus ticket booking system built using PHP**. This project is aimed to enhance ticket allotment system for buses which are one of the most widely used means of public transport. The details such as buses, bus number, bus routes, booking and customer details will be provided and maintained by using a Database System.
 
-#### Requirements
+### Requirements
 - **Software**
     -  PHP >= 5.0
     - XAMPP
@@ -14,21 +14,21 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
     - 20 GB HDD or higher
     - Network Connectivity
 
-#### Installation
+### Installation
 1. Clone this repo into a desired directory (assume the path be *programming/GoBus*)
 2. Open XAMPP, start Apache and MySql. Go to the XAMPP shell and migrate to the project directory and start the php server with this code
 
-    ```bash
+    ```sh
     php -S localhost:8000
     ```
 
-#### Features
+### Features
 
-#### Login to Admin Dashboard
+### Login to Admin Dashboard
 
-#### Site Snaps
+### Site Snaps
 
-#### To-Do List
+### To-Do List
 
 
 
