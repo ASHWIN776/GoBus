@@ -63,6 +63,7 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
 
 ### To-Do List
 
+- [ ] Host this project
 - [ ] Genuine Calculation of Booking Amount.
 - [ ] Admin should be able to upload image which can be cropped in the website.
 - [ ] Email should be sent to the customer on booking completion.
