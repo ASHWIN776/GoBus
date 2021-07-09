@@ -70,6 +70,7 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
 - [ ] Displaying the weather in admin pages.(API)
 - [ ] Client Side form Validation
 - [ ] Code Gallery Page.
-- [ ] Contact Form should work as expected.
+- [ ] Contact Form
+- [ ] Add Cool CSS Loaders to the Site 
 
 
