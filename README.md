@@ -15,7 +15,7 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
     - Network Connectivity
 
 ### Installation
-1. Clone this repo into a desired directory (assume the path be *programming/GoBus*)
+1. Clone this repo into a desired directory.
 2. Open XAMPP, start Apache and MySql. Go to the XAMPP shell and migrate to the project directory and start the php server with this command:
 
     ```sh
