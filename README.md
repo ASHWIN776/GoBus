@@ -29,9 +29,17 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
 1. User:
     - Can book tickets
     - Can delete booking
-    - Get to know about the destination state COVID details
+    - Get to know the destination state COVID details
     - PNR Enquiry
-    -  
+
+2. Admin:
+    - Add, Edit and Delete :
+        - Bus details
+        - Customer details
+        - Route details
+        - Booking details
+    
+    - Add another admin
 
 ### Login to Admin Dashboard
 Username - as
