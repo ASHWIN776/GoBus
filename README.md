@@ -72,7 +72,8 @@ GoBus is a **bus ticket booking system built using PHP**. This project is aimed 
 - [ ] Client Side form Validation
 - [ ] Code Gallery Page.
 - [ ] Contact Form
-- [ ] Add Cool CSS Loaders to the Site 
+- [ ] Add Cool CSS Loaders to the Site
+- [ ] Add Activity Section in the Dashboard page
 
 ---
 **<p align="center">Made with &#10084;&#65039; by Ashwin Anil</p>**
