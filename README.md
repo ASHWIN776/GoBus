@@ -95,6 +95,13 @@ Password - as
 - [ ] Add Activity Section in the Dashboard page
 - [ ] User can edit booking (name, phone and booked seat)
 
+
+### Suggestions
+
+    1. Show the covid details in a graph format.
+    2. Customer Authentication ??
+    3. Edit and Delete should have diff designs.(refer github site)
+
 ---
 **<p align="center">Made with &#10084;&#65039; by Ashwin Anil</p>**
 
