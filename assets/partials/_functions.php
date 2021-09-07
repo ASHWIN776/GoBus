@@ -3,7 +3,7 @@
     {
         $servername = 'localhost';
         $username = 'root';
-        $password = '';
+        $password = 'almaas03';
         $database = 'bus-booking';
 
         $conn = mysqli_connect($servername, $username, $password, $database);
